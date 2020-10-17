@@ -1,0 +1,50 @@
+.login {
+    background: darkslategrey;
+    background: -webkit-linear-gradient(to right, silver, darkslategrey);
+    background: linear-gradient(to right, silver, darkslategrey);
+}
+
+.signup {
+    background: darkslategrey;
+    background: -webkit-linear-gradient(to right, silver, darkslategrey);
+    background: linear-gradient(to right, silver, darkslategrey);
+}
+
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+}
+
+.container {
+    border-radius: 20px;
+    background-color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width:600px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+    .container {
+        width: 50%;
+    }
+}
+
+@media (min-width: 990px) {
+    .container {
+        width: 30%;
+    }
+}

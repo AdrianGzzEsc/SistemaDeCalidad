@@ -1,31 +1,39 @@
-<%- include ("./partials/_header") %>
-
-    <div class="flex">
-
-
-        <div class="col-md-5">
-            <div class="card text-center">
-                <div class="card-body">
-                    <form class="form-signin" action="/singin" method="POST">
-                        <h1 class="h3 mb-3 font-weight-normal">Ingresar</h1>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="username" id="username" name="username" class="form-control" placeholder="Usuario" placeholder="jorge@email.com" autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-                        <div class="form-group">
-
-                            <select class="form-control" name="type">
-                            <option value="" disabled selected hidden>Tipo de Usuario</option>
-                            <option value="Usuario">Usuario</option>
-                            <option value="SuperUsuario">SuperUsuario</option>
-                        </select>
-                        </div>
-                        <div class="checkbox mb-3">
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-                    </form>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/login.css">
+    </head>
+    <body class="login">
+        <div class="modal">
+            <div class="container">
+                <div class="loginHead">
+                    <h2>LOGIN</h2>
+                </div>
+                <div class="box">
+                    <div>
+                        <label>Email</label>
+                    </div>
+                    <div>
+                        <input type="email" id="email">
+                    </div>
+                </div>
+                <div class="box">
+                    <div>
+                        <label>Password</label>
+                    </div>
+                    <div>
+                        <input type="password" id="password">
+                    </div>
+                </div>
+                <div class="button">
+                    <button class="loginBtn" type="submit" id="loginBtn">Login</button>
                 </div>
             </div>
         </div>
-    </div>
-    <%- include ("./partials/_footer") %>
+        <script src="../js/login.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+</html>
