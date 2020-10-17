@@ -1,36 +1,3 @@
-function userLoginFetch( email, password ){
-    let url = '/singin';
-
-    let data = {
-        email,
-        password
-    }
-
-    let settings = {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify( data )
-    }
-
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ){
-                return response.json();
-            }
-            throw new Error( response.statusText );
-        })
-        .then( responseJSON => {
-            localStorage.setItem( 'token', responseJSON.token );
-            console.log( responseJSON );
-            window.location.href = "/inicio/";
-        })
-        .catch( err => {
-            alert(err.message);
-        });
-}
-
 function userSignupFetch( email, fName, lName, password ){
     let url = '/registrar';
 
@@ -59,7 +26,7 @@ function userSignupFetch( email, fName, lName, password ){
         })
         .then( responseJSON => {
             console.log( responseJSON );
-            userLoginFetch( email, password );
+            alert("Se ha creado usuario con éxito.");
         })
         .catch( err => {
             alert(err.message);
