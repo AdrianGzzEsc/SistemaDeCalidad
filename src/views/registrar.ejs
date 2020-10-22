@@ -1,31 +1,66 @@
-<%- include ("./partials/_header") %>
-
-    <div class="flex">
-
-
-        <div class="col-md-5">
-            <div class="card text-center">
-                <div class="card-body">
-                    <form class="form-signin" action="/registrar" method="POST">
-                        <h1 class="h3 mb-3 font-weight-normal">Registar Usuario</h1>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="username" id="username" name="username" class="form-control" placeholder="Usuario" placeholder="jorge@email.com" autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-                        <div class="checkbox mb-3">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Register</title>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/signup.css">
+    </head>
+    <body class="signup">
+        <div class="modal">
+            <div class="container">
+                <div class="register">
+                    <h2>REGISTER FORM</h2>
+                </div>
+                <div class="names">
+                    <div class="labels">
+                        <div>
+                            <label>First Name</label>
                         </div>
-                        <div class="form-group">
-
-                            <select class="form-control" name="type">
-                            <option value="" disabled selected hidden>Tipo de Usuario</option>
-                            <option value="Usuario">Usuario</option>
-                            <option value="SuperUsuario">SuperUsuario</option>
-                        </select>
+                        <div>
+                            <label>Last Name</label>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-                    </form>
+                    </div>
+                    <div class="inputs">
+                        <div>
+                            <input type="text" id="fName">
+                        </div>
+                        <div>
+                            <input type="text" id="lName">
+                        </div>
+                    </div>
+                </div>
+                <div class="email">
+                    <div>
+                        <label>Your Email</label>
+                    </div>
+                    <div>
+                        <input type="email" id="email">
+                    </div>
+                </div>
+                <div class="passwords">
+                    <div class="labels">
+                        <div>
+                            <label>Password</label>
+                        </div>
+                        <div>
+                            <label>Confirm Password</label>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <div>
+                            <input type="password" id="password">
+                        </div>
+                        <div>
+                            <input type="password" id="confirm">
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <button class="registerBtn" type="submit" id="registerBtn">Register</button>
                 </div>
             </div>
         </div>
-    </div>
-    <%- include ("./partials/_footer") %>
+        <script src="/js/signup.js"></script>
+    </body>
+</html>

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../model/task');
 const provedor = require('../model/provedor');
-const usuarios = require('../model/usuarios');
+const { Users } = require('../model/usuarios');
 const materiales = require('../model/materiales');
 const departamentos = require('../model/departamentos');
 const operaciones = require('../model/operaciones');
@@ -26,6 +26,11 @@ const inspeccion = require('../model/inspeccion_final');
 const bajaPNC = require('../model/BajaPnc');
 const def_proceso = require('../model/defecto_proceso');
 const inspeccionProceso = require('../model/inspeccionProceso');
+const bodyParser = require( 'body-parser' );
+const jsonParser = bodyParser.json();
+const bcrypt = require( 'bcryptjs' );
+const jsonwebtoken = require( 'jsonwebtoken' );
+const { SECRET_TOKEN } = require( '../config/config' );
 
 
 
@@ -203,54 +208,127 @@ router.get('/bajaPNC/', async(req, res) => {
 });
 
 //Ruta para registrar
-router.post('/registrar', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var type = req.body.type;
-    var newuser = new usuarios();
+router.post('/registrar', jsonParser, function(req, res) {
+    let {fName, lName, email, password, superuser} = req.body;
 
-    newuser.username = username;
-    newuser.password = password;
-    newuser.type = type;
+    if( !fName || !lName || !email || !password ){
+        res.statusMessage = "Parameter missing in the body of the request.";
+        return res.status( 406 ).end();
+    }
 
+    let flag = false;
 
-    newuser.save(function(err, savedUser) {
-        if (err) {
-            console.log(err);
-            return res.status(500).send();
+    Users.getUserByEmail( email )
+    .then( user => {
+        if( user ) {
+            flag = true;
+            throw new Error("The user already exists.");
         }
-        return res.status(200).send();
+        else {
+            console.log( "The user is new." );
+        }
     })
+    .catch( err => {
+        res.statusMessage = err.message;
+        return res.status( 400 ).end();
+    })
+
+    if( !flag ) {
+        bcrypt.hash( password, 10 )
+            .then( hashedPassword => {
+                let newUser = { 
+                    fName, 
+                    lName, 
+                    password : hashedPassword, 
+                    email, 
+                    superuser
+                };
+
+                Users
+                    .createUser( newUser )
+                    .then( result => {
+                        return res.status( 201 ).json( result ); 
+                    })
+                    .catch( err => {
+                        res.statusMessage = err.message;
+                        return res.status( 400 ).end();
+                    });
+            })
+            .catch( err => {
+                res.statusMessage = err.message;
+                return res.status( 400 ).end();
+            });
+    }
+    else {
+        res.statusMessage = "That user already exists.";
+        return res.status( 406 ).end();
+    }
 });
+
 
 
 //Ruta para validar usuarios
-router.post('/singin', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var type = req.body.type;
+router.post('/singin', jsonParser, function(req, res) {
+    let { email, password } = req.body;
 
-    usuarios.findOne({ username: username, password: password, type: type }, function(err, user) {
-        if (err) {
-            console.log(err);
-            return res.status(500).send();
-        }
+    if( !email || !password ){
+        res.statusMessage = "Parameter missing in the body of the request.";
+        return res.status( 406 ).end();
+    }
 
-        if (!user) {
-            return res.status(404).send("<script>  window.alert('Usuario Invalido') </script>");
-        }
+    Users
+        .getUserByEmail( email )
+        .then( user => {
+            if( user ){
+                bcrypt.compare( password, user.password )
+                    .then( result => {
+                        if( result ){
+                            let userData = {
+                                fName : user.fName,
+                                lName : user.lName,
+                                superuser : user.superuser
+                            };
 
-        console.log(type)
+                            jsonwebtoken.sign( userData, SECRET_TOKEN, { expiresIn : '25m' }, ( err, token ) => {
+                                if( err ){
+                                    res.statusMessage = "Something went wrong with generating the token.";
+                                    return res.status( 400 ).end();
+                                }
+                                return res.status( 200 ).json( { token } );
+                            });
 
-        if (type == "SuperUsuario") {
-            return res.redirect('/Super/');
-
-        } else {
-            return res.redirect('/inicio/')
-        }
-    })
+                        }
+                        else{
+                            throw new Error( "Invalid credentials" );
+                        }
+                    })
+                    .catch( err => {
+                        res.statusMessage = err.message;
+                        return res.status( 400 ).end();
+                    });
+            }
+            else{
+                throw new Error( "User doesn't exists!" );
+            }
+        })
+        .catch( err => {
+            res.statusMessage = err.message;
+            return res.status( 400 ).end();
+        });
 });
 
+router.get( '/user/validate-user' , ( req, res ) => {
+    const { sessiontoken } = req.headers;
+
+    jsonwebtoken.verify( sessiontoken, SECRET_TOKEN, ( err, decoded ) => {
+        if( err ) {
+            res.statusMessage = "Session expired";
+            return res.status( 400 ).end();
+        }
+
+        return res.status( 200 ).json( decoded );
+    });
+});
 
 
 

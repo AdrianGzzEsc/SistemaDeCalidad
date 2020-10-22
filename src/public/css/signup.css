@@ -1,0 +1,88 @@
+.register {
+    text-align: center;
+    color: #1B4F72
+}
+
+.names {
+    margin-top: 20px;
+}
+
+.labels {
+    display: flex;
+    flex-direction: row;
+}
+
+.labels > div {
+    width: 50%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs > div {
+    width: 50%;
+}
+
+.email {
+    margin-top: 20px;
+}
+
+.email > div {
+    width: 100%;
+}
+
+.email > div > input {
+    width: 94%;
+}
+
+.passwords {
+    margin-top: 20px;
+}
+
+.correct {
+    border: 1px greenyellow solid;
+}
+
+.false {
+    border: 1px red solid;
+}
+
+.button {
+    margin-top: 20px;
+}
+
+.button > button {
+    color: white;
+    background-color: #2E86C1;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.loginNotice {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.loginNotice > a {
+    margin-left: 5px;
+}
+
+.homeNotice {
+    display: flex;
+    flex-direction: row;
+}
+
+.homeNotice > a {
+    margin-left: 5px;
+}
+
+input {
+    height: 16px;
+}
