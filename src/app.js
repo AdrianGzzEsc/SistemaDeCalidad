@@ -2,15 +2,16 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-
+const { DATABASE_URL } = require('./config/config');
 
 const app = express();
 
 // connection to  db
-mongoose.connect('mongodb://localhost/db-fimsa')
+/*
+mongoose.connect(DATABASE_URL)
     .then(db => console.log('db connected'))
     .catch(err => console.log(err));
-
+*/
 
 // importing routes
 const indexRoutes = require('./routes/index');
@@ -33,4 +34,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`);
+
+    new Promise((resolve, reject) => {
+        const settings = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        };
+        mongoose.connect(DATABASE_URL, settings, (err) => {
+            if (err) {
+                console.log('Hola')
+                return eject(err);
+            } else {
+                console.log("Database connected succesfully.");
+                return resolve();
+            }
+        })
+    })
+
 })

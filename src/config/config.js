@@ -1,1 +1,2 @@
 exports.SECRET_TOKEN = process.env.SECRET_TOKEN || 'secret';
+exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb+srv://FimsaAdmin:FimsaContraseña@cluster0.zrwxs.mongodb.net/db-fimsa?retryWrites=true&w=majority';
