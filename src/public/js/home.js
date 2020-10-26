@@ -27,6 +27,12 @@ function userEmail( data ) {
     console.log( data );
 }
 
+function logout() {
+    localStorage.setItem( 'token', null );
+    init();
+    console.log("you are not logged in.");
+}
+
 function init() {
     validate();
    let str = window.location.href;
