@@ -25,9 +25,11 @@ function validate() {
 
 function userEmail( data ) {
     console.log( data );
+    /*
     if( data.superuser == true ) {
         window.location.href = "/super/";
     } 
+    */
 }
 
 function logout() {
