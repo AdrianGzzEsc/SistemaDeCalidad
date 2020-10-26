@@ -301,3 +301,16 @@ select {
 .show {
     display: block;
 }
+/*Device = Tablets, Ipads (portrait)
+  Screen = B/w 600px to 990px*/
+  @media (min-width:606px) and (max-width: 990px)  {
+
+
+}
+
+/*  Small devices    */
+@media (max-width:605px) {
+
+
+
+}
