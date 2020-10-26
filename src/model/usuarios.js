@@ -61,7 +61,7 @@ const Users = {
     getUsers :  function() {
         return userModel
                 .find()
-                .theen( users => {
+                .then( users => {
                     return user;
                 })
                 .catch( err => {

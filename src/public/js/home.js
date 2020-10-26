@@ -28,9 +28,9 @@ function userEmail( data ) {
 }
 
 function logout() {
-    localStorage.setItem( 'token', null );
+    localStorage.setItem('token', null );
     init();
-    console.log("you are not logged in.");
+    console.log("Logged out");
 }
 
 function init() {
