@@ -31,19 +31,13 @@ const jsonParser = bodyParser.json();
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const { SECRET_TOKEN } = require('../config/config');
-
-
-
-
-
 const { Mongoose } = require('mongoose');
 const { Router } = require('express');
 
-// Nos regresaria las tareas guardadas en la BD
 router.get('/', (req, res) => {
-
-    res.render('singin');
+    res.render('SignIn');
 });
+
 router.get('/inicio/', (req, res) => {
     res.render('Inicio');
 });
@@ -55,6 +49,7 @@ router.get('/super/', (req, res) => {
 router.get('/registrar/', (req, res) => {
     res.render('registrar');
 });
+
 router.get('/recepcion/', async(req, res) => {;
     const prov = await provedor.find();
     const mat = await materiales.find();
@@ -90,8 +85,6 @@ router.get('/agregarPieza/', async(req, res) => {;
     const tasks = await piezas.find();
     res.render('AgregarPieza', { tasks });
 });
-
-
 
 router.get('/agregarDefectoOperacion/', async(req, res) => {;
     const tasks = await defectoOperaciones.find();
@@ -134,6 +127,7 @@ router.get('/escuadradora/', async(req, res) => {
 
     res.render('Escuadradora', { ins, defOp, mod, pieza });
 });
+
 router.get('/enchapadora/', async(req, res) => {
     const ins = await enchapadora.find();
     const defOp = await defectoOperaciones.find({ operacion: "Enchapadora" });
@@ -142,6 +136,7 @@ router.get('/enchapadora/', async(req, res) => {
 
     res.render('Enchapadora', { ins, defOp, mod, pieza });
 });
+
 router.get('/taladro/', async(req, res) => {
     const ins = await taladro.find();
     const defOp = await defectoOperaciones.find({ operacion: "Taladro" });
@@ -150,6 +145,7 @@ router.get('/taladro/', async(req, res) => {
 
     res.render('Taladro', { ins, defOp, mod, pieza });
 });
+
 router.get('/sacabocados/', async(req, res) => {
     const ins = await sacabocados.find();
     const defOp = await defectoOperaciones.find({ operacion: "Sacabocados" });
@@ -158,6 +154,7 @@ router.get('/sacabocados/', async(req, res) => {
 
     res.render('Sacabocados', { ins, defOp, mod, pieza });
 });
+
 router.get('/armado1/', async(req, res) => {
     const ins = await armado1.find();
     const defOp = await defectoOperaciones.find({ operacion: "Armado1" });
@@ -198,6 +195,7 @@ router.get('/altaPNC/', async(req, res) => {
 
     res.render('AltaPNC', { mod, def, oper, defOp });
 });
+
 router.get('/ajustes/', (req, res) => {
     res.render('Ajustes');
 });
@@ -263,10 +261,8 @@ router.post('/registrar', jsonParser, function(req, res) {
     }
 });
 
-
-
 //Ruta para validar usuarios
-router.post('/singin', jsonParser, function(req, res) {
+router.post('/SignIn', jsonParser, function(req, res) {
     let { email, password } = req.body;
 
     if (!email || !password) {
@@ -325,9 +321,6 @@ router.get('/user/validate-user', (req, res) => {
         return res.status(200).json(decoded);
     });
 });
-
-
-
 
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
@@ -409,6 +402,7 @@ router.post('/addBajaPnc/:id', async(req, res) => {
     await defecto.save();
     res.redirect('/inicio/');
 });
+
 router.post('/addFinal', async(req, res) => {
     const ins = new inspeccion(req.body);
     await ins.save();
@@ -433,7 +427,6 @@ router.post('/addSacabocados/:id', async(req, res) => {
     res.redirect('/armado1/');
 });
 
-
 router.post('/addEnchapadora/:id', async(req, res) => {
     var id = req.params.id
     await enchapadora.update({ folio: id }, req.body);
@@ -445,6 +438,7 @@ router.post('/addArmado1/:id', async(req, res) => {
     await armado1.update({ folio: id }, req.body);
     res.redirect('/armado2/');
 });
+
 router.post('/addArmado2/:id', async(req, res) => {
     var id = req.params.id
     await armado2.update({ folio: id }, req.body);
@@ -463,7 +457,6 @@ router.post('/addAcabados/:id', async(req, res) => {
     res.redirect('/inicio/');
 });
 
-
 router.post('/addPiezaModelo', async(req, res) => {
     const defecto = new piezaModelos(req.body);
     await defecto.save();
@@ -476,24 +469,21 @@ router.post('/insFinal/', async(req, res) => {
     res.redirect('/inicio/');
 
 });
+
 router.post('/defProceso/', async(req, res) => {
     const def_p = new def_proceso(req.body);
     await def_p.save();
     res.redirect('/inicio/');
 
 });
-// Ruta para editar los datos
 
+// Ruta para editar los datos
 router.get('/edit/:id', async(req, res) => {
     const task = await Task.findById(req.params.id);
     res.render('Ajustes', { task });
 });
 
-
-
-
 // Ruta para actualizar los datos
-
 router.post('/edit/:id', async(req, res) => {
     var id = req.params.id;
     await Task.update({ _id: id }, req.body);
@@ -552,12 +542,12 @@ router.get('/deletePiezaModelo/:id', async(req, res) => {
     await piezaModelos.remove({ _id: id });
     res.redirect('/agregarPiezaModelo/');
 });
+
 router.get('/deleteAltaPnc/:id', async(req, res) => {
     var id = req.params.id;
     await altaPNC.remove({ folio: id });
     res.redirect('/addBajaPnc');
 });
-
 
 router.get('/enviarvariable/:id', async(req, res) => {
     var id = req.params.id;
@@ -567,6 +557,7 @@ router.get('/enviarvariable/:id', async(req, res) => {
     const acabados = await defectoOperaciones.find({ operacion: id });
     res.render('AltaPNC copy', { acabados, mod, def, oper });
 });
+
 /*
 router.get('/enviarvariable', async(req, res) => {
     var id2 = req.header.
@@ -578,6 +569,7 @@ router.get('/enviarvariable', async(req, res) => {
     res.render('AltaPNC copy', { acabados, mod, def, oper });
 })
 */
+
 router.get('/enviarFolio/:id', async(req, res) => {
     var id = req.params.id;
     const altpnc2 = await altaPNC.find({ folio: id });
@@ -585,6 +577,5 @@ router.get('/enviarFolio/:id', async(req, res) => {
 
     res.render('BajaPNC copy', { altpnc2, altpnc });
 });
-
 
 module.exports = router;

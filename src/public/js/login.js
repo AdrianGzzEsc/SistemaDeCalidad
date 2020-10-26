@@ -1,5 +1,5 @@
 function userLoginFetch( email, password ){
-    let url = '/singin';
+    let url = '/SignIn';
 
     let data = {
         email,
