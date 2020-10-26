@@ -301,16 +301,26 @@ select {
 .show {
     display: block;
 }
+
+#botonajuste{
+    margin-top: 30%;
+    margin-bottom: 10%;
+    margin-left: 48%;
+}
 /*Device = Tablets, Ipads (portrait)
   Screen = B/w 600px to 990px*/
-  @media (min-width:606px) and (max-width: 990px)  {
-
+  @media (min-width:768px) and (max-width: 990px)  {
+      #botonajuste{
+        margin-left: 70%;
+      }
 
 }
 
 /*  Small devices    */
-@media (max-width:605px) {
-
+@media (max-width:767px) {
+    #botonajuste{
+        margin-left: 0;
+    }
 
 
 }
