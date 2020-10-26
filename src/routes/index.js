@@ -261,7 +261,7 @@ router.post('/registrar', jsonParser, function(req, res) {
     }
 });
 
-//Ruta para validar usuarios
+// Ruta para validar usuarios
 router.post('/SignIn', jsonParser, function(req, res) {
     let { email, password } = req.body;
 
@@ -321,6 +321,48 @@ router.get('/user/validate-user', (req, res) => {
         return res.status(200).json(decoded);
     });
 });
+
+// Ruta para mostrar usuarios
+router.get('/user/get-users', (req, res) => {
+    Users
+        .getUsers()
+        .then( result => {
+            if( !result ) {
+                res.statusMessage = `There are no users registered`;
+                return res.status( 404 ).end();
+            }
+            else
+                return res.status( 200 ).json( result );
+        })
+});
+
+// Ruta para actualizar usuarios
+router.patch( '/users/update/:id', jsonParser, (req, res) => {
+    console.log("Patch a profile");
+    console.log(req.params);
+
+    let idP = req.params.id;
+    let idB = req.body.email;
+
+    if(!idB){
+        res.statusMessage = "The 'id' in the body is missing.";
+        return res.status( 406 ).end();
+    }
+
+    if(idB != idP){
+        res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
+        return res.status( 409 ).end();
+    }
+
+    Users
+        .updateUser( req.body )
+            .then( result => {
+                return res.status( 202 ).json( result );
+            })
+            .catch( err => {
+                return err;
+            })
+})
 
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
