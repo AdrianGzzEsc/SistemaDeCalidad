@@ -67,6 +67,17 @@ const Users = {
                 .catch( err => {
                     throw new Error( err.message );
                 })
+    },
+    eraseUser : function ( userID ) {
+        let filter = { id : userID };
+        return userModel
+                .deleteOne( filter )
+                    .then( result => {
+                        return result
+                    })
+                    .catch( err => {
+                        return err;
+                    })
     }
 }
 

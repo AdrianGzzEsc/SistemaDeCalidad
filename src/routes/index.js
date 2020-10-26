@@ -340,6 +340,20 @@ router.get('/user/get-users', (req, res) => {
         })
 });
 
+//Ruta para borrar usuario
+router.delete('/user/delete-user/:id', (req,res) => { 
+    let userID = req.params.id    
+    Users
+      .eraseUser(userID)
+        .then(result => {
+          return res.status(404).json(result)
+        })
+        .catch(err => {
+          return err
+        })
+    
+  }),
+
 //Ruta para actualizar usuarios
 router.patch( '/users/update/:id', jsonParser, (req, res) => {
     console.log("Patch a profile");
