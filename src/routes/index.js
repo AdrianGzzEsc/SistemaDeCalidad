@@ -326,6 +326,48 @@ router.get('/user/validate-user', (req, res) => {
     });
 });
 
+//Ruta para mostrar usuarios
+router.get('/user/get-users', (req, res) => {
+    Users
+        .getUsers()
+        .then( result => {
+            if( !result ) {
+                res.statusMessage = `There are no users registered`;
+                return res.status( 404 ).end();
+            }
+            else
+                return res.status( 200 ).json( result );
+        })
+});
+
+//Ruta para actualizar usuarios
+router.patch( '/users/update/:id', jsonParser, (req, res) => {
+    console.log("Patch a profile");
+    console.log(req.params);
+
+    let idP = req.params.id;
+    let idB = req.body.email;
+
+    if(!idB){
+        res.statusMessage = "The 'id' in the body is missing.";
+        return res.status( 406 ).end();
+    }
+
+    if(idB != idP){
+        res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
+        return res.status( 409 ).end();
+    }
+
+    Users
+        .updateUser( req.body )
+            .then( result => {
+                return res.status( 202 ).json( result );
+            })
+            .catch( err => {
+                return err;
+            })
+})
+
 
 
 

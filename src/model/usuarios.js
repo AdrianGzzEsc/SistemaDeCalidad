@@ -57,6 +57,16 @@ const Users = {
                     .catch( err => {
                         return err;
                     })
+    },
+    getUsers :  function() {
+        return userModel
+                .find()
+                .theen( users => {
+                    return user;
+                })
+                .catch( err => {
+                    throw new Error( err.message );
+                })
     }
 }
 
