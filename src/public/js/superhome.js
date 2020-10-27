@@ -25,17 +25,15 @@ function validate() {
 
 function userEmail( data ) {
     console.log( data );
-    /*
-    if( data.superuser == true ) {
-        window.location.href = "/super/";
+    if( data.superuser == false ) {
+        window.location.href = "/inicio/";
     } 
-    */
 }
 
 function logout() {
-    localStorage.setItem('token', null );
+    localStorage.setItem( 'token', null );
     init();
-    console.log("Logged out");
+    console.log("you are not logged in.");
 }
 
 function init() {
