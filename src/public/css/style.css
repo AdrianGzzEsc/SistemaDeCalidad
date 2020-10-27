@@ -179,7 +179,7 @@ body {
 }
 
 .myButton:hover {
-    background: linear-gradient(to bottom, #291576 5%, #291576 100%);
+    background: linear-gradient(to bottom, #1f3261 5%, #293c7b 100%);
     background-color: #291576;
     text-decoration: none;
     color: rgb(220, 220, 220);
