@@ -166,6 +166,8 @@ body {
 .myButton:hover {
     background: linear-gradient(to bottom, #291576 5%, #291576 100%);
     background-color: #291576;
+    text-decoration: none;
+    color: rgb(220, 220, 220);
 }
 
 .myButton:active {
@@ -176,6 +178,8 @@ body {
 .myButton2:hover {
     background: linear-gradient(to bottom, #291576 5%, #291576 100%);
     background-color: #291576;
+    text-decoration: none;
+    color: rgb(220, 220, 220);
 }
 
 .myButton2:active {
@@ -186,6 +190,8 @@ body {
 .myButton3:hover {
     background: linear-gradient(to bottom, #291576 5%, #291576 100%);
     background-color: #291576;
+    text-decoration: none;
+    color: rgb(220, 220, 220);
 }
 
 .myButton3:active {
