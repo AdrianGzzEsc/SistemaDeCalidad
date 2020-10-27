@@ -3,13 +3,22 @@ body {
 }
 
 .title {
-    font-size: 70px;
-    margin-left: 40px;
-    margin-top: 20px;
+    font-size: 4.5em;
+    /* margin-top: 20px; */
     color: #291576;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+#img-header {
+    margin-right: 40px;
+    max-width: 40%;
+}
+
+.form-control {
+    height: 3em;
+    margin-bottom: 20px;
 }
 
 .subtitle {
@@ -110,7 +119,7 @@ body {
 }
 
 .myButton {
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0px 2px 5px 1px #6d758e;
     background: linear-gradient(to bottom, #292573 5%, #476e9e 100%);
     background-color: #291576;
     border-radius: 10px;
@@ -130,6 +139,7 @@ body {
 .myButton.logout {
     background: linear-gradient(to bottom, #822323 5%, #ba3333 100%);
     background-color: #9f1b1b;
+    border: 1px solid #500e0e;
 }
 
 .myButton2 {
@@ -356,6 +366,39 @@ select {
         margin-left: 0%;
 
     }
-
-
 }
+
+/* LG */
+@media (max-width: 1199.98px) {
+    #img-header {
+        margin: 0 40px 0 0;
+    }
+    #texto-header {
+        font-size: 4em;
+    }
+}
+
+/* MD */
+@media (max-width: 991.98px) {
+    #img-header {
+        margin: 0 40px;
+    }
+    #texto-header {
+        font-size: 2.5em;
+    }
+}
+
+/* SM */
+@media (max-width: 767.98px) {
+    #texto-header {
+        font-size: 2em;
+    }
+}
+
+/* XS */
+@media (max-width: 575.98px) {
+    #texto-header {
+        font-size: 1.5em;
+    }
+}
+
