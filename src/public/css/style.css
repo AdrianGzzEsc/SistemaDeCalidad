@@ -127,6 +127,11 @@ body {
     text-shadow: 0px 1px 0px #291576;
 }
 
+.myButton.logout {
+    background: linear-gradient(to bottom, #822323 5%, #ba3333 100%);
+    background-color: #9f1b1b;
+}
+
 .myButton2 {
     box-shadow: 0px 0px 0px 2px #9fb4f2;
     background: linear-gradient(to bottom, #292573 5%, #476e9e 100%);
@@ -168,6 +173,10 @@ body {
     background-color: #291576;
     text-decoration: none;
     color: rgb(220, 220, 220);
+}
+.myButton.logout:hover {
+    background: linear-gradient(to bottom, #720404 5%, #7e0b0b 100%);
+    background-color: #291576;
 }
 
 .myButton:active {
