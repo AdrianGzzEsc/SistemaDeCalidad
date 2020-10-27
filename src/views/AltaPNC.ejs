@@ -3,112 +3,107 @@
         Producto No Conforme</div>
     <!-- FORMULARIO-->
 
-    <div class="flex">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="row row-content">
+                    <div class="col-12 col-md-9">
+                        <form action="/add" method="post">
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <select id="model" class="form-control" name="defecto" placeholder="defecto" onchange="location = this.value;">
+                                        <option value="" disabled selected hidden>Proceso donde ocurrió el defecto</option>
+                                        <% for (var i =0; i < oper.length; i++)  {     %>
+            
+                                            <option value="/enviarvariable/<%=oper[i].nombre %>"  >  <%= oper[i].nombre %> </option>
+                                            
+                                            <%  }  %>
+                                    </select >                                
+                                </div>
+                            </div>
 
-
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header">
-                    <form action="/add" method="post">
-                        <div class="form-group">
-                            <select id="model" class="form-control" name="defecto" placeholder="defecto" onchange="location = this.value;">
-                            <option value="" disabled selected hidden>Proceso donde ocurrió el defecto</option>
-                            <% for (var i =0; i < oper.length; i++)  {     %>
-
-                                <option value="/enviarvariable/<%=oper[i].nombre %>"  >  <%= oper[i].nombre %> </option>
-                                
-                                <%  }  %>
-                        </select >
-                        </div>
-                        <div class="flex4">
+                            <div class="form-group row">
+                                <div class="col-12 col-md-3 offset-md-3">
+                                    <input class="form-control" type="text" name="Folio" placeholder="Folio" style="width: fit-content;">
+                                </div>
+                                <div class="col-12 col-md-3">
+                                <input class="form-control" type="date" name="Fecha" placeholder="Fecha" style="width: fit-content;" id="fechaform">
+                                </div>
+                            </div>
                             
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="Folio" placeholder="Folio" style="width: fit-content;">
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <input class="form-control" type="text" name="Orden" placeholder="Orden de Producción" style="width: fit-content;">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" type="date" name="Fecha" placeholder="Fecha" style="width: fit-content; margin-left: 10%;">
+    
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <select class="form-control" name="Modelo" placeholder="Modelo">
+                                        <option value="" disabled selected hidden>Modelo</option>
+                                        <% for (var i =0; i < mod.length; i++)  {     %>
+            
+                                            <option value="">  <%= mod[i].nombre %> </option>
+            
+                                            <%  }  %>
+                                    </select>                               
+                                </div>
                             </div>
-                        </div>
+                            <div class="col-md-10 offset-md-3">
+                                <label for="name"> Selecciona los Defectos:</label>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <select class="selectpicker" multiple data-live-search="true" class="form-control" >
+                                        <% for (var i =0; i < defOp.length; i++)  {     %>
+    
+                                            <option value="">  <%= defOp[i].defecto %> </option>
+            
+                                            <%  }  %>
+                               
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <input class="form-control" type="number" name="Cantidad" placeholder="Cantidad" style="width: fit-content;">
+                                </div>
+                            </div>
 
-
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="Orden" placeholder="Orden de Producción" style="width: fit-content;">
-                        </div>
-
-                      
-
-
-
-                        <div class="form-group">
-                            <select class="form-control" name="Modelo" placeholder="Modelo">
-                            <option value="" disabled selected hidden>Modelo</option>
-                            <% for (var i =0; i < mod.length; i++)  {     %>
-
-                                <option value="">  <%= mod[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
-                        </div>
-                        <div class="flex5">
-
-                            <label for="name"> Selecciona los Defectos:</label >
-                        </div>
-                        <div class="flex4">
-
-                            <div class="form-group">
-                                <select class="selectpicker" multiple data-live-search="true" class="form-control" >
-                                    <% for (var i =0; i < defOp.length; i++)  {     %>
-
-                                        <option value="">  <%= defOp[i].defecto %> </option>
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <textarea class="form-control" name="Comentarios" cols="80" placeholder="Comentarios"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-3">
+                                    <div class="form-group">
+                                        <select class="form-control" name="Retrabajable" placeholder="Retrabajable" style="width: fit-content;">
+                                            <option value="" disabled selected hidden>Retrabajable</option>
+                                            <option value="Menor">Si</option>
+                                            <option value="Mayor">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-md-2 col-md-10 offset-md-3">
+                                    <button class="btn btn-primary" type="submit">
+                                        Enviar
+                                    </button>
         
-                                        <%  }  %>
-                           
-                                </select>
+                                    <a class="btn btn-primary" type="submit" href="/inicio" style="margin-left: 10%;">
+                                        Salir
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-
-
-
-
-                        <div class="form-group">
-                            <input class="form-control" type="number" name="Cantidad" placeholder="Cantidad" style="width: fit-content;">
-                        </div>
-
-
-
-
-                        <div class="form-group">
-                            <textarea class="form-control" name="Comentarios" cols="80" placeholder="Comentarios"></textarea>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <select class="form-control" name="Retrabajable" placeholder="Retrabajable" style="width: fit-content;">
-                            <option value="" disabled selected hidden>Retrabajable</option>
-                            <option value="Menor">Si</option>
-                            <option value="Mayor">No</option>
-                        </select>
-                        </div>
-
-
-                       
-                        <div class="flex4">
-                            <button class="btn btn-primary" type="submit">
-                                    Enviar
-                            </button>
-
-                            <a class="btn btn-primary" type="submit" href="/inicio" style="margin-left: 10%;">
-                                Salir
-                         </a>
-
-                        </div>
-
-                    </form>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script>
