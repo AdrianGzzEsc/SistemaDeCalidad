@@ -1,9 +1,16 @@
-body {
-    background-color: grey;
+html, body {
+    margin: 0;
+    background-color: white;
+    font-size: 14px;
+}
+
+.headerLine {
+    height: 0.5em;
 }
 
 .title {
-    font-size: 4.5em;
+    /* font-size: 2.25em; */
+    font-size: 5vw;
     /* margin-top: 20px; */
     color: #291576;
     display: flex;
@@ -11,9 +18,9 @@ body {
     justify-content: center;
 }
 
-#img-header {
-    margin-right: 40px;
-    max-width: 40%;
+.imagen {
+    width: 25vw;
+    height: auto;
 }
 
 .form-control {
@@ -23,19 +30,23 @@ body {
 /* style="width: fit-content; margin-left: 10%;" */
 
 .subtitle {
-    font-size: 30px;
-    margin-top: 8%;
+    font-size: 1.10em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
     display: flex;
     color: #291576;
     justify-content: center;
+    font-weight: 600;
 }
 
 .subtitle3 {
-    font-size: 30px;
-    margin-top: 1%;
+    font-size: 1.75em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     display: flex;
     color: #291576;
     justify-content: center;
+    font-weight: 600;
 }
 
 .subtitle2 {
@@ -132,7 +143,7 @@ body {
 .myButton {
     box-shadow: 0px 2px 5px 1px #6d758e;
     background: linear-gradient(to bottom, #292573 5%, #476e9e 100%);
-    background-color: #291576;
+    background-color: #17275c;
     border-radius: 10px;
     border: 1px solid #291576;
     display: inline-block;
@@ -141,10 +152,20 @@ body {
     font-family: Arial;
     text-align: center;
     width: 100%;
-    font-size: 19px;
-    padding: 12px 37px;
+    font-size: 1em;
+    padding: 1em 0;
     text-decoration: none;
     text-shadow: 0px 1px 0px #291576;
+    max-width: 60vw;
+    margin-bottom: 0.5em;
+}
+
+.myButton.login {
+    max-width: none;
+}
+
+.myButton.logout {
+    margin-top: 2em;
 }
 
 .myButton.logout, .myButton.btn-red {
@@ -333,7 +354,6 @@ textarea.estado, textarea.resumen {
     display: inline-block;
 }
 
-
 /* Dropdown Content (Hidden by Default) */
 
 .dropdown-content {
@@ -344,7 +364,6 @@ textarea.estado, textarea.resumen {
     border: 1px solid #ddd;
     z-index: 1;
 }
-
 
 /* Links inside the dropdown */
 
@@ -362,9 +381,7 @@ textarea.estado, textarea.resumen {
     background-color: #f1f1f1
 }
 
-
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-
 .show {
     display: block;
 }
@@ -374,9 +391,11 @@ textarea.estado, textarea.resumen {
     margin-bottom: 10%;
     margin-left: 48%;
 }
+
 #fechaform{
     margin-left: 147%;
 }
+
 @media (min-width:991px) and (max-width: 1200px)  {
     #botonajuste{
       margin-left: 70%;
@@ -397,7 +416,6 @@ textarea.estado, textarea.resumen {
     }
 
 }
-
 /*  Small devices    */
 @media (max-width:767px) {
     #botonajuste{
@@ -410,36 +428,69 @@ textarea.estado, textarea.resumen {
     }
 }
 
+#textoHeader {
+    font-size: 1.20em;
+}
+
+
+/* XL */
+@media (min-width: 1199.99px) {
+    /* html {
+        font-size: 1em;
+    } */
+    #img-header {
+        margin: 0 3em 0 0;
+    }
+    /* #texto-header {
+        font-size: 2.25em;
+    } */
+}
+
 /* LG */
 @media (max-width: 1199.98px) {
+    /* html {
+        font-size: 1.1em;
+    } */
     #img-header {
-        margin: 0 40px 0 0;
+        margin: 0 3em 0 0;
     }
-    #texto-header {
+    /* #texto-header {
         font-size: 4em;
-    }
+    } */
 }
 
 /* MD */
 @media (max-width: 991.98px) {
+    /* html {
+        font-size: 1em;
+    } */
     #img-header {
-        margin: 0 40px;
+        margin: 0 3em 0 0;
     }
-    #texto-header {
+    /* #texto-header {
         font-size: 2.5em;
-    }
+    } */
 }
 
 /* SM */
 @media (max-width: 767.98px) {
-    #texto-header {
-        font-size: 2em;
+    /* html {
+        font-size: 1em;
+    } */
+    #img-header {
+        margin: 0 3em;
     }
+    /* #texto-header {
+        font-size: 2em;
+    } */
 }
 
 /* XS */
 @media (max-width: 575.98px) {
-    #texto-header {
+    /* html {
+        font-size: 0.6em;
+    } */
+    /* #texto-header {
         font-size: 1.5em;
-    }
+    } */
 }
