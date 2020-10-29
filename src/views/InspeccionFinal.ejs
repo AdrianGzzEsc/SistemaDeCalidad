@@ -1,12 +1,11 @@
 <%- include ("./partials/_header") %>
 
 
-<div class="subtitle3">
+<p class="subtitle3">
     Reporte de Inspección Final
-</div>
+</p>
+
 <!-- FORMULARIO-->
-
-
 <div class="container-fluid">
     <div class="row justify-content-center">
         <!--  -->
@@ -14,14 +13,13 @@
             <div class="card">
                 <div class="card-header">
                     <form action="/insFinal/" method="post">
-                        <div class="flex4">
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="folio" placeholder="Folio"
-                                    style="width: fit-content;">
+                        
+                        <div class="form-row justify-content-between">
+                            <div class="col-xs-4 mb-3">
+                                <input class="form-control" type="text" name="folio" placeholder="Folio">
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" type="date" name="fecha" placeholder="Fecha"
-                                    style="width: fit-content; margin-left: 10%;">
+                            <div class="col-xs-4 mb-3">
+                                <input class="form-control" type="date" name="fecha" placeholder="Fecha">
                             </div>
                         </div>
 
@@ -337,53 +335,84 @@
                         </div>
                         <hr class="my-0">
 
-                        <div class="flex4">
+                        <!-- <div class="form-row pt-4 justify-content-around">
                             <div class="form-group">
-                                <textarea class="form-control" id="res" type="text" name="estatus"
-                                    placeholder="Aceptado" style="height: 40px;" readonly></textarea>
+                                <textarea class="form-control estado" id="res" type="text" name="estatus"
+                                    placeholder="Aceptado" readonly></textarea>
                             </div>
                             <div class="flex7" style="margin-left: 10%;">
-                                <div class="form-group" style="margin-top: 7px;">
-                                    Total: </div>
-
-                                <div class="form-group">
-                                    <textarea id="menor" class="form-control" type="number" name="menor"
-                                        style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
+                                <div class="form-group mt-auto">
+                                    Total: 
                                 </div>
                                 <div class="form-group">
-
-                                    <textarea id="mayor" class="form-control" type="number" name="mayor"
-                                        style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
+                                    <textarea id="menor" class="form-control defectos" type="number" name="menor" readonly></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="mayor" class="form-control defectos" type="number" name="mayor" readonly></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- mio -->
+                        <!-- <div class="form-row pt-4 justify-content-around">
+                            <div class="col-xs-6">
+                                <div class="row ">
+                                    <div class="col d-inline-block align-self-center">
+                                        <p class="d-inline m-0">Total: </p>
+                                        <textarea id="menor" class="form-control defectos d-inline m-0" type="number" name="menor" readonly></textarea>
+                                        <textarea id="mayor" class="form-control defectos d-inline m-0" type="number" name="mayor" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 align-self-center">
+                                <textarea class="form-control estado align-self-center" id="res" type="text" name="estatus"
+                                    placeholder="Aceptado" readonly></textarea>
+                            </div>
+                        </div> -->
+
+                        <div class="form-row pt-4 align-items-center justify-content-around">
+                            <div class="col-xs-6 p-0 mx-2 align-self-center mb-2">
+                                <div class="row align-items-center">
+                                    <!-- <div class="col align-self-center p-0"> -->
+                                        <p class="m-0 ">Total: </p>
+                                        <textarea id="menor" class="form-control defectos m-0 mx-1" type="number" name="menor" readonly></textarea>
+                                        <textarea id="mayor" class="form-control defectos m-0 mx-1" type="number" name="mayor" readonly></textarea>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            <div class="col-xs-6 mx-2 align-self-center p-0 mb-2">
+                                <textarea class="form-control estado align-self-center" id="res" type="text" name="estatus"
+                                    placeholder="Aceptado" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
                             <textarea class="form-control resumen" name="resumen" cols="80" rows="5"
                                 placeholder="Resumen"></textarea>
                         </div>
 
-                        <div class="row justify-content-center pb-3 pt-2">
-                            <button class="myButton" type="submit">
+                        <!-- <div class="row justify-content-center pb-3 pt-2">
+                            <a class="myButton btn-red mx-3" type="submit" href="/inicio">
+                                Salir
+                            </a>
+                            <button class="myButton mx-3" type="submit">
                                 Enviar
                             </button>
+                        </div> -->
 
+                        <div class="row justify-content-center pb-3 pt-2">
+                            <div class="col p-0 px-3">
+                                <a class="myButton btn-red" type="submit" href="/inicio">Salir</a>
+                            </div>
+                            <div class="col p-0 px-3">
+                                <button class="myButton" type="submit">Enviar</button>
+                            </div>
+                            
                         </div>
 
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center py-5">
-        <div class="col" style="max-width: 750px;">
-            <div class="row justify-content-sm-end justify-content-center px-3">
-                <a class="myButton btn-red" type="submit" href="/inicio">
-                    Salir
-                </a>
-            </div>
-        </div>
-
     </div>
 </div>
 </div>
@@ -403,17 +432,17 @@
 
             }
         }
-        document.getElementById("menor").innerHTML = count;
-        document.getElementById("mayor").innerHTML = count2;
 
-        if (count > 3) {
-            document.getElementById("res").textContent = "Rechazado";
-        } else if (count2 > 0) {
-            document.getElementById("res").textContent = "Rechazado";
+        $("#menor").text(count);
+        $("#mayor").text(count2);
+
+        if (count > 3 || count2 > 0) {
+            $('#res').addClass('rechazado');
+            $('#res').text("Rechazado");
         } else {
-            document.getElementById("res").textContent = "Aceptado";
+            $('#res').removeClass('rechazado');
+            $('#res').text("Aceptado");
         }
-
     }
 
     function init() {

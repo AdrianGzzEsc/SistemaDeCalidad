@@ -18,8 +18,9 @@ body {
 
 .form-control {
     height: 3em;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
+/* style="width: fit-content; margin-left: 10%;" */
 
 .subtitle {
     font-size: 30px;
@@ -139,7 +140,7 @@ body {
     color: #ffffff;
     font-family: Arial;
     text-align: center;
-    width: 300px;
+    width: 100%;
     font-size: 19px;
     padding: 12px 37px;
     text-decoration: none;
@@ -252,7 +253,28 @@ select {
     margin-top: 2%;
 }
 
-textarea.resumen {
+textarea.estado {
+    height: 40px;
+    width: 120px;
+    text-align: center;
+    border: none;
+}
+
+textarea.defectos {
+    height: 40px;
+    width: 50px;
+    margin-left: 10%;
+    resize: none;
+    border: none;
+    text-align: center;
+    margin-right: 3px;
+}
+
+textarea.rechazado {
+    color: rgb(162, 12, 12);
+}
+
+textarea.estado, textarea.resumen {
     resize: none;
 }
 
