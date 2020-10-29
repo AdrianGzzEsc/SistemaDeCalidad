@@ -54,6 +54,16 @@ body {
     justify-content: center;
 }
 
+.collapseHeader {
+    text-decoration: none;
+    color: inherit;
+}
+
+.collapseHeader:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 .flex {
     display: flex;
     flex-direction: row;

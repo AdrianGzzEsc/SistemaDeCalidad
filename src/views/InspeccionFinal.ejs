@@ -36,12 +36,13 @@
                             <input class="form-control" type="number" name="lote" placeholder="Tamaño de Lote" style="width: fit-content;">
                         </div>
                         <hr class="my-4">
-                        <nav class="navbar navbar-light bg-light">
-                            1.- Producto
-                            <a class="btn btn-info btn-sm" data-toggle="collapse" href="#collapseProductos" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                Collapsar
-                              </a>
-                        </nav>
+                        
+                        <a class="collapseHeader" data-toggle="collapse" href="#collapseProductos" role="button" aria-expanded="true" aria-controls="collapseProductos">
+                            <nav class="navbar navbar-light bg-light">
+                                <h6 class="mb-0">1.- Producto </h6><i class="fas fa-angle-down rotate-icon"></i>
+                            </nav>
+                        </a>
+                        
                         <div class="collapse" id="collapseProductos">
 
                             <table class="table table-bordered">
@@ -215,12 +216,13 @@
                             </table>
                         </div>
                         <hr class="my-4">
-                        <nav class="navbar navbar-light bg-light">
-                            2.- Empaque
-                            <a class="btn btn-info btn-sm" data-toggle="collapse" href="#collapseEmpaque" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                Collapsar
-                              </a>
-                        </nav>
+                        
+                        <a class="collapseHeader" data-toggle="collapse" href="#collapseEmpaque" role="button" aria-expanded="true" aria-controls="collapseEmpaque">
+                            <nav class="navbar navbar-light bg-light">
+                                <h6 class="mb-0">2.- Empaque </h6><i class="fas fa-angle-down rotate-icon"></i>
+                            </nav>
+                        </a>
+                        
                         <div class="collapse" id="collapseEmpaque">
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
@@ -368,6 +370,17 @@
             }
 
         }
+
+        function init() {
+
+            // listener para cuando se expande una sección del reporte
+            $(".collapseHeader").on('click', function() {
+                $(this).find("i.rotate-icon").toggleClass('fa-rotate-180');
+              });
+              
+        }
+
+        init();
     </script>
 
     <%- include ("./partials/_footer") %>
