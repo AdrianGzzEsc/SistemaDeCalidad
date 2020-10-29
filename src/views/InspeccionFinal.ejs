@@ -1,213 +1,251 @@
 <%- include ("./partials/_header") %>
 
 
-    <div class="subtitle3">
-        Reporte de Inspección Final</div>
-    <!-- FORMULARIO-->
+<div class="subtitle3">
+    Reporte de Inspección Final
+</div>
+<!-- FORMULARIO-->
 
-    <div class="flex">
 
-
-        <div class="col-md-5">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!--  -->
+        <div class="col px-3" style="max-width: 750px;">
             <div class="card">
                 <div class="card-header">
                     <form action="/insFinal/" method="post">
                         <div class="flex4">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="folio" placeholder="Folio" style="width: fit-content;">
+                                <input class="form-control" type="text" name="folio" placeholder="Folio"
+                                    style="width: fit-content;">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="date" name="fecha" placeholder="Fecha" style="width: fit-content; margin-left: 10%;">
+                                <input class="form-control" type="date" name="fecha" placeholder="Fecha"
+                                    style="width: fit-content; margin-left: 10%;">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <select class="form-control" name="producto" placeholder="Producto">
-                            <option value="" disabled selected hidden>Nombre del Producto</option>
-                            <% for (var i =0; i < prod.length; i++)  {     %>
+                                <option value="" disabled selected hidden>Nombre del Producto</option>
+                                <% for (var i =0; i < prod.length; i++)  {     %>
 
-                                <option value="<%= prod[i].nombre %>">  <%= prod[i].nombre %> </option>
+                                <option value="<%= prod[i].nombre %>"> <%= prod[i].nombre %> </option>
 
                                 <%  }  %>
-                        </select>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="number" name="lote" placeholder="Tamaño de Lote" style="width: fit-content;">
+                            <input class="form-control" type="number" name="lote" placeholder="Tamaño de Lote"
+                                style="width: fit-content;">
                         </div>
-                        <hr class="my-4">
-                        
-                        <a class="collapseHeader" data-toggle="collapse" href="#collapseProductos" role="button" aria-expanded="true" aria-controls="collapseProductos">
-                            <nav class="navbar navbar-light bg-light">
-                                <h6 class="mb-0">1.- Producto </h6><i class="fas fa-angle-down rotate-icon"></i>
+                        <hr class="my-0">
+
+                        <a class="collapseHeader" data-toggle="collapse" href="#collapseProductos" role="button"
+                            aria-expanded="true" aria-controls="collapseProductos">
+                            <nav class="navbar navbar-light bg-light px-1 py-4">
+                                <p class="mb-0 h5">1.- Producto </p><i class="fas fa-angle-down rotate-icon"></i>
                             </nav>
                         </a>
-                        
+
                         <div class="collapse" id="collapseProductos">
 
-                            <table class="table table-bordered">
+                            <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
-
                                         <th scope="col">Defectos</th>
-                                        <th scope="col">Inspección</th>
-
+                                        <th class="text-center" scope="col">Inspección</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Dimensiones Finales</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="dimensiones_Finales" placeholder="Inspeccion" style="width: fit-content; " tagname="Inspeccion">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td >Dimensiones Finales</td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0 m-0"
+                                                name="dimensiones_Finales" placeholder="Inspeccion"
+                                                style="width: fit-content; " tagname="Inspeccion">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Limpieza del Producto</td>
-                                        <td class="flex"> <select onchange='sum()' class="form-control form-control-sm" name="limpieza" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="limpieza" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Función de puertas y cajones</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="funcion" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0" name="funcion"
+                                                placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Color de Melamina</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="color_Melamina" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="color_Melamina" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Orientación de Vetas</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="orientacion" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="orientacion" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Color de Cintilla</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="color_Cintilla" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="color_Cintilla" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Espesor de Cintilla</td>
                                         <td class="flex">
-                                            <select onchange='sum()' class="form-control form-control-sm" name="espesor" placeholder="Inspeccion" style="width: fit-content; ">
+                                            <select onchange='sum()' class="form-control form-control-sm m-0" name="espesor"
+                                                placeholder="Inspeccion" style="width: fit-content; ">
                                                 <option value="OK">OK</option>
                                                 <option value="Menor">Menor</option>
                                                 <option value="Mayor">Mayor</option>
-                                                </select>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Colocación de Cintilla</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="colocacion" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="colocacion" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Descuadre</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="descuadre" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="descuadre" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Marcas de Pegamento</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="marcas" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="marcas" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Despostilles</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="despostilles" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="despostilles" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Rayaduras</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="rayaduras" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="rayaduras" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Retoques</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="retoques" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="retoques" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Pruebas de Resistencia</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="pruebas_Resistencia" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="pruebas_Resistencia" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
-                                        <td>Herrajes instalados correctos (bumpers, bisagras, manija, push, y colgadores)</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="herrajes_instalados" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td>Herrajes instalados correctos</td>
+                                        <!-- (bumpers, bisagras, manija, push, y colgadores) -->
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="herrajes_instalados" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Etiquetas de producto</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="etiquetas_producto" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="etiquetas_producto" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Prueba de colgado*</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="prueba" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="prueba" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Resane de perforación interna*</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="resane" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="resane" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Cubierta correcta*</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="cubierta" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="cubierta" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
 
 
@@ -215,16 +253,17 @@
                                 </tbody>
                             </table>
                         </div>
-                        <hr class="my-4">
-                        
-                        <a class="collapseHeader" data-toggle="collapse" href="#collapseEmpaque" role="button" aria-expanded="true" aria-controls="collapseEmpaque">
-                            <nav class="navbar navbar-light bg-light">
-                                <h6 class="mb-0">2.- Empaque </h6><i class="fas fa-angle-down rotate-icon"></i>
+                        <hr class="my-0">
+
+                        <a class="collapseHeader" data-toggle="collapse" href="#collapseEmpaque" role="button"
+                            aria-expanded="true" aria-controls="collapseEmpaque">
+                            <nav class="navbar navbar-light bg-light px-1 py-4">
+                                <p class="mb-0 h5">2.- Empaque </p><i class="fas fa-angle-down rotate-icon"></i>
                             </nav>
                         </a>
-                        
+
                         <div class="collapse" id="collapseEmpaque">
-                            <table class="table table-bordered">
+                            <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
 
@@ -236,103 +275,98 @@
                                 <tbody>
                                     <tr>
                                         <td>Caja</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="caja" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="caja" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Etiquetas de caja</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="etiquetas_caja" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="etiquetas_caja" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Herrajes en bolsa y componentes sueltos correctos</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="herrajes_bolsa" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="herrajes_bolsa" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Manual de instrucciones y garantía</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="manual_instrucciones" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="manual_instrucciones" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Color de Marmol*</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="color_Marmol" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="color_Marmol" placeholder="Inspeccion"
+                                                style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td>Ovalin*</td>
-                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm" name="ovalin" placeholder="Inspeccion" style="width: fit-content; ">
-                                            <option value="OK">OK</option>
-                                            <option value="Menor">Menor</option>
-                                            <option value="Mayor">Mayor</option>
-                                        </select></td>
+                                        <td class="flex"><select onchange='sum()' class="form-control form-control-sm m-0"
+                                                name="ovalin" placeholder="Inspeccion" style="width: fit-content; ">
+                                                <option value="OK">OK</option>
+                                                <option value="Menor">Menor</option>
+                                                <option value="Mayor">Mayor</option>
+                                            </select></td>
                                     </tr>
-
-
-
 
                                 </tbody>
                             </table>
                         </div>
-                        <hr class="my-4">
-
-
-
+                        <hr class="my-0">
 
                         <div class="flex4">
-
-
                             <div class="form-group">
-                                <textarea class="form-control" id="res" type="text" name="estatus" placeholder="Aceptado" style="height: 40px;" readonly></textarea>
+                                <textarea class="form-control" id="res" type="text" name="estatus"
+                                    placeholder="Aceptado" style="height: 40px;" readonly></textarea>
                             </div>
                             <div class="flex7" style="margin-left: 10%;">
                                 <div class="form-group" style="margin-top: 7px;">
                                     Total: </div>
 
                                 <div class="form-group">
-
-                                    <textarea id="menor" class="form-control" type="number" name="menor" style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
+                                    <textarea id="menor" class="form-control" type="number" name="menor"
+                                        style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
                                 </div>
                                 <div class="form-group">
 
-                                    <textarea id="mayor" class="form-control" type="number" name="mayor" style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
+                                    <textarea id="mayor" class="form-control" type="number" name="mayor"
+                                        style="height: 40px; width: 50px; margin-left: 10%;" readonly></textarea>
                                 </div>
-
-
                             </div>
-
-
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control" name="resumen" cols="80" placeholder="Resumen"></textarea>
+                            <textarea class="form-control resumen" name="resumen" cols="80" rows="5"
+                                placeholder="Resumen"></textarea>
                         </div>
 
-                        <div class="flex4">
-                            <button class="btn btn-primary" type="submit">
-                                    Enviar
+                        <div class="row justify-content-center pb-3 pt-2">
+                            <button class="myButton" type="submit">
+                                Enviar
                             </button>
-
-                            <a class="btn btn-primary" type="submit" href="/inicio" style="margin-left: 10%;">
-                                Salir
-                         </a>
-
-
 
                         </div>
 
@@ -341,46 +375,58 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center py-5">
+        <div class="col" style="max-width: 750px;">
+            <div class="row justify-content-sm-end justify-content-center px-3">
+                <a class="myButton btn-red" type="submit" href="/inicio">
+                    Salir
+                </a>
+            </div>
+        </div>
+
     </div>
-    <script>
-        function sum() {
-            var count = 0;
-            var count2 = 0;
-            var x = document.getElementsByClassName("form-control");
+</div>
+</div>
+<script>
+    function sum() {
+        var count = 0;
+        var count2 = 0;
+        var x = document.getElementsByClassName("form-control");
 
-            for (var i = 0; i < x.length; i++) {
-                if (x[i].value == "Menor") {
-                    count++;
+        for (var i = 0; i < x.length; i++) {
+            if (x[i].value == "Menor") {
+                count++;
 
-                }
-                if (x[i].value == "Mayor") {
-                    count2++;
-
-                }
             }
-            document.getElementById("menor").innerHTML = count;
-            document.getElementById("mayor").innerHTML = count2;
+            if (x[i].value == "Mayor") {
+                count2++;
 
-            if (count > 3) {
-                document.getElementById("res").textContent = "Rechazado";
-            } else if (count2 > 0) {
-                document.getElementById("res").textContent = "Rechazado";
-            } else {
-                document.getElementById("res").textContent = "Aceptado";
             }
+        }
+        document.getElementById("menor").innerHTML = count;
+        document.getElementById("mayor").innerHTML = count2;
 
+        if (count > 3) {
+            document.getElementById("res").textContent = "Rechazado";
+        } else if (count2 > 0) {
+            document.getElementById("res").textContent = "Rechazado";
+        } else {
+            document.getElementById("res").textContent = "Aceptado";
         }
 
-        function init() {
+    }
 
-            // listener para cuando se expande una sección del reporte
-            $(".collapseHeader").on('click', function() {
-                $(this).find("i.rotate-icon").toggleClass('fa-rotate-180');
-              });
-              
-        }
+    function init() {
+        sum();
 
-        init();
-    </script>
+        // listener para cuando se expande una sección del reporte
+        $(".collapseHeader").on('click', function () {
+            $(this).find("i.rotate-icon").toggleClass('fa-rotate-180');
+        });
 
-    <%- include ("./partials/_footer") %>
+    }
+
+    init();
+</script>
+
+<%- include ("./partials/_footer") %>
