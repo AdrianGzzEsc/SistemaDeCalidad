@@ -1,6 +1,6 @@
 <%- include ("./partials/_header") %>
 
-<div class="container">
+<div class="container mt-5">
 
     <div class="row">
         <!-- FORMULARIO-->
@@ -29,50 +29,31 @@
         </div>
 
         <!--  TABLA CON LOS DATOS-->
-
         <div class="col-md-7">
             <table class="table table-bordered table-hover">
-
-                <thead>
+                <thead class="text-white tabla">
                     <tr>
-
                         <th>#</th>
                         <th>Modelo</th>
                         <th>Opción</th>
-
                     </tr>
-
-
                 </thead>
                 <tbody>
-
                     <% for (var i =0; i < tasks.length; i++)  {     %>
-
                     <tr>
-                        <td>
+                        <td class="align-middle">
                             <%= i+1 %>
                         </td>
-                        <td> <strong> <%= tasks[i].nombre %> </strong> </td>
-
-                        <td>
-
+                        <td class="align-middle"> <strong> <%= tasks[i].nombre %> </strong> </td>
+                        <td class="align-middle">
                             <a href=/deleteModelo/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
-
-
                         </td>
-
                     </tr>
-
-
                     <%  }  %>
                     <!--  TABLA CON LOS DATOS-->
-
                 </tbody>
             </table>
-
-
         </div>
-
     </div>
 
 </div>

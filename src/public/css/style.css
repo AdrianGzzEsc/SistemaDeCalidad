@@ -299,10 +299,15 @@ textarea.estado, textarea.resumen {
     resize: none;
 }
 
-.table > tbody > tr > td {
-    vertical-align: middle;
-    padding-top: 20px;
-    padding-bottom: 20px;
+.table  {
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
+    text-align: center;
+
+}
+
+thead.tabla {
+    background-color: rgb(89, 96, 121);
 
 }
 
