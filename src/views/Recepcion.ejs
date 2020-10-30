@@ -1,7 +1,8 @@
 <%- include ("./partials/_header") %>
 
-    <p class="subtitle3">Recepción de Materiales </p>
-    <!-- FORMULARIO-->
+<p class="subtitle3">Recepción de Materiales </p>
+
+<!-- FORMULARIO-->
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col px-3" style="max-width: 750px">
@@ -11,29 +12,34 @@
                         <div class="form-group row justify-content-between">
                             <div class="col-sm-5">
                                 <label for="foliorecepcion">Folio:</label>
-                                <input id="foliorecepcion" type="text" class="form-control" placeholder="Folio" name="folio">                             
+                                <input id="foliorecepcion" type="text" class="form-control" placeholder="Folio"
+                                    name="folio">
                             </div>
                             <div class="col-sm-5" style="max-width: 200px;">
                                 <label for="fecharecepcion">Fecha:</label>
-                                <input id="fecharecepcion" class="form-control" type="date" name="fecha" placeholder="Fecha">
+                                <input id="fecharecepcion" class="form-control" type="date" name="fecha"
+                                    placeholder="Fecha">
                             </div>
                         </div>
 
                         <div class="form-group row justify-content-between">
                             <div class="col-sm-5">
                                 <label for="entrada">No. de Entrada:</label>
-                                <input id="entrada" class="form-control" type="number" name="entrada" placeholder="Entrada">
+                                <input id="entrada" class="form-control" type="number" name="entrada"
+                                    placeholder="Entrada">
                             </div>
                         </div>
 
                         <div class="form-group row justify-content-between">
                             <div class="col-sm-5">
                                 <label for="docprov">No. Documento Proveedor:</label>
-                                <input id="docprov" class="form-control" type="number" name="Doc_Pro" placeholder="No. Documento">
+                                <input id="docprov" class="form-control" type="number" name="Doc_Pro"
+                                    placeholder="No. Documento">
                             </div>
                             <div class="col-sm-5">
                                 <label for="ocrecepcion">No. Orden de Compra:</label>
-                                <input id="ocrecepcion" class="form-control" type="number" name="OC" placeholder="No. Orden">
+                                <input id="ocrecepcion" class="form-control" type="number" name="OC"
+                                    placeholder="No. Orden">
                             </div>
                         </div>
 
@@ -43,7 +49,7 @@
                                 <select class="form-control" name="Provedor" placeholder="Seleccionar">
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < prov.length; i++)  {     %>
-                                    <option value="<%= prov[i].nombre %>">  <%= prov[i].nombre %> </option>
+                                    <option value="<%= prov[i].nombre %>"> <%= prov[i].nombre %> </option>
                                     <%  }  %>
                                 </select>
                             </div>
@@ -52,10 +58,11 @@
                         <div class="form-group row justify-content-between">
                             <div class="col-md-6">
                                 <label for="materialrecepcion">Material:</label>
-                                <select id="materialrecepcion" class="form-control" name="Material" placeholder="Seleccionar">
+                                <select id="materialrecepcion" class="form-control" name="Material"
+                                    placeholder="Seleccionar">
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < mat.length; i++)  {     %>
-                                    <option value="<%= mat[i].nombre %>">  <%= mat[i].nombre %> </option>
+                                    <option value="<%= mat[i].nombre %>"> <%= mat[i].nombre %> </option>
                                     <%  }  %>
                                 </select>
                             </div>
@@ -64,18 +71,19 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="cantidadrecepcion">Cantidad:</label>
-                                <input id="cantidadrecepcion" class="form-control" type="number" name="Cantidad" placeholder="Cantidad" >
+                                <input id="cantidadrecepcion" class="form-control" type="number" name="Cantidad"
+                                    placeholder="Cantidad">
                             </div>
                             <div class="col-sm-3">
                                 <label for="unidadrecepcion">Unidad:</label>
                                 <select id="unidadrecepcion" class="form-control" name="Unidad">
                                     <option value="" disabled selected hidden>--</option>
-                                    <option value="Kg" >Kg</option>
-                                    <option value="Piezas" >Piezas</option>
-                                    <option value="Juego" >Juego</option>
-                                    <option value="m" >m</option>
-                                    <option value="m2" >m2</option>
-                                    <option value="Corrugado" >Corrugado</option>
+                                    <option value="Kg">Kg</option>
+                                    <option value="Piezas">Piezas</option>
+                                    <option value="Juego">Juego</option>
+                                    <option value="m">m</option>
+                                    <option value="m2">m2</option>
+                                    <option value="Corrugado">Corrugado</option>
                                 </select>
                             </div>
                         </div>
@@ -107,4 +115,4 @@
     </div>
 </div>
 
-    <%- include ("./partials/_footer") %>
+<%- include ("./partials/_footer") %>

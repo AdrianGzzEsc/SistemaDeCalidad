@@ -1,4 +1,5 @@
 <%- include ("./partials/_header") %>
+
 <p class="subtitle3">Alta Producto No Conforme</p>
 
 <!-- FORMULARIO-->
@@ -11,7 +12,8 @@
                         <div class="form-group row justify-content-between">
                             <div class="col-sm-5">
                                 <label for="proceso">Proceso del defecto:</label>
-                                <select id="proceso" class="form-control" name="defecto" placeholder="defecto" onchange="location = this.value;">
+                                <select id="proceso" class="form-control" name="defecto" placeholder="defecto"
+                                    onchange="location = this.value;">
                                     <option value="" disabled selected hidden>Seleccionar proceso</option>
                                     <% for (var i =0; i < oper.length; i++)  {     %>
                                     <option value="/enviarvariable/<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
@@ -43,7 +45,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row justify-content-between">
                             <div class="col-sm-6">
                                 <label for="seleccion">Seleccione los Defectos:</label>
