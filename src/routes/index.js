@@ -266,7 +266,7 @@ router.post('/SignIn', jsonParser, function(req, res) {
     let { email, password } = req.body;
 
     if (!email || !password) {
-        res.statusMessage = "Parameter missing in the body of the request.";
+        res.statusMessage = "Hay uno o más campos vacíos.";
         return res.status(406).end();
     }
 
@@ -292,7 +292,7 @@ router.post('/SignIn', jsonParser, function(req, res) {
                             });
 
                         } else {
-                            throw new Error("Invalid credentials");
+                            throw new Error("Credenciales inválidas.");
                         }
                     })
                     .catch(err => {
@@ -300,7 +300,7 @@ router.post('/SignIn', jsonParser, function(req, res) {
                         return res.status(400).end();
                     });
             } else {
-                throw new Error("User doesn't exists!");
+                throw new Error("Credenciales inválidas.");
             }
         })
         .catch(err => {
@@ -328,7 +328,7 @@ router.get('/user/get-users', (req, res) => {
         .getUsers()
         .then( result => {
             if( !result ) {
-                res.statusMessage = `There are no users registered`;
+                res.statusMessage = `No existen usuarios.`;
                 return res.status( 404 ).end();
             }
             else

@@ -27,7 +27,16 @@ function userLoginFetch( email, password ){
             window.location.href = "/inicio/";
         })
         .catch( err => {
-            alert(err.message);
+            // alert(err.message);
+            var mensaje = err.message;
+            $('#msg-error').html(`
+            <div class="alert alert-danger alert-dismissible fade show msg-error" role="alert">
+                ${mensaje}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `);
         });
 }
 
