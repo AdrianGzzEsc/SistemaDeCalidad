@@ -1,33 +1,30 @@
 <%- include ("./partials/_header") %>
 
-
     <div class="container">
 
         <div class="row">
             <!-- FORMULARIO-->
-
-
             <div class="col-md-5">
                 <div class="card">
-                    <h1 class="subtitle4">
-                        Agregar Pieza
-                    </h1>
+                    <h1 class="subtitle mb-0">Agregar Pieza</h1>
                     <div class="card-body">
-
                         <form action="/addPieza/" method="post">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="nombre" placeholder="Nombre de Pieza">
+                                <label for="nombrepieza">Pieza:</label>
+                                <input id="nombrepieza" class="form-control" type="text" name="nombre" placeholder="Nombre de Pieza">
                             </div>
-
-                            <button class="btn btn-primary" type="submit">
-       Agregar
-       </button>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <button class="myButton" type="submit">Agregar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="flex" style="margin-top: 2%">
-                    <a href="/ajustes/" class="myButton2">Regresar</a>
-
+                <div class="row mt-5">
+                    <div class="col">
+                        <a href="/ajustes/" class="myButton btn-red">Regresar</a>
+                    </div>
                 </div>
             </div>
 

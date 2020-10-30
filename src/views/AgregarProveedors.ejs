@@ -1,32 +1,30 @@
 <%- include ("./partials/_header") %>
 
-
-    <div class="container">
+    <div class="container mt-5">
 
         <div class="row">
             <!-- FORMULARIO-->
-
             <div class="col-md-5">
                 <div class="card">
-                    <h1 class="subtitle4">
-                        Agregar Proveedor
-                    </h1>
+                    <p class="subtitle mb-0">Agregar Proveedor</p>
                     <div class="card-body">
                         <form action="/add" method="post">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="nombre" placeholder="Nombre de Proveedor">
+                                <label for="nombreproveedor">Proveedor:</label>
+                                <input id="nombreproveedor" class="form-control" type="text" name="nombre" placeholder="Nombre de Proveedor">
                             </div>
-
-                            <button class="btn btn-primary" type="submit">
-       Agregar
-       </button>
+                            <div class="form-group row text-right">
+                                <div class="col ">
+                                    <button class="myButton" type="submit">Agregar</button>
+                                </div>
+                            </div>
                         </form>
-
                     </div>
                 </div>
-                <div class="flex" style="margin-top: 2%">
-                    <a href="/ajustes/" class="myButton2">Regresar</a>
-
+                <div class="row mt-5">
+                    <div class="col">
+                        <a href="/ajustes/" class="myButton btn-red">Regresar</a>
+                    </div>
                 </div>
             </div>
 
