@@ -31,9 +31,10 @@
                 <div class="card-body">
                     <form class="form-signin" action="/SignIn" method="POST">
 
-                        <p class="subtitle mb-4 mt-4">Ingresar</p>
-
-                        <input type="email" id="email" class="form-control mb-4" placeholder="Correo electrónico" autofocus>
+                        <p class="subtitle my-3">Ingresar</p>
+                        <label for="email" class="w-100 text-left">Correo electrónico:</label>
+                        <input type="email" id="email" class="form-control mb-4" placeholder="ejemplo@fimsa.mx" autofocus>
+                        <label for="password" class="w-100 text-left">Contraseña:</label>
                         <input type="password" id="password" class="form-control mb-4" placeholder="Contraseña">
                         
                         <button id="loginBtn" class="myButton login" type="submit">Ingresar</button>
