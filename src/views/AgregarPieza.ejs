@@ -1,6 +1,6 @@
 <%- include ("./partials/_header") %>
 
-    <div class="container">
+    <div class="container mt-5">
 
         <div class="row">
             <!-- FORMULARIO-->
@@ -13,7 +13,7 @@
                                 <label for="nombrepieza">Pieza:</label>
                                 <input id="nombrepieza" class="form-control" type="text" name="nombre" placeholder="Nombre de Pieza">
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row text-center">
                                 <div class="col">
                                     <button class="myButton" type="submit">Agregar</button>
                                 </div>
@@ -21,7 +21,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="row mt-5">
+                <div class="row mt-5 text-center">
                     <div class="col">
                         <a href="/ajustes/" class="myButton btn-red">Regresar</a>
                     </div>
@@ -30,51 +30,32 @@
 
             <!--  TABLA CON LOS DATOS-->
 
-            <div class="col-md-7">
-                <table class="table table-bordered table-hover">
-
-                    <thead>
+            <div class="col-md-7 mt-md-0 mt-5">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="text-white tabla">
                         <tr>
-
                             <th>#</th>
                             <th>Pieza</th>
                             <th>Opción</th>
-
                         </tr>
-
-
                     </thead>
                     <tbody>
-
                         <% for (var i =0; i < tasks.length; i++)  {     %>
-
                             <tr>
-                                <td>
+                                <td class="align-middle">
                                     <%= i+1 %>
                                 </td>
-                                <td> <strong> <%= tasks[i].nombre %>   </strong> </td>
-
-                                <td>
-
+                                <td class="align-middle"> <strong> <%= tasks[i].nombre %>   </strong> </td>
+                                <td class="align-middle">
                                     <a href=/deletePieza/<%=tasks[i]._id %>   class="btn btn-danger" href="turn">Eliminar </a>
-
-
                                 </td>
-
                             </tr>
-
-
                             <%  }  %>
                                 <!--  TABLA CON LOS DATOS-->
-
                     </tbody>
                 </table>
-
-
             </div>
-
         </div>
-
     </div>
 
     <%- include ("./partials/_footer") %>

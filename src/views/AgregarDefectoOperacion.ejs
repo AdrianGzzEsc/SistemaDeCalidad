@@ -1,105 +1,76 @@
 <%- include ("./partials/_header") %>
 
+<div class="container mt-5">
 
-    <div class="container">
-
-        <div class="row">
-            <!-- FORMULARIO-->
-
-
-            <div class="col-md-5">
-                <div class="card">
-                    <h1 class="subtitle4">
-                        Agregar Defecto a Operacion
-                    </h1>
-                    <div class="card-body">
-
-                        <form action="/addDefectoOperacion/" method="post">
-                            <div class="form-group">
-                                <select class="form-control" name="operacion">
-                                <option value="" disabled selected hidden>Operación</option>
+    <div class="row">
+        <!-- FORMULARIO-->
+        <div class="col-md-5">
+            <div class="card">
+                <p class="subtitle mb-0">Agregar Defecto a Operacion</p>
+                <div class="card-body">
+                    <form action="/addDefectoOperacion/" method="post">
+                        <div class="form-group">
+                            <label for="nombredefecto">Operación:</label>
+                            <select id="nombredefecto" class="form-control" name="operacion">
+                                <option value="" disabled selected hidden>Seleccionar</option>
                                 <% for (var i =0; i < mod.length; i++)  {     %>
-    
-                                    <option value="<%= mod[i].nombre %>" >  <%= mod[i].nombre %> </option>
-    
-                                    <%  }  %>
+                                <option value="<%= mod[i].nombre %>"> <%= mod[i].nombre %> </option>
+                                <%  }  %>
                             </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" name="defecto">
-                                <option value="" disabled selected hidden>Defecto</option>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombredefecto">Defecto:</label>
+                            <select id="nombredefecto" class="form-control" name="defecto">
+                                <option value="" disabled selected hidden>Seleccionar</option>
                                 <% for (var i =0; i < def.length; i++)  {     %>
-    
-                                    <option value=" <%= def[i].nombre %>">  <%= def[i].nombre %> </option>
-    
-                                    <%  }  %>
+                                <option value=" <%= def[i].nombre %>"> <%= def[i].nombre %> </option>
+                                <%  }  %>
                             </select>
+                        </div>
+                        <div class="form-group row text-center">
+                            <div class="col">
+                                <button class="myButton" type="submit">Agregar</button>
                             </div>
-
-                            <button class="btn btn-primary" type="submit">
-       Agregar
-       </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex" style="margin-top: 2%">
-                    <a href="/ajustes/" class="myButton2">Regresar</a>
-
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!--  TABLA CON LOS DATOS-->
-
-            <div class="col-md-7">
-                <table class="table table-bordered table-hover">
-
-                    <thead>
-                        <tr>
-
-                            <th>#</th>
-                            <th>Operacion</th>
-
-                            <th>Defecto</th>
-                            <th>Opción</th>
-
-                        </tr>
-
-
-                    </thead>
-                    <tbody>
-
-                        <% for (var i =0; i < tasks.length; i++)  {     %>
-
-                            <tr>
-                                <td>
-                                    <%= i+1 %>
-                                </td>
-                                <td> <strong> <%= tasks[i].operacion %>   </strong> </td>
-                                <td> <strong> <%= tasks[i].defecto %>   </strong> </td>
-
-
-
-                                <td>
-
-                                    <a href=/deleteDefectoOperacion/<%=tasks[i]._id %>   class="btn btn-danger" href="turn">Eliminar </a>
-
-
-                                </td>
-
-                            </tr>
-
-
-                            <%  }  %>
-                                <!--  TABLA CON LOS DATOS-->
-
-                    </tbody>
-                </table>
-
-
+            <div class="row mt-5 text-center">
+                <div class="col">
+                    <a href="/ajustes/" class="myButton btn-red">Regresar</a>
+                </div>
             </div>
-
         </div>
-
+        <!--  TABLA CON LOS DATOS-->
+        <div class="col-md-7 mt-md-0 mt-5">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="text-white tabla">
+                    <tr>
+                        <th>#</th>
+                        <th>Operacion</th>
+                        <th>Defecto</th>
+                        <th>Opción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i =0; i < tasks.length; i++)  {     %>
+                    <tr>
+                        <td>
+                            <%= i+1 %>
+                        </td>
+                        <td class="align-middle"> <strong> <%= tasks[i].operacion %> </strong> </td>
+                        <td class="align-middle"> <strong> <%= tasks[i].defecto %> </strong> </td>
+                        <td class="align-middle">
+                            <a href=/deleteDefectoOperacion/<%=tasks[i]._id %> class="btn btn-danger"
+                                href="turn">Eliminar </a>
+                        </td>
+                    </tr>
+                    <%  }  %>
+                    <!--  TABLA CON LOS DATOS-->
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
 
-    <%- include ("./partials/_footer") %>
+<%- include ("./partials/_footer") %>
