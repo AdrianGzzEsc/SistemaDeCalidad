@@ -30,8 +30,8 @@ html, body {
 /* style="width: fit-content; margin-left: 10%;" */
 
 .subtitle {
-    font-size: 1.10em;
-    margin-top: 0.5em;
+    font-size: 1.8em;
+    margin-top: 2em;
     margin-bottom: 1em;
     display: flex;
     color: #291576;
@@ -392,17 +392,10 @@ textarea.estado, textarea.resumen {
     margin-left: 48%;
 }
 
-#fechaform{
-    margin-left: 147%;
-}
-
 @media (min-width:991px) and (max-width: 1200px)  {
     #botonajuste{
       margin-left: 70%;
     }
-    #fechaform{
-      margin-left: 125%;
-  }
 
 }
 /*Device = Tablets, Ipads (portrait)
@@ -411,20 +404,12 @@ textarea.estado, textarea.resumen {
       #botonajuste{
         margin-left: 70%;
       }
-      #fechaform{
-        margin-left: 80%;
-    }
 
 }
 /*  Small devices    */
 @media (max-width:767px) {
     #botonajuste{
         margin-left: 0;
-    }
-    #fechaform{
-        margin-top: 3%;
-        margin-left: 0%;
-
     }
 }
 
@@ -444,6 +429,12 @@ textarea.estado, textarea.resumen {
     /* #texto-header {
         font-size: 2.25em;
     } */
+    .myButton {
+        font-size: 1.25em;
+    }
+    .subtitle {
+        font-size: 1.8em;
+    }
 }
 
 /* LG */
@@ -457,6 +448,7 @@ textarea.estado, textarea.resumen {
     /* #texto-header {
         font-size: 4em;
     } */
+    
 }
 
 /* MD */
@@ -470,6 +462,13 @@ textarea.estado, textarea.resumen {
     /* #texto-header {
         font-size: 2.5em;
     } */
+    .myButton {
+        font-size: inherit;
+    }
+
+    .subtitle {
+        font-size: inherit;
+    }
 }
 
 /* SM */
