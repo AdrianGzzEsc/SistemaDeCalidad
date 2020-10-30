@@ -395,6 +395,12 @@ textarea.estado, textarea.resumen {
 #fechaform{
     margin-left: 147%;
 }
+#fechaformbaja{
+    margin-left: 17.8%;
+}
+#costobaja{
+    margin-left: 27.58%;
+}
 
 @media (min-width:991px) and (max-width: 1200px)  {
     #botonajuste{
@@ -403,6 +409,12 @@ textarea.estado, textarea.resumen {
     #fechaform{
       margin-left: 125%;
   }
+  #fechaformbaja{
+    margin-left: 18.5%;
+}
+#costobaja{
+    margin-left: 28.5%;
+}
 
 }
 /*Device = Tablets, Ipads (portrait)
@@ -413,6 +425,12 @@ textarea.estado, textarea.resumen {
       }
       #fechaform{
         margin-left: 80%;
+    }
+    #fechaformbaja{
+        margin-left: 18.5%;
+    }
+    #costobaja{
+        margin-left: 30%;
     }
 
 }
@@ -425,6 +443,13 @@ textarea.estado, textarea.resumen {
         margin-top: 3%;
         margin-left: 0%;
 
+    }
+    #fechaformbaja{
+        margin-left: 0%;
+        margin-top: 2%;
+    }
+    #costobaja{
+        margin-left: 0%;
     }
 }
 
