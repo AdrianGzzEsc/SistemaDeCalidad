@@ -1,20 +1,20 @@
 <%- include ("./partials/_header") %>
 
-<p class="subtitle3">Administración</p>
+    <p class="subtitle3">Administración</p>
 
-<div class="container">
-    <div class="row justify-content-center text-center pb-5">
-        <div class="col-md-8 col-sm-10 p-0" style="max-width: 500px;">
-            <a href="/registrar/" class="myButton">Usuarios</a>
-            <a href="#" class="myButton">Reportes</a>
-            <a href="/ajustes/" class="myButton">Ajustes</a>
+    <div class="container">
+        <div class="row justify-content-center text-center pb-5">
+            <div class="col-md-8 col-sm-10 p-0" style="max-width: 500px;">
+                <a href="/agregarUsuario/" class="myButton">Usuarios</a>
+                <a href="#" class="myButton">Reportes</a>
+                <a href="/ajustes/" class="myButton">Ajustes</a>
+            </div>
+        </div>
+        <div class="row justify-content-around text-center pb-5">
+            <div class="col-md-8 col-sm-10 p-0" style="max-width: 500px;">
+                <a onclick="logout()" href="./Inicio.ejs" class="myButton logout">Cerrar sesión</a>
+            </div>
         </div>
     </div>
-    <div class="row justify-content-around text-center pb-5">
-        <div class="col-md-8 col-sm-10 p-0" style="max-width: 500px;">
-            <a onclick="logout()" href="./Inicio.ejs" class="myButton logout">Cerrar sesión</a>
-        </div>
-    </div>
-</div>
 
-<%- include ("./partials/_super") %>
+    <%- include ("./partials/_super") %>

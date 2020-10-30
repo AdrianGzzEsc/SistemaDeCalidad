@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../model/task');
 const provedor = require('../model/provedor');
-const { Users } = require('../model/usuarios');
+const { Users, userModel } = require('../model/usuarios');
 const materiales = require('../model/materiales');
 const departamentos = require('../model/departamentos');
 const operaciones = require('../model/operaciones');
@@ -65,6 +65,12 @@ router.get('/agregarProveedor/', async(req, res) => {;
     const tasks = await provedor.find();
     res.render('AgregarProveedors', { tasks });
 });
+
+router.get('/agregarUsuario/', async(req, res) => {;
+    const tasks = await userModel.find();
+    res.render('AgregarUsuario', { tasks });
+});
+
 
 router.get('/agregarDefecto/', async(req, res) => {;
     const tasks = await defectos.find();
@@ -326,57 +332,56 @@ router.get('/user/validate-user', (req, res) => {
 router.get('/user/get-users', (req, res) => {
     Users
         .getUsers()
-        .then( result => {
-            if( !result ) {
+        .then(result => {
+            if (!result) {
                 res.statusMessage = `No existen usuarios.`;
-                return res.status( 404 ).end();
-            }
-            else
-                return res.status( 200 ).json( result );
+                return res.status(404).end();
+            } else
+                return res.status(200).json(result);
         })
 });
 
 //Ruta para borrar usuario
-router.delete('/user/delete-user/:id', (req,res) => { 
-    let userID = req.params.id    
-    Users
-      .eraseUser(userID)
-        .then(result => {
-          return res.status(404).json(result)
-        })
-        .catch(err => {
-          return err
-        })
-    
-  }),
-
-//Ruta para actualizar usuarios
-router.patch( '/users/update/:id', jsonParser, (req, res) => {
-    console.log("Patch a profile");
-    console.log(req.params);
-
-    let idP = req.params.id;
-    let idB = req.body.email;
-
-    if(!idB){
-        res.statusMessage = "The 'id' in the body is missing.";
-        return res.status( 406 ).end();
-    }
-
-    if(idB != idP){
-        res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
-        return res.status( 409 ).end();
-    }
-
-    Users
-        .updateUser( req.body )
-            .then( result => {
-                return res.status( 202 ).json( result );
+router.delete('/user/delete-user/:id', (req, res) => {
+        let userID = req.params.id
+        Users
+            .eraseUser(userID)
+            .then(result => {
+                return res.status(404).json(result)
             })
-            .catch( err => {
+            .catch(err => {
+                return err
+            })
+
+    }),
+
+    //Ruta para actualizar usuarios
+    router.patch('/users/update/:id', jsonParser, (req, res) => {
+        console.log("Patch a profile");
+        console.log(req.params);
+
+        let idP = req.params.id;
+        let idB = req.body.email;
+
+        if (!idB) {
+            res.statusMessage = "The 'id' in the body is missing.";
+            return res.status(406).end();
+        }
+
+        if (idB != idP) {
+            res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
+            return res.status(409).end();
+        }
+
+        Users
+            .updateUser(req.body)
+            .then(result => {
+                return res.status(202).json(result);
+            })
+            .catch(err => {
                 return err;
             })
-})
+    })
 
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
@@ -392,38 +397,44 @@ router.post('/addDefecto', async(req, res) => {
 });
 
 router.post('/addMaterial', async(req, res) => {
-    const defecto = new materiales(req.body);
-    await defecto.save();
+    const material = new materiales(req.body);
+    await material.save();
     res.redirect('/agregarMaterial/');
 });
 
+router.post('/addUsuario', async(req, res) => {
+    const usuario = new usuarios(req.body);
+    await usuario.save();
+    res.redirect('/agregarUsuario/');
+});
+
 router.post('/addModelo', async(req, res) => {
-    const defecto = new modelos(req.body);
-    await defecto.save();
+    const modelo = new modelos(req.body);
+    await modelo.save();
     res.redirect('/agregarModelo/');
 });
 
 router.post('/addPieza', async(req, res) => {
-    const defecto = new piezas(req.body);
-    await defecto.save();
+    const pieza = new piezas(req.body);
+    await pieza.save();
     res.redirect('/agregarPieza/');
 });
 
 router.post('/addDefectoOperacion', async(req, res) => {
-    const defecto = new defectoOperaciones(req.body);
-    await defecto.save();
+    const defectoOp = new defectoOperaciones(req.body);
+    await defectoOp.save();
     res.redirect('/agregarDefectoOperacion/');
 });
 
 router.post('/addRecepcion', async(req, res) => {
-    const defecto = new inspeccion_de_rec(req.body);
-    await defecto.save();
+    const recepcion = new inspeccion_de_rec(req.body);
+    await recepcion.save();
     res.redirect('/inicio/');
 });
 
 router.post('/addAltaPnc', async(req, res) => {
-    const defecto = new altaPNC(req.body);
-    await defecto.save();
+    const altaPnc = new altaPNC(req.body);
+    await altaPnc.save();
     res.redirect('/inicio/');
 });
 
@@ -452,10 +463,10 @@ router.post('/addInspeccionProceso', async(req, res) => {
 });
 
 router.post('/addBajaPnc/:id', async(req, res) => {
-    const defecto = new bajaPNC(req.body);
+    const bajaPnc = new bajaPNC(req.body);
     var id = req.params.id;
     await altaPNC.remove({ folio: id });
-    await defecto.save();
+    await bajaPnc.save();
     res.redirect('/inicio/');
 });
 
@@ -561,6 +572,12 @@ router.get('/delete/:id', async(req, res) => {
     var id = req.params.id;
     await provedor.remove({ _id: id });
     res.redirect('/agregarProveedor/');
+});
+
+router.get('/deleteUsuario/:id', async(req, res) => {
+    var id = req.params.id;
+    await userModel.remove({ _id: id });
+    res.redirect('/agregarUsuario/');
 });
 
 router.get('/deleteDefecto/:id', async(req, res) => {

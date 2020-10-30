@@ -1,0 +1,111 @@
+<%- include ("./partials/_header") %>
+
+    <div class="container mt-5">
+
+        <div class="row">
+            <!-- FORMULARIO-->
+            <div class="col-md-5">
+                <div class="card">
+                    <p class="subtitle mb-0">Registar Usuario</p>
+                    <div class="card-body">
+                        <form action="/addUsuario/" method="post">
+                            <div class="form-group">
+
+                                <label>Nombre: </label>
+
+                                <input id="fName" class="form-control" type="text" name="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <input id="lName" class="form-control" type="text" name="nombre" placeholder="Apellido">
+                            </div>
+                            <div class="form-group">
+                                <input id="email" class="form-control" type="email" name="nombre" placeholder="Correo Electrónico">
+                            </div>
+                            <div class="form-group">
+                                <input id="password" class="form-control" type="password" name="nombre" placeholder="Contraseña">
+                            </div>
+                            <div class="form-group">
+                                <input id="confirm" class="form-control" type="password" name="nombre" placeholder="Confirmar Contraseña">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4" style="max-width: 200px;">
+                                    <label for="SuperUsuario"> SuperUsuario:</label>
+                                    <select id="superuser" class="form-control" name="Inspeccion">
+                                        <option value="False">Falso</option>
+                                        <option value="True">Verdadero</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <button class="myButton" type="submit" id="registerBtn">Agregar</button>
+                                </div>
+
+                            </div>
+                        </form>
+                        <script src="/js/signup.js"></script>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <a href="/ajustes/" class="myButton btn-red">Regresar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--  TABLA CON LOS DATOS-->
+
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover">
+
+                    <thead>
+                        <tr>
+
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>E-mail</th>
+                            <th>Super</th>
+                            <th>Opción</th>
+
+                        </tr>
+
+
+                    </thead>
+                    <tbody>
+
+                        <% for (var i =0; i < tasks.length; i++)  {     %>
+
+                            <tr>
+                                <td>
+                                    <%= i+1 %>
+                                </td>
+                                <td> <strong> <%= tasks[i].fName %> </strong> </td>
+                                <td> <strong> <%= tasks[i].lName %> </strong> </td>
+                                <td> <strong> <%= tasks[i].email %> </strong> </td>
+                                <td> <strong> <%= tasks[i].superuser %> </strong> </td>
+
+                                <td>
+
+                                    <a href=/deleteUsuario/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
+
+
+                                </td>
+
+                            </tr>
+
+
+                            <%  }  %>
+                                <!--  TABLA CON LOS DATOS-->
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <%- include ("./partials/_footer") %>
