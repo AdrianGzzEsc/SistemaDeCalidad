@@ -1,114 +1,110 @@
 <%- include ("./partials/_header") %>
 
-    <div class="subtitle3">
-        Recepción de Materiales </div>
+    <p class="subtitle3">Recepción de Materiales </p>
     <!-- FORMULARIO-->
-
-    <div class="flex">
-
-        <div class="col-md-5">
-            <div class="card">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col px-3" style="max-width: 750px">
+            <div class="card mb-5">
                 <div class="card-header">
                     <form action="/addRecepcion/" method="post">
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="folio" placeholder="Folio" style="width: fit-content;">
-                        </div>
-
-                        <div class="flex4">
-                            <div>
-
-                                <div class="form-group">
-                                    <input class="form-control" type="date" name="fecha" placeholder="Fecha">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="number" name="Doc_Pro" placeholder="#Doc Prov">
-                                </div>
+                        <div class="form-group row justify-content-between">
+                            <div class="col-sm-5">
+                                <label for="foliorecepcion">Folio:</label>
+                                <input id="foliorecepcion" type="text" class="form-control" placeholder="Folio" name="folio">                             
                             </div>
-
-                            <div>
-                                <div class="form-group">
-                                    <input class="form-control" type="number" name="entrada" placeholder="# de Entrada" style="margin-left: 10%;">
-                                </div>
-
-                                <div class="form-group">
-                                    <input class="form-control" type="number" name="OC" placeholder="# OC" style="margin-left: 10%;">
-                                </div>
+                            <div class="col-sm-5" style="max-width: 200px;">
+                                <label for="fecharecepcion">Fecha:</label>
+                                <input id="fecharecepcion" class="form-control" type="date" name="fecha" placeholder="Fecha">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <select class="form-control" name="Provedor" placeholder="Proveedor">
-                            <option value="" disabled selected hidden>Proveedor</option>
-                            <% for (var i =0; i < prov.length; i++)  {     %>
-
-                                <option value="<%= prov[i].nombre %>">  <%= prov[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="Material" placeholder="Material">
-                            <option value="" disabled selected hidden>Material</option>
-                            <% for (var i =0; i < mat.length; i++)  {     %>
-
-                                <option value="<%= mat[i].nombre %>">  <%= mat[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
+                        <div class="form-group row justify-content-between">
+                            <div class="col-sm-5">
+                                <label for="entrada">No. de Entrada:</label>
+                                <input id="entrada" class="form-control" type="number" name="entrada" placeholder="Entrada">
+                            </div>
                         </div>
 
-                        <div class="flex4">
-
-                            <div class="form-group">
-                                <input class="form-control" type="number" name="Cantidad" placeholder="Cantidad">
+                        <div class="form-group row justify-content-between">
+                            <div class="col-sm-5">
+                                <label for="docprov">No. Documento Proveedor:</label>
+                                <input id="docprov" class="form-control" type="number" name="Doc_Pro" placeholder="No. Documento">
                             </div>
-                            <div class="form-group">
-
-                                <select class="form-control" name="Unidad" style="margin-left: 10%; ">
-                            <option value="" disabled selected hidden>Unidad</option>
-                            <option value="Kg" >Kg</option>
-                            <option value="Piezas" >Piezas</option>
-                            <option value="Juego" >Juego</option>
-                            <option value="m" >m</option>
-                            <option value="m2" >m2</option>
-                            <option value="Corrugado" >Corrugado</option>
-
-                            
-
-
-
-                            </select>
+                            <div class="col-sm-5">
+                                <label for="ocrecepcion">No. Orden de Compra:</label>
+                                <input id="ocrecepcion" class="form-control" type="number" name="OC" placeholder="No. Orden">
                             </div>
-
                         </div>
 
-                        <div class="form-group">
-
-                            <div class="form-group">
-
-                                <select class="form-control" name="Inspeccion">
-                                <option value="" disabled selected hidden>Inspección</option>
-                                <option value="Aceptado">Aceptado</option>
-                                <option value="Rechazado">Rechazado</option>
-                            </select>
+                        <div class="form-group row justify-content-between">
+                            <div class="col-md-6">
+                                <label for="proveedorrecepcion">Proveedor:</label>
+                                <select class="form-control" name="Provedor" placeholder="Seleccionar">
+                                    <option value="" disabled selected hidden>Seleccionar</option>
+                                    <% for (var i =0; i < prov.length; i++)  {     %>
+                                    <option value="<%= prov[i].nombre %>">  <%= prov[i].nombre %> </option>
+                                    <%  }  %>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="flex4">
-                                <button class="btn btn-primary" type="submit" onclick="alerta()">
-                                    Enviar
-                                  
-                            </button>
-
-                                <a class="btn btn-primary" type="submit" href="/inicio" style="margin-left: 10%;">
-                                Salir
-                         </a>
+                        <div class="form-group row justify-content-between">
+                            <div class="col-md-6">
+                                <label for="materialrecepcion">Material:</label>
+                                <select id="materialrecepcion" class="form-control" name="Material" placeholder="Seleccionar">
+                                    <option value="" disabled selected hidden>Seleccionar</option>
+                                    <% for (var i =0; i < mat.length; i++)  {     %>
+                                    <option value="<%= mat[i].nombre %>">  <%= mat[i].nombre %> </option>
+                                    <%  }  %>
+                                </select>
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="cantidadrecepcion">Cantidad:</label>
+                                <input id="cantidadrecepcion" class="form-control" type="number" name="Cantidad" placeholder="Cantidad" >
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="unidadrecepcion">Unidad:</label>
+                                <select id="unidadrecepcion" class="form-control" name="Unidad">
+                                    <option value="" disabled selected hidden>--</option>
+                                    <option value="Kg" >Kg</option>
+                                    <option value="Piezas" >Piezas</option>
+                                    <option value="Juego" >Juego</option>
+                                    <option value="m" >m</option>
+                                    <option value="m2" >m2</option>
+                                    <option value="Corrugado" >Corrugado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-4" style="max-width: 200px;">
+                                <label for="inspeccionrecepcion">Inspección:</label>
+                                <select id="inspeccionrecepcion" class="form-control" name="Inspeccion">
+                                    <option value="" disabled selected hidden>--</option>
+                                    <option value="Aceptado">Aceptado</option>
+                                    <option value="Rechazado">Rechazado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                            <div class="col p-0 px-3">
+                                <a class="myButton btn-red" href="/inicio">Salir</a>
+                            </div>
+                            <div class="col p-0 px-3">
+                                <button class="myButton" type="submit" onclick="alerta()">Enviar</button>
+                            </div>
+                        </div>
+
                     </form>
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+</div>
 
     <%- include ("./partials/_footer") %>
