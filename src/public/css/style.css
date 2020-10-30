@@ -160,7 +160,7 @@ html, body {
     margin: 0.8em 0;
 }
 
-.myButton.login {
+.myButton.login, .myButton.w100 {
     max-width: none;
 }
 
