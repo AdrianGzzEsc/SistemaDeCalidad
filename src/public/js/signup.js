@@ -28,7 +28,10 @@ function userSignupFetch(email, fName, lName, password, superuser) {
             // console.log( responseJSON );
             // alert("Se ha regitrado el usuario con éxito.");
             // Muestra alerta de bootstrap de exito
+
             var mensaje = "Se ha regitrado el usuario con éxito.";
+
+            location.reload();
             $('#agregar-error').html(`
                 <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
                     ${mensaje}
@@ -73,9 +76,15 @@ function init() {
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         let confirm = document.getElementById('confirm').value;
-        let superuser = document.getElementById('superuser').value;
+        let select = document.getElementById('superuser').value;
+        let superuser;
+        if (select == 'true')
+            superuser = true;
+        else
+            superuser = false;
         if (confirm == password) {
             userSignupFetch(email, fName, lName, password, superuser);
+
         } else {
             alert("Las contraseñas no coinciden.");
         }
