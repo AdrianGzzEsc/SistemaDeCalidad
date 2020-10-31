@@ -196,6 +196,20 @@
     <div class="flex7" style="margin-top: 10px;margin-right: 18%;">
             <a href="/inicio/" class="btn btn-danger">Salir</a>
     </div>
+    <script>
+        $(document).ready(function() {
+            $(document.getElementsByName("modelo")).selectize({
+                sortField: 'text'
+            });
+        });
+
+        $(document).ready(function() {
+            $(document.getElementsByName("pieza")).selectize({
+                sortField: 'text'
+            });
+        });
+    </script>
+
 
     <!-- FORMULARIO-->
 

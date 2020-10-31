@@ -1,112 +1,113 @@
 <%- include ("./partials/_header") %>
 
-<p class="subtitle3">Alta Producto No Conforme</p>
+    <p class="subtitle3">Alta Producto No Conforme</p>
 
-<!-- FORMULARIO-->
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col px-3" style="max-width: 750px;">
-            <div class="card mb-5">
-                <div class="card-header">
-                    <form action="/add" method="post">
-                        <div class="form-group row justify-content-between">
-                            <div class="col-sm-5">
-                                <label for="proceso">Proceso del defecto:</label>
-                                <select id="proceso" class="form-control" name="defecto" placeholder="defecto"
-                                    onchange="location = this.value;">
+    <!-- FORMULARIO-->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col px-3" style="max-width: 750px;">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <form action="/add" method="post">
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-5">
+                                    <label for="proceso">Proceso del defecto:</label>
+                                    <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso" onchange="location = this.value;">
                                     <option value="" disabled selected hidden>Seleccionar proceso</option>
                                     <% for (var i =0; i < oper.length; i++)  {     %>
                                     <option value="/enviarvariable/<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
                                     <%  }  %>
                                 </select>
-                            </div>
-                            <div class="col-sm-5" style="max-width: 200px;">
-                                <label for="fechaform">Fecha:</label>
-                                <input class="form-control" type="date" name="Fecha" placeholder="Fecha" id="fechaform">
-                            </div>
-                        </div>
-
-                        <div class="form-group row justify-content-between">
-                            <div class="col-sm-5">
-                                <label for="folio">Folio:</label>
-                                <input class="form-control" type="text" name="Folio" placeholder="Folio" id="folio">
-                                <label for="orden">No. orden:</label>
-                                <input class="form-control" type="text" name="Orden" placeholder="Orden de Producción"
-                                    id="orden">
+                                </div>
+                                <div class="col-sm-5" style="max-width: 200px;">
+                                    <label for="fechaform">Fecha:</label>
+                                    <input class="form-control" type="date" name="Fecha" placeholder="Fecha" id="fechaform">
+                                </div>
                             </div>
 
-                            <div class="col-sm-5">
-                                <label for="modelo">Modelo:</label>
-                                <select id="modelo" class="form-control" name="Modelo" placeholder="Modelo">
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-5">
+                                    <label for="folio">Folio:</label>
+                                    <input class="form-control" type="text" name="Folio" placeholder="Folio" id="folio">
+                                    <label for="orden">No. orden:</label>
+                                    <input class="form-control" type="text" name="Orden" placeholder="Orden de Producción" id="orden">
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <label for="modelo">Modelo:</label>
+                                    <select id="modelo" class="form-control" name="Modelo" placeholder="Modelo">
                                     <option value="" disabled selected hidden>Modelo</option>
                                     <% for (var i =0; i < mod.length; i++)  {     %>
-                                    <option value=""> <%= mod[i].nombre %> </option>
+                                    <option value="<%= mod[i].nombre %> "> <%= mod[i].nombre %> </option>
                                     <%  }  %>
                                 </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row justify-content-between">
-                            <div class="col-sm-6">
-                                <label for="seleccion">Seleccione los Defectos:</label>
-                                <select id="seleccion" class="selectpicker" multiple data-live-search="true"
-                                    class="form-control">
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-6">
+                                    <label for="seleccion">Seleccione los Defectos:</label>
+                                    <select id="seleccion" class="selectpicker" multiple data-live-search="true" class="form-control">
                                     <% for (var i =0; i < defOp.length; i++)  {     %>
                                     <option value=""> <%= defOp[i].defecto %> </option>
                                     <%  }  %>
                                 </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input id="cantidad" class="form-control" type="number" name="Cantidad" placeholder="0" style="width: fit-content;">
+                                </div>
                             </div>
-                            <div class="col-sm-5">
-                                <label for="cantidad">Cantidad:</label>
-                                <input id="cantidad" class="form-control" type="number" name="Cantidad" placeholder="0"
-                                    style="width: fit-content;">
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col">
-                                <label for="comentarios">Comentarios:</label>
-                                <textarea id="comentarios" class="form-control resumen mb-4" name="Comentarios"
-                                    cols="80" rows="5" placeholder="Sus comentarios aquí"></textarea>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="comentarios">Comentarios:</label>
+                                    <textarea id="comentarios" class="form-control resumen mb-4" name="Comentarios" cols="80" rows="5" placeholder="Sus comentarios aquí"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-5">
-                                <label for="seleccion">Retrabajable:</label>
-                                <select id="seleccion" class="form-control" name="Retrabajable"
-                                    placeholder="Seleccionar" style="width: fit-content;">
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="seleccion">Retrabajable:</label>
+                                    <select id="seleccion" class="form-control" name="Retrabajable" placeholder="Seleccionar" style="width: fit-content;">
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <option value="Menor">Si</option>
                                     <option value="Mayor">No</option>
                                 </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row justify-content-center pb-3 pt-4">
-                            <div class="col p-0 px-3">
-                                <a class="myButton btn-red" href="/inicio">Salir</a>
+                            <div class="row justify-content-center pb-3 pt-4">
+                                <div class="col p-0 px-3">
+                                    <a class="myButton btn-red" href="/inicio">Salir</a>
+                                </div>
+                                <div class="col p-0 px-3">
+                                    <button class="myButton" type="submit">Enviar</button>
+                                </div>
                             </div>
-                            <div class="col p-0 px-3">
-                                <button class="myButton" type="submit">Enviar</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    function getModel() {
-        var x = document.getElementById("model").value;
-        for (var i = 0; i < defOp.length; i++) {
-            if (defOp.nombre == x) {
-                alert(defOp.defecto);
+    <script>
+        function getModel() {
+            var x = document.getElementById("model").value;
+            for (var i = 0; i < defOp.length; i++) {
+                if (defOp.nombre == x) {
+                    alert(defOp.defecto);
+                }
             }
         }
-    }
-</script>
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(document.getElementById("modelo")).selectize({
+                sortField: 'text'
+            });
+        });
+    </script>
 
-<%- include ("./partials/_footer") %>
+    <%- include ("./partials/_footer") %>
