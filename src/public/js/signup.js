@@ -25,12 +25,42 @@ function userSignupFetch( email, fName, lName, password ){
             throw new Error( response.statusText );
         })
         .then( responseJSON => {
-            console.log( responseJSON );
-            alert("Se ha creado usuario con éxito.");
+            // console.log( responseJSON );
+            // alert("Se ha regitrado el usuario con éxito.");
+            // Muestra alerta de bootstrap de exito
+            var mensaje = "Se ha regitrado el usuario con éxito.";
+            $('#agregar-error').html(`
+                <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
+                    ${mensaje}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+            borraAlerta();
         })
         .catch( err => {
-            alert(err.message);
+            // alert(err.message);
+            // Muestra alerta de bootstrap de error
+            var mensaje = err.message;
+            $('#agregar-error').html(`
+                <div class="alert alert-danger alert-dismissible fade show msg-error" role="alert">
+                    ${mensaje}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+            borraAlerta();
+            
         });
+}
+
+// Funcion que borra la alerta de bootstrap despues de 5000ms
+function borraAlerta() {
+    setTimeout(function() {
+            $('#agregar-error').html('');
+    }, 5000);
 }
 
 function init() {
@@ -47,7 +77,7 @@ function init() {
             userSignupFetch( email, fName, lName, password );
         }
         else {
-            alert("Confirm password should be the same as the Password field.");
+            alert("Las contraseñas no coinciden.");
         }
     })
 

@@ -216,7 +216,7 @@ router.post('/registrar', jsonParser, function(req, res) {
     let { fName, lName, email, password, superuser } = req.body;
 
     if (!fName || !lName || !email || !password) {
-        res.statusMessage = "Parameter missing in the body of the request.";
+        res.statusMessage = "Hay uno o más campos faltantes";
         return res.status(406).end();
     }
 
@@ -226,9 +226,9 @@ router.post('/registrar', jsonParser, function(req, res) {
         .then(user => {
             if (user) {
                 flag = true;
-                throw new Error("The user already exists.");
+                throw new Error("El usuario ya existe.");
             } else {
-                console.log("The user is new.");
+                console.log("Usuario nuevo.");
             }
         })
         .catch(err => {
@@ -262,7 +262,7 @@ router.post('/registrar', jsonParser, function(req, res) {
                 return res.status(400).end();
             });
     } else {
-        res.statusMessage = "That user already exists.";
+        res.statusMessage = "El usuario ya existe.";
         return res.status(406).end();
     }
 });
@@ -272,7 +272,7 @@ router.post('/SignIn', jsonParser, function(req, res) {
     let { email, password } = req.body;
 
     if (!email || !password) {
-        res.statusMessage = "Hay uno o más campos vacíos.";
+        res.statusMessage = "Hay uno o más campos faltantes.";
         return res.status(406).end();
     }
 
