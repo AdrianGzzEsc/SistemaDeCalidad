@@ -31,7 +31,6 @@ function userSignupFetch(email, fName, lName, password, superuser) {
 
             var mensaje = "Se ha regitrado el usuario con éxito.";
 
-            location.reload();
             $('#agregar-error').html(`
                 <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
                     ${mensaje}
@@ -41,6 +40,7 @@ function userSignupFetch(email, fName, lName, password, superuser) {
                 </div>
             `);
             borraAlerta();
+            espera()
         })
         .catch(err => {
             // alert(err.message);
@@ -55,7 +55,6 @@ function userSignupFetch(email, fName, lName, password, superuser) {
                 </div>
             `);
             borraAlerta();
-
         });
 }
 
@@ -64,6 +63,11 @@ function borraAlerta() {
     setTimeout(function() {
         $('#agregar-error').html('');
     }, 5000);
+}
+
+function espera() {
+    setTimeout(() => { console.log("World!"); }, 5000);
+    location.reload();
 }
 
 function init() {
