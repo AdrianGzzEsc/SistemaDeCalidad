@@ -1,4 +1,4 @@
-function userSignupFetch( email, fName, lName, password, superuser ){
+function userSignupFetch(email, fName, lName, password, superuser) {
     let url = '/registrar';
 
     let data = {
@@ -10,21 +10,21 @@ function userSignupFetch( email, fName, lName, password, superuser ){
     }
 
     let settings = {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body : JSON.stringify( data )
+        body: JSON.stringify(data)
     }
 
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ){
+    fetch(url, settings)
+        .then(response => {
+            if (response.ok) {
                 return response.json();
             }
-            throw new Error( response.statusText );
+            throw new Error(response.statusText);
         })
-        .then( responseJSON => {
+        .then(responseJSON => {
             // console.log( responseJSON );
             // alert("Se ha regitrado el usuario con éxito.");
             // Muestra alerta de bootstrap de exito
@@ -39,7 +39,7 @@ function userSignupFetch( email, fName, lName, password, superuser ){
             `);
             borraAlerta();
         })
-        .catch( err => {
+        .catch(err => {
             // alert(err.message);
             // Muestra alerta de bootstrap de error
             var mensaje = err.message;
@@ -52,47 +52,45 @@ function userSignupFetch( email, fName, lName, password, superuser ){
                 </div>
             `);
             borraAlerta();
-            
+
         });
 }
 
 // Funcion que borra la alerta de bootstrap despues de 5000ms
 function borraAlerta() {
     setTimeout(function() {
-            $('#agregar-error').html('');
+        $('#agregar-error').html('');
     }, 5000);
 }
 
 function init() {
-    let registerBtn = document.getElementById( 'registerBtn' );
+    let registerBtn = document.getElementById('registerBtn');
 
-    registerBtn.addEventListener( 'click', ( event ) => {
+    registerBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        let fName = document.getElementById( 'fName' ).value;
-        let lName = document.getElementById( 'lName' ).value;
-        let email = document.getElementById( 'email' ).value;
-        let password = document.getElementById( 'password' ).value;
-        let confirm = document.getElementById( 'confirm' ).value;
-        let superuser = false;
-        if( confirm == password ) {
-            userSignupFetch( email, fName, lName, password, superuser );
-        }
-        else {
+        let fName = document.getElementById('fName').value;
+        let lName = document.getElementById('lName').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let confirm = document.getElementById('confirm').value;
+        let superuser = document.getElementById('superuser').value;
+        if (confirm == password) {
+            userSignupFetch(email, fName, lName, password, superuser);
+        } else {
             alert("Las contraseñas no coinciden.");
         }
     })
 
-    let confirm = document.getElementById( 'confirm' );
+    let confirm = document.getElementById('confirm');
 
-    confirm.addEventListener( 'change', function () {
-        let password = document.getElementById( 'password' ).value;
-        if( password != confirm.value ) {
-            confirm.classList.add( 'false' );
-            confirm.classList.remove( 'correct' );
-        }
-        else {
-            confirm.classList.add( 'correct' );
-            confirm.classList.remove( 'false' );
+    confirm.addEventListener('change', function() {
+        let password = document.getElementById('password').value;
+        if (password != confirm.value) {
+            confirm.classList.add('false');
+            confirm.classList.remove('correct');
+        } else {
+            confirm.classList.add('correct');
+            confirm.classList.remove('false');
         }
     })
 }
