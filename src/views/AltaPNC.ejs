@@ -109,5 +109,12 @@
             });
         });
     </script>
+    <script>
+        let sel = document.getElementById( 'proceso' );
+        sel.addEventListener( 'click', ( event ) => {
+            event.preventDefault();
+            console.log('hola');
+        })
+    </script>
 
     <%- include ("./partials/_footer") %>

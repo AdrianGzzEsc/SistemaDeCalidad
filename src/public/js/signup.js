@@ -1,4 +1,4 @@
-function userSignupFetch( email, fName, lName, password ){
+function userSignupFetch( email, fName, lName, password, superuser ){
     let url = '/registrar';
 
     let data = {
@@ -6,7 +6,7 @@ function userSignupFetch( email, fName, lName, password ){
         lName,
         password,
         email,
-        superuser : false
+        superuser
     }
 
     let settings = {
@@ -73,8 +73,9 @@ function init() {
         let email = document.getElementById( 'email' ).value;
         let password = document.getElementById( 'password' ).value;
         let confirm = document.getElementById( 'confirm' ).value;
+        let superuser = false;
         if( confirm == password ) {
-            userSignupFetch( email, fName, lName, password );
+            userSignupFetch( email, fName, lName, password, superuser );
         }
         else {
             alert("Las contraseñas no coinciden.");
