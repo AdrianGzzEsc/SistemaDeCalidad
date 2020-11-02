@@ -1,4 +1,4 @@
-function addRecepcionFetch( folio, inspector, fecha, entrada, Doc_Pro, OC, Proveedor, Material, Cantidad, Unidad, Inspeccion ) {
+function addRecepcionFetch( folio, fecha, inspector, entrada, OC, Doc_Pro, Proveedor, Material, Cantidad, Unidad, Inspeccion ) {
     let url = '/addRecepcion/';
 
     let data = {
@@ -6,8 +6,8 @@ function addRecepcionFetch( folio, inspector, fecha, entrada, Doc_Pro, OC, Prove
         inspector : inspector,
         fecha : fecha,
         entrada : entrada,
-        Doc_Pro : Doc_Pro,
         OC : OC,
+        Doc_Pro : Doc_Pro,
         Proveedor : Proveedor,
         Material : Material,
         Cantidad : Cantidad,
@@ -17,6 +17,9 @@ function addRecepcionFetch( folio, inspector, fecha, entrada, Doc_Pro, OC, Prove
 
     let settings = {
         method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
         body : JSON.stringify( data )
     }
 
@@ -35,8 +38,8 @@ function addRecepcionFetch( folio, inspector, fecha, entrada, Doc_Pro, OC, Prove
 }
 
 function displayPost( data ) {
-    console.log( data );
     alert( "Se hizo inspeccion con exito." );
+    window.location.href = "/inicio/";
 }
 
 function validate() {
@@ -69,11 +72,14 @@ function userEmail( data ) {
 }
 
 function submit( data ) {
+    let fName = String(data.fName);
+    let lName = String(data.lName);
+    let inspector = fName + ' ' + lName;
     let btn = document.getElementById( 'btnSubmit' );
     btn.addEventListener( 'click', ( event ) => {
         event.preventDefault();
+        event.stopImmediatePropagation();
         let folio = document.getElementById( 'foliorecepcion' );
-        let inspector = `${data.fName} ${data.lName}`;
         let fecha = document.getElementById( 'fecharecepcion' );
         let entrada = document.getElementById( 'entrada' );
         let Doc_Pro = document.getElementById( 'docprov' );
@@ -83,18 +89,7 @@ function submit( data ) {
         let Cantidad = document.getElementById( 'cantidadrecepcion' );
         let Unidad = document.getElementById( 'unidadrecepcion' );
         let Inspeccion = document.getElementById( 'inspeccionrecepcion' );
-        console.log( folio );
-        console.log( inspector );
-        console.log( fecha );
-        console.log( entrada );
-        console.log( Doc_Pro );
-        console.log( OC );
-        console.log( Proveedor );
-        console.log( Material );
-        console.log( Cantidad );
-        console.log( Unidad );
-        console.log( Inspeccion );
-        console.log( "Fin." );
+        addRecepcionFetch( Number(folio.value), fecha.value, String(inspector), Number(entrada.value), Number(OC.value), Number(Doc_Pro.value), Proveedor.value, Material.value, Number(Cantidad.value), Unidad.value, Inspeccion.value );
     })
 }
 

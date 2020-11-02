@@ -432,8 +432,53 @@ router.post('/addRecepcion/', jsonParser, function(req, res) {
     res.redirect('/inicio/');*/
     let {folio, fecha, inspector, entrada, OC, Doc_Pro, Proveedor, Material, Cantidad, Unidad, Inspeccion } = req.body;
 
-    if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
+    /*if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
         res.statusMessage = "Hay uno o varios campos faltantes.";
+        return res.status( 406 ).end();
+    }*/
+
+    if( !folio ) {
+        res.statusMessage = "Falta el folio.";
+        return res.status( 406 ).end();
+    }
+    if( !fecha ) {
+        res.statusMessage = "Falta la fecha.";
+        return res.status( 406 ).end();
+    }
+    if( !inspector) {
+        res.statusMessage = "Falta el inspector.";
+        return res.status( 406 ).end();
+    }
+    if( !entrada) {
+        res.statusMessage = "Falta la entrada.";
+        return res.status( 406 ).end();
+    }
+    if( !OC) {
+        res.statusMessage = "Falta el OC.";
+        return res.status( 406 ).end();
+    }
+    if( !Doc_Pro) {
+        res.statusMessage = "Falta el Doc_Pro.";
+        return res.status( 406 ).end();
+    }
+    if( !Proveedor) {
+        res.statusMessage = "Falta el Proveedor.";
+        return res.status( 406 ).end();
+    }
+    if( !Material) {
+        res.statusMessage = "Falta el Material.";
+        return res.status( 406 ).end();
+    }
+    if( !Cantidad) {
+        res.statusMessage = "Falta la Cantidad.";
+        return res.status( 406 ).end();
+    }
+    if( !Unidad) {
+        res.statusMessage = "Falta la Unidad.";
+        return res.status( 406 ).end();
+    }
+    if( !Inspeccion) {
+        res.statusMessage = "Falta la Inspeccion.";
         return res.status( 406 ).end();
     }
 
@@ -474,7 +519,7 @@ router.post('/addRecepcion/', jsonParser, function(req, res) {
         Cantidad,
         Unidad,
         Inspeccion
-     }
+    }
 
     inspeccion_de_rec
         .createInsp( newInsp )
