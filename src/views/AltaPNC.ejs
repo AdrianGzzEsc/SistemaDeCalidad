@@ -13,11 +13,11 @@
                                 <div class="col-sm-5">
                                     <label for="proceso">Proceso del defecto:</label>
                                     <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso" onchange="location = this.value;">
-                                    <option value="" disabled selected hidden>Seleccionar proceso</option>
-                                    <% for (var i =0; i < oper.length; i++)  {     %>
-                                    <option value="/enviarvariable/<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
-                                    <%  }  %>
-                                </select>
+                                        <option value="" disabled selected hidden>Seleccionar proceso</option>
+                                        <% for (var i =0; i < oper.length; i++)  {     %>
+                                        <option value="/enviarvariable/<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
+                                        <%  }  %>
+                                    </select>
                                 </div>
                                 <div class="col-sm-5" style="max-width: 200px;">
                                     <label for="fechaform">Fecha:</label>

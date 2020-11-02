@@ -11,7 +11,7 @@ const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
 const defectoOperaciones = require('../model/defectoOperaciones');
-const inspeccion_de_rec = require('../model/inspeccion_de_rec');
+const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
 const altaPNC = require('../model/AltaPnc');
 const escuadradora = require('../model/escuadradora');
@@ -426,10 +426,67 @@ router.post('/addDefectoOperacion', async(req, res) => {
     res.redirect('/agregarDefectoOperacion/');
 });
 
-router.post('/addRecepcion', async(req, res) => {
-    const recepcion = new inspeccion_de_rec(req.body);
+router.post('/addRecepcion/', jsonParser, function(req, res) {
+    /*const recepcion = new inspeccion_de_rec(req.body);
     await recepcion.save();
-    res.redirect('/inicio/');
+    res.redirect('/inicio/');*/
+    let {folio, fecha, inspector, entrada, OC, Doc_Pro, Proveedor, Material, Cantidad, Unidad, Inspeccion } = req.body;
+
+    if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
+        res.statusMessage = "Hay uno o varios campos faltantes.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( folio ) ){
+        res.statusMessage = "El 'folio' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( entrada ) ){
+        res.statusMessage = "La 'entrada' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( OC ) ){
+        res.statusMessage = "El 'OC' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( Doc_Pro ) ){
+        res.statusMessage = "El 'Doc_Pro' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( Cantidad ) ){
+        res.statusMessage = "La 'Cantidad' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        entrada,
+        OC,
+        Doc_Pro,
+        Proveedor,
+        Material,
+        Cantidad,
+        Unidad,
+        Inspeccion
+     }
+
+    inspeccion_de_rec
+        .createInsp( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status( 400 ).end();
+            return res.status( 201 ).json( result );
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status( 500 ).end();
+        })
 });
 
 router.post('/addAltaPnc', async(req, res) => {
