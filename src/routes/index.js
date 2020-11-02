@@ -13,7 +13,7 @@ const piezas = require('../model/piezas');
 const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
-const altaPNC = require('../model/AltaPnc');
+const { altaPNC, altaPNC_collection } = require('../model/AltaPnc');
 const escuadradora = require('../model/escuadradora');
 const enchapadora = require('../model/enchapadora');
 const taladro = require('../model/taladro');
@@ -437,48 +437,8 @@ router.post('/addRecepcion/', jsonParser, function(req, res) {
         return res.status( 406 ).end();
     }*/
 
-    if( !folio ) {
-        res.statusMessage = "Falta el folio.";
-        return res.status( 406 ).end();
-    }
-    if( !fecha ) {
-        res.statusMessage = "Falta la fecha.";
-        return res.status( 406 ).end();
-    }
-    if( !inspector) {
-        res.statusMessage = "Falta el inspector.";
-        return res.status( 406 ).end();
-    }
-    if( !entrada) {
-        res.statusMessage = "Falta la entrada.";
-        return res.status( 406 ).end();
-    }
-    if( !OC) {
-        res.statusMessage = "Falta el OC.";
-        return res.status( 406 ).end();
-    }
-    if( !Doc_Pro) {
-        res.statusMessage = "Falta el Doc_Pro.";
-        return res.status( 406 ).end();
-    }
-    if( !Proveedor) {
-        res.statusMessage = "Falta el Proveedor.";
-        return res.status( 406 ).end();
-    }
-    if( !Material) {
-        res.statusMessage = "Falta el Material.";
-        return res.status( 406 ).end();
-    }
-    if( !Cantidad) {
-        res.statusMessage = "Falta la Cantidad.";
-        return res.status( 406 ).end();
-    }
-    if( !Unidad) {
-        res.statusMessage = "Falta la Unidad.";
-        return res.status( 406 ).end();
-    }
-    if( !Inspeccion) {
-        res.statusMessage = "Falta la Inspeccion.";
+    if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
+        res.statusMessage = "Falta uno o más campos por llenar.";
         return res.status( 406 ).end();
     }
 
@@ -534,10 +494,46 @@ router.post('/addRecepcion/', jsonParser, function(req, res) {
         })
 });
 
-router.post('/addAltaPnc', async(req, res) => {
-    const altaPnc = new altaPNC(req.body);
+router.post('/addAltaPnc/', async(req, res) => {
+    /*const altaPnc = new altaPNC(req.body);
     await altaPnc.save();
-    res.redirect('/inicio/');
+    res.redirect('/inicio/');*/
+    let { folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector } = req.body;
+
+    if( !folio || !Fecha || !Orden || !Proceso || !Modelo || !Defectos || !Cantidad || !Comentarios || !Retrabajo || !inspector ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status( 406 ).end();
+    }
+
+    if( isNaN( Cantidad ) ) {
+        res.statusMessage = "La 'Cantidad' debe ser un numero.";
+        return res.status( 406 ).end();
+    }
+
+    let newAlta = {
+        folio,
+        Fecha,
+        Orden,
+        Proceso,
+        Modelo,
+        Defectos, 
+        Cantidad,
+        Comentarios,
+        Retrabajo,
+        inspector
+    }
+
+    altaPNC_collection
+        .createAlta( newAlta )
+        .then( result => {
+            if( result.errmsg )
+                return res.status( 400 ).end();
+            return res.status( 201 ).json( result );
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status( 500 ).end();
+        })
 });
 
 router.post('/addInspeccionProceso', async(req, res) => {
