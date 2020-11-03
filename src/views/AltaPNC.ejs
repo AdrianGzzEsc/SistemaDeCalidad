@@ -49,7 +49,7 @@
                                     <label for="seleccion">Seleccione los Defectos:</label>
                                     <select id="seleccion" class="selectpicker" multiple data-live-search="true" class="form-control">
                                         <% for (var i =0; i < defOp.length; i++)  {     %>
-                                        <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
+                                            <option class="<%=defOp[i].operacion%>" value="<%=defOp[i].defecto%>"><%= defOp[i].defecto %></option>
                                         <%  }  %>
                                     </select>
                                 </div>
@@ -111,10 +111,19 @@
     </script>
     <script>
         let sel = document.getElementById( 'proceso' );
-        sel.addEventListener( 'click', ( event ) => {
+        sel.addEventListener( 'change', ( event ) => {
             event.preventDefault();
-            console.log('hola');
+            var array = [];
+            for(let i = 0; i < document.getElementsByClassName(sel.value).length; i++) {
+                let outerHTML = document.getElementsByClassName(sel.value)[i].outerHTML;
+                var strDef = outerHTML.search(">");
+                var strDef2 = outerHTML.search("/");
+                var defecto = outerHTML.substring(strDef+1, strDef2-1);
+                array.push(defecto);
+            }
+            console.log(array);
         })
+        
     </script>
 
 </body>
