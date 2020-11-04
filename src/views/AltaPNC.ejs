@@ -48,9 +48,7 @@
                                 <div class="col-sm-6">
                                     <label for="seleccion">Seleccione los Defectos:</label>
                                     <select id="seleccion" class="selectpicker" multiple data-live-search="true" class="form-control">
-                                        <% for (var i =0; i < defOp.length; i++)  {     %>
-                                            <option class="<%=defOp[i].operacion%>" value="<%=defOp[i].defecto%>"><%= defOp[i].defecto %></option>
-                                        <%  }  %>
+                                        <option></option>
                                     </select>
                                 </div>
                                 <div class="col-sm-5">
@@ -68,7 +66,7 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-5">
-                                    <label for="seleccion">Retrabajable:</label>
+                                    <label for="seleccionRet">Retrabajable:</label>
                                     <select id="seleccionRet" class="form-control" name="Retrabajable" placeholder="Seleccionar" style="width: fit-content;">
                                         <option value="" disabled selected hidden>Seleccionar</option>
                                         <option value="Menor">Si</option>
@@ -91,7 +89,13 @@
             </div>
         </div>
     </div>
-
+    <div hidden>
+        <select hidden>
+            <% for (var i =0; i < defOp.length; i++)  {     %>
+                <option hidden class="<%=defOp[i].operacion%>" value="<%=defOp[i].defecto%>"><%= defOp[i].defecto %></option>
+            <%  }  %>
+        </select>
+    </div>
     <script>
         function getModel() {
             var x = document.getElementById("model").value;
@@ -111,8 +115,10 @@
     </script>
     <script>
         let sel = document.getElementById( 'proceso' );
+        let select = document.getElementById('seleccion');
         sel.addEventListener( 'change', ( event ) => {
             event.preventDefault();
+            $(".selectpicker").selectpicker();
             var array = [];
             for(let i = 0; i < document.getElementsByClassName(sel.value).length; i++) {
                 let outerHTML = document.getElementsByClassName(sel.value)[i].outerHTML;
@@ -121,11 +127,21 @@
                 var defecto = outerHTML.substring(strDef+1, strDef2-1);
                 array.push(defecto);
             }
-            console.log(array);
+            console.log(select.innerHTML);
+            console.log("change.");
+            select.classList.remove('seleectpicker');
+            select.innerHTML = ``;
+            select.classList.add('selectpicker');
+            for( let i = 0; i < array.length; i++ ) {
+                let opt = document.createElement('option');
+                opt.value = array[i];
+                opt.innerText = array[i];
+                select.add(opt);
+            }
+            $('.selectpicker').selectpicker('refresh');
+            console.log(select);
         })
-        
     </script>
-
 </body>
 <script src="../../js/home.js"></script>
 <script src="../../js/altaPNC.js"></script>
