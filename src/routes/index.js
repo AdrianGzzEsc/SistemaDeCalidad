@@ -141,8 +141,9 @@ router.get('/enchapadora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Enchapadora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Enchapadora', { ins, defOp, mod, pieza });
+    res.render('Enchapadora', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/taladro/', async(req, res) => {
@@ -150,8 +151,9 @@ router.get('/taladro/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Taladro" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Taladro', { ins, defOp, mod, pieza });
+    res.render('Taladro', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/sacabocados/', async(req, res) => {
@@ -159,8 +161,9 @@ router.get('/sacabocados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Sacabocados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Sacabocados', { ins, defOp, mod, pieza });
+    res.render('Sacabocados', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado1/', async(req, res) => {
@@ -168,7 +171,8 @@ router.get('/armado1/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado1" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado1', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado1', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado2/', async(req, res) => {
@@ -176,7 +180,8 @@ router.get('/armado2/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado2" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado2', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado2', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado3/', async(req, res) => {
@@ -184,7 +189,8 @@ router.get('/armado3/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado3" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado3', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado3', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/acabados/', async(req, res) => {
@@ -192,7 +198,8 @@ router.get('/acabados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Acabados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Acabados', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Acabados', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/altaPNC/', async(req, res) => {

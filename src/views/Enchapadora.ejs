@@ -44,28 +44,22 @@
 
 
                         <div class="form-group">
-                            <select class="form-control" name="modelo" placeholder="Modelo" style="width: 200px">
-                            <option value="" disabled selected hidden>Modelo</option>
-                            <% for (var i =0; i < mod.length; i++)  {     %>
+                            <select id="modelo" class="form-control" name="modelo" placeholder="Modelo" style="width: 200px" onchange="change()">
+                                <option value="" disabled selected hidden>Modelo</option>
+                                <% for (var i =0; i < mod.length; i++)  {     %>
 
-                                <option value="<%= mod[i].nombre %>">  <%= mod[i].nombre %> </option>
+                                    <option value="<%= mod[i].nombre %>">  <%= mod[i].nombre %> </option>
 
-                                <%  }  %>
-                        </select>
+                                    <%  }  %>
+                            </select>
                         </div>
 
 
 
-                        <div class="form-group">
-                            <select class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
-                            <option value="" disabled selected hidden>Pieza</option>
-
-                            <% for (var i =0; i < pieza.length; i++)  {     %>
-
-                                <option value="<%= pieza[i].nombre %>">  <%= pieza[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
+                        <div id="divPiezas" class="form-group">
+                            <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
+                                <option value="" disabled selected hidden>Pieza</option>
+                            </select>
                         </div>
 
                     </div>
@@ -196,6 +190,15 @@
     <div class="flex7" style="margin-top: 10px;margin-right: 18%;">
             <a href="/inicio/" class="btn btn-danger">Salir</a>
     </div>
+    <div hidden>
+        <select id="busqueda" hidden class="form-control" placeholder="Pieza" style="width: 200px">
+            <% for (var i =0; i < pM.length; i++)  {     %>
+
+                <option class="<%=pM[i].modelo%>"><%=pM[i].pieza%></option>
+
+                <%  }  %>
+        </select>
+    </div>
     <script>
         $(document).ready(function() {
             $(document.getElementsByName("modelo")).selectize({
@@ -208,6 +211,31 @@
                 sortField: 'text'
             });
         });
+    </script>
+
+    <script>
+        function change() {
+            let sel = document.getElementById( 'modelo' );
+            var array = [];
+            let piezas = document.getElementsByClassName(sel.value);
+            for(let i = 0; i < piezas.length; i++) {
+                let outerHTML = piezas[i].outerHTML;
+                var strDef = outerHTML.search(">");
+                var strDef2 = outerHTML.search("/");
+                var defecto = outerHTML.substring(strDef+1, strDef2-1);
+                array.push(defecto);
+            }
+            let someHTML = ``;
+            for( let i = 0; i < array.length; i++ ) {
+                someHTML += `<option value="${array[i]}">${array[i]}</option>`;
+            }
+            let divPiezas = document.getElementById( 'divPiezas' );
+            divPiezas.innerHTML = `
+            <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
+                ${someHTML}
+            </select>
+            `;
+        }
     </script>
 
 
