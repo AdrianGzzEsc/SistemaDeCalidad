@@ -129,9 +129,7 @@
             }
             console.log(select.innerHTML);
             console.log("change.");
-            select.classList.remove('seleectpicker');
             select.innerHTML = ``;
-            select.classList.add('selectpicker');
             for( let i = 0; i < array.length; i++ ) {
                 let opt = document.createElement('option');
                 opt.value = array[i];

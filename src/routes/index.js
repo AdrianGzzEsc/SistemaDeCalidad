@@ -10,6 +10,7 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
+
 const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
@@ -130,8 +131,9 @@ router.get('/escuadradora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Escuadradora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Escuadradora', { ins, defOp, mod, pieza });
+    res.render('Escuadradora', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/enchapadora/', async(req, res) => {
