@@ -1,4 +1,4 @@
-function validate() {
+function validateSuper() {
     let url = "/user/validate-user";
     let settings = {
         method : 'GET',
@@ -15,7 +15,7 @@ function validate() {
             throw new Error( response.statusText ); 
         })
         .then( responseJSON => {
-            userEmail( responseJSON );
+            userEmailSuper( responseJSON );
         })
         .catch( err => {
             console.log( err.message );
@@ -23,21 +23,17 @@ function validate() {
         });
 }
 
-function userEmail( data ) {
-    console.log( "nothing." );
-}
-
-function logout() {
-    localStorage.setItem('token', null );
-    init();
-    console.log("Logged out");
+function userEmailSuper( data ) {
+    if( !data.superuser ) {
+        window.location.href = "/inicio/";
+    }
+    else {
+        console.log( 'si es superusuario' );
+    }
 }
 
 function init() {
-    validate();
-    let str = window.location.href;
-    let substr = str.substr(21, str.length);
-    console.log( "Estamos en la pagina de: " + substr );
+    validateSuper();
 }
 
 init();

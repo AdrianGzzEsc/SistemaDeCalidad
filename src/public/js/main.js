@@ -27,11 +27,13 @@ function userEmail(data) {
     if (data.superuser) {
         window.location.href = "/super/";
     }
-    window.location.href = "/inicio/";
+    else {
+        window.location.href = "/inicio/";
+    }
 }
 
 function init() {
-    validate();
+     validate();
 }
 
 init();
