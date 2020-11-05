@@ -16,23 +16,4 @@ const inspeccionSchema = Schema({
 
 });
 
-const inspeccion_de_rec_model = mongoose.model('Inspeccion_de_Recepciones', inspeccionSchema);
-
-const inspeccion_de_rec = {
-    createInsp : function( newInsp ) {
-        return inspeccion_de_rec_model
-            .create( newInsp )
-            .then( insp => {
-                return insp;
-            })
-            .catch( err => {
-                throw new Error( err.message );
-            })
-    }
-}
-
-//module.exports = mongoose.model('Inspeccion_de_Recepciones', inspeccionSchema);
-
-module.exports = {
-    inspeccion_de_rec
-};
+module.exports = mongoose.model('Inspeccion_de_Recepciones', inspeccionSchema);

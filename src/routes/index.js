@@ -10,11 +10,10 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
-
 const defectoOperaciones = require('../model/defectoOperaciones');
-const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
+const inspeccion_de_rec = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
-const { altaPNC, altaPNC_collection } = require('../model/AltaPnc');
+const altaPNC = require('../model/AltaPnc');
 const escuadradora = require('../model/escuadradora');
 const enchapadora = require('../model/enchapadora');
 const taladro = require('../model/taladro');
@@ -144,9 +143,8 @@ router.get('/escuadradora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Escuadradora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
 
-    res.render('Escuadradora', { ins, defOp, mod, pieza, pM });
+    res.render('Escuadradora', { ins, defOp, mod, pieza });
 });
 
 router.get('/enchapadora/', async(req, res) => {
@@ -154,9 +152,8 @@ router.get('/enchapadora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Enchapadora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
 
-    res.render('Enchapadora', { ins, defOp, mod, pieza, pM });
+    res.render('Enchapadora', { ins, defOp, mod, pieza });
 });
 
 router.get('/taladro/', async(req, res) => {
@@ -164,9 +161,8 @@ router.get('/taladro/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Taladro" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
 
-    res.render('Taladro', { ins, defOp, mod, pieza, pM });
+    res.render('Taladro', { ins, defOp, mod, pieza });
 });
 
 router.get('/sacabocados/', async(req, res) => {
@@ -174,9 +170,8 @@ router.get('/sacabocados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Sacabocados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
 
-    res.render('Sacabocados', { ins, defOp, mod, pieza, pM });
+    res.render('Sacabocados', { ins, defOp, mod, pieza });
 });
 
 router.get('/armado1/', async(req, res) => {
@@ -184,8 +179,7 @@ router.get('/armado1/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado1" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado1', { ins, defOp, mod, pieza, pM });
+    res.render('Armado1', { ins, defOp, mod, pieza });
 });
 
 router.get('/armado2/', async(req, res) => {
@@ -193,8 +187,7 @@ router.get('/armado2/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado2" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado2', { ins, defOp, mod, pieza, pM });
+    res.render('Armado2', { ins, defOp, mod, pieza });
 });
 
 router.get('/armado3/', async(req, res) => {
@@ -202,8 +195,7 @@ router.get('/armado3/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado3" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado3', { ins, defOp, mod, pieza, pM });
+    res.render('Armado3', { ins, defOp, mod, pieza });
 });
 
 router.get('/acabados/', async(req, res) => {
@@ -211,8 +203,7 @@ router.get('/acabados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Acabados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Acabados', { ins, defOp, mod, pieza, pM });
+    res.render('Acabados', { ins, defOp, mod, pieza });
 });
 
 router.get('/altaPNC/', async(req, res) => {
@@ -460,114 +451,16 @@ router.post('/addDefectoOperacion', async(req, res) => {
     res.redirect('/agregarDefectoOperacion/');
 });
 
-router.post('/addRecepcion/', jsonParser, function(req, res) {
-    /*const recepcion = new inspeccion_de_rec(req.body);
+router.post('/addRecepcion', async(req, res) => {
+    const recepcion = new inspeccion_de_rec(req.body);
     await recepcion.save();
-    res.redirect('/inicio/');*/
-    let {folio, fecha, inspector, entrada, OC, Doc_Pro, Proveedor, Material, Cantidad, Unidad, Inspeccion } = req.body;
-
-    /*if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
-        res.statusMessage = "Hay uno o varios campos faltantes.";
-        return res.status( 406 ).end();
-    }*/
-
-    if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
-        res.statusMessage = "Falta uno o más campos por llenar.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( folio ) ){
-        res.statusMessage = "El 'folio' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( entrada ) ){
-        res.statusMessage = "La 'entrada' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( OC ) ){
-        res.statusMessage = "El 'OC' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( Doc_Pro ) ){
-        res.statusMessage = "El 'Doc_Pro' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( Cantidad ) ){
-        res.statusMessage = "La 'Cantidad' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        entrada,
-        OC,
-        Doc_Pro,
-        Proveedor,
-        Material,
-        Cantidad,
-        Unidad,
-        Inspeccion
-    }
-
-    inspeccion_de_rec
-        .createInsp( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status( 400 ).end();
-            return res.status( 201 ).json( result );
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status( 500 ).end();
-        })
+    res.redirect('/inicio/');
 });
 
-router.post('/addAltaPnc/', async(req, res) => {
-    /*const altaPnc = new altaPNC(req.body);
+router.post('/addAltaPnc', async(req, res) => {
+    const altaPnc = new altaPNC(req.body);
     await altaPnc.save();
-    res.redirect('/inicio/');*/
-    let { folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector } = req.body;
-
-    if( !folio || !Fecha || !Orden || !Proceso || !Modelo || !Defectos || !Cantidad || !Comentarios || !Retrabajo || !inspector ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status( 406 ).end();
-    }
-
-    if( isNaN( Cantidad ) ) {
-        res.statusMessage = "La 'Cantidad' debe ser un numero.";
-        return res.status( 406 ).end();
-    }
-
-    let newAlta = {
-        folio,
-        Fecha,
-        Orden,
-        Proceso,
-        Modelo,
-        Defectos, 
-        Cantidad,
-        Comentarios,
-        Retrabajo,
-        inspector
-    }
-
-    altaPNC_collection
-        .createAlta( newAlta )
-        .then( result => {
-            if( result.errmsg )
-                return res.status( 400 ).end();
-            return res.status( 201 ).json( result );
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status( 500 ).end();
-        })
+    res.redirect('/inicio/');
 });
 
 router.post('/addInspeccionProceso', async(req, res) => {
