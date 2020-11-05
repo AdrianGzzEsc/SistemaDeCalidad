@@ -1,5 +1,5 @@
 <%- include ("./partials/_header") %>
-
+<div class="container" style="margin-top: 10px;">
     <div class="card text-center">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -7,149 +7,138 @@
                     <a class="nav-link disabled" href="/inspeccionProceso">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/escuadradora/">Escuadradora</a>
+                    <a class="nav-link" href="/escuadradora/">Escuadradora</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/enchapadora/">Enchapadora</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/taladro/">Taladro</a>
+                    <a class="nav-link" href="/taladro/">Taladro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/sacabocados/">Sacabocados</a>
+                    <a class="nav-link" href="/sacabocados/">Sacabocados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/armado1/">Armado1</a>
+                    <a class="nav-link" href="/armado1/">Armado1</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/armado2/">Armado2</a>
+                    <a class="nav-link" href="/armado2/">Armado2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/armado3/">Armado3</a>
+                    <a class="nav-link" href="/armado3/">Armado3</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/acabados/">Acabados</a>
+                    <a class="nav-link active" href="/acabados/">Acabados</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-
             <form action="/addAcabados/<%= ins[ins.length-1].folio %>" method="post">
-
-                <div class="flexx">
-
-
-                    <div class="form-group">
-                        <select id="modelo" class="form-control" name="modelo" placeholder="Modelo" style="width: 200px; margin-top: 25px;" onchange="change()">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <select id="modelo" class="form-control" name="modelo" placeholder="Modelo" onchange="change()">
                             <option value="" disabled selected hidden>Modelo</option>
                             <% for (var i =0; i < mod.length; i++)  {     %>
 
-                                <option value="<%= mod[i].nombre %>">  <%= mod[i].nombre %> </option>
+                            <option value="<%=mod[i].nombre%>"><%= mod[i].nombre %></option>
 
-                                <%  }  %>
+                            <%  }  %>
                         </select>
                     </div>
-                    <div id="divPiezas" class="form-group">
-                        <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px; margin-top: 25px;">
-                            <option value="" disabled selected hidden>Pieza</option>
-                            <% for (var i =0; i < pieza.length; i++)  {     %>
-
-                                <option value="<%= pieza[i].nombre %>">  <%= pieza[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
+                    <div class="col-md-6">
+                        <div id="divPiezas">
+                            <select id="pieza" class="form-control" name="pieza" placeholder="Pieza">
+                                <option value="" disabled selected hidden>Pieza</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="width: 200px; margin-top: 25px;">
-
-                        <select class="form-control" name="ins1">
-                        <option value="" disabled selected hidden>Inspección</option>
-                        <option value="Aceptado">Aceptado</option>
-                        <option value="Rechazado">Rechazado</option>
-                    </select>
-                    </div>
-
-                    <div>
-
-
-                        <div class="flex5">
-
-                            <label for="name"> Selecciona los Defectos:</label >
                 </div>
-                <div class="flex">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="Inspección"> Inspección:</label>
+                        <select class="form-control" name="ins1">
+                            <option value="" disabled selected hidden>Inspección</option>
+                            <option value="Aceptado">Aceptado</option>
+                            <option value="Rechazado">Rechazado</option>
+                        </select>
+                    </div>
 
-                    <div class="form-group">
-                        <select class="selectpicker" multiple data-live-search="true" class="form-control" name = "def1" >
+                    <div class="col-md-6">
+                        <label for="name"> Selecciona los Defectos:</label>
+                        <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def1">
                             <% for (var i =0; i < defOp.length; i++)  {     %>
 
-                                <option value="<%=defOp[i].defecto%>">  <%= defOp[i].defecto %> </option>
+                            <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
 
-                                <%  }  %>
+                            <%  }  %>
                         </select>
-                    </div>  </div>
-
-            </div>
-          
-
-
-
+                    </div>
+                </div>
         </div>
-        <a class="btn btn-primary" type="submit" style="margin-left: 10%;" onclick="this.parentNode.submit()">
-            Terminar Reporte
-        </a>
-    </form>
     </div>
-    <!-- FORMULARIO-->
+    <div class="row justify-content-center pb-3">
+        <div class="col p-0 px-3">
+            <a class="myButton btn-red" href="/inicio">Salir</a>
+        </div>
+        <div class="col p-0 px-3">
+            <button class="myButton" type="submit" onclick="this.parentNode.submit()">Terminar Reporte</button>
+        </div>
+
+    </div>
+    </form>
 </div>
 
-    <div class="flex7" style="margin-top: 10px;margin-right: 18%;">
-        <a href="/inicio/" class="btn btn-danger">Salir</a>
-</div>
 <div hidden>
-    <select id="busqueda" hidden class="form-control" placeholder="Pieza" style="width: 200px">
+    <select id="busqueda" hidden class="form-control" placeholder="Pieza">
         <% for (var i =0; i < pM.length; i++)  {     %>
 
-            <option class="<%=pM[i].modelo%>"><%=pM[i].pieza%></option>
+        <option class="<%=pM[i].modelo%>"><%=pM[i].pieza%></option>
 
-            <%  }  %>
+        <%  }  %>
     </select>
 </div>
+
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(document.getElementsByName("modelo")).selectize({
             sortField: 'text'
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(document.getElementsByName("pieza")).selectize({
             sortField: 'text'
         });
     });
 </script>
+
 <script>
     function change() {
-        let sel = document.getElementById( 'modelo' );
+        let sel = document.getElementById('modelo');
         var array = [];
         let piezas = document.getElementsByClassName(sel.value);
-        for(let i = 0; i < piezas.length; i++) {
+        for (let i = 0; i < piezas.length; i++) {
             let outerHTML = piezas[i].outerHTML;
             var strDef = outerHTML.search(">");
             var strDef2 = outerHTML.search("/");
-            var defecto = outerHTML.substring(strDef+1, strDef2-1);
+            var defecto = outerHTML.substring(strDef + 1, strDef2 - 1);
             array.push(defecto);
         }
         let someHTML = ``;
-        for( let i = 0; i < array.length; i++ ) {
+        for (let i = 0; i < array.length; i++) {
             someHTML += `<option value="${array[i]}">${array[i]}</option>`;
         }
-        let divPiezas = document.getElementById( 'divPiezas' );
+        let divPiezas = document.getElementById('divPiezas');
         divPiezas.innerHTML = `
-        <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px; margin-top: 25px;">
-            ${someHTML}
-        </select>
-        `;
+                        <select id="pieza" class="form-control" name="pieza" placeholder="Pieza">
+                            ${someHTML}
+                        </select>
+                        `;
     }
 </script>
 
-    <%- include ("./partials/_footer") %>
+<!-- FORMULARIO-->
+
+
+<%- include ("./partials/_footer") %>
