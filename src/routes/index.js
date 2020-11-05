@@ -50,9 +50,6 @@ router.get('/super/', (req, res) => {
 router.get('/registrar/', (req, res) => {
     res.render('registrar');
 });
-router.get('/graficas/', (req, res) => {
-    res.render('Graficas');
-});
 
 router.get('/recepcion/', async(req, res) => {;
     const prov = await provedor.find();
@@ -68,16 +65,6 @@ router.get('/index/', async(req, res) => {
 router.get('/agregarProveedor/', async(req, res) => {;
     const tasks = await provedor.find();
     res.render('AgregarProveedors', { tasks });
-});
-
-router.get('/agregarProducto/', async(req, res) => {;
-    const tasks = await productos.find();
-    res.render('AgregarProducto', { tasks });
-});
-
-router.get('/agregarDepartamento/', async(req, res) => {;
-    const tasks = await departamentos.find();
-    res.render('AgregarDepartamento', { tasks });
 });
 
 router.get('/agregarUsuario/', async(req, res) => {;
@@ -442,18 +429,6 @@ router.post('/addPieza', async(req, res) => {
     res.redirect('/agregarPieza/');
 });
 
-router.post('/addProducto', async(req, res) => {
-    const producto = new productos(req.body);
-    await producto.save();
-    res.redirect('/agregarProducto/');
-});
-
-router.post('/addDepartamento', async(req, res) => {
-    const departamento = new departamentos(req.body);
-    await departamento.save();
-    res.redirect('/agregarDepartamento/');
-});
-
 router.post('/addDefectoOperacion', async(req, res) => {
     const defectoOp = new defectoOperaciones(req.body);
     await defectoOp.save();
@@ -716,24 +691,6 @@ router.get('/deleteDefecto/:id', async(req, res) => {
     var id = req.params.id;
     await defectos.remove({ _id: id });
     res.redirect('/agregarDefecto/');
-});
-
-router.get('/deleteMaterial/:id', async(req, res) => {
-    var id = req.params.id;
-    await materiales.remove({ _id: id });
-    res.redirect('/agregarMaterial/');
-});
-
-router.get('/deleteProducto/:id', async(req, res) => {
-    var id = req.params.id;
-    await productos.remove({ _id: id });
-    res.redirect('/agregarProducto/');
-});
-
-router.get('/deleteDepartamento/:id', async(req, res) => {
-    var id = req.params.id;
-    await departamentos.remove({ _id: id });
-    res.redirect('/agregarDepartamento/');
 });
 
 router.get('/deleteMaterial/:id', async(req, res) => {

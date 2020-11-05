@@ -1,61 +1,62 @@
 <%- include ("./partials/_header") %>
 
-    <div class="container mt-5">
+<div class="container mt-5">
 
-        <div class="row">
-            <!-- FORMULARIO-->
-            <div class="col-md-5">
-                <div class="card">
-                    <p class="subtitle mb-0">Agregar Proveedor</p>
-                    <div class="card-body">
-                        <form action="/add" method="post">
-                            <div class="form-group">
-                                <label for="nombreproveedor">Proveedor:</label>
-                                <input id="nombreproveedor" class="form-control" type="text" name="nombre" placeholder="Nombre de Proveedor">
+    <div class="row">
+        <!-- FORMULARIO-->
+        <div class="col-md-5">
+            <div class="card">
+                <p class="subtitle mb-0">Agregar Proveedor</p>
+                <div class="card-body">
+                    <form action="/add" method="post">
+                        <div class="form-group">
+                            <label for="nombreproveedor">Proveedor:</label>
+                            <input id="nombreproveedor" class="form-control" type="text" name="nombre"
+                                placeholder="Nombre de Proveedor">
+                        </div>
+                        <div class="form-group row text-center">
+                            <div class="col ">
+                                <button class="myButton" type="submit">Agregar</button>
                             </div>
-                            <div class="form-group row text-center">
-                                <div class="col ">
-                                    <button class="myButton" type="submit">Agregar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row mt-5 text-center ">
-                    <div class="col">
-                        <a href="/ajustes/" class="myButton btn-red">Regresar</a>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!--  TABLA CON LOS DATOS-->
-
-            <div class="col-md-7 mt-md-0 mt-5 mb-5">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead class="text-white tabla">
-                        <tr>
-                            <th>#</th>
-                            <th>Proveedor</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (var i =0; i < tasks.length; i++)  {     %>
-                            <tr>
-                                <td class="align-middle">
-                                    <%= i+1 %>
-                                </td>
-                                <td class="align-middle"> <strong> <%= tasks[i].nombre %> </strong> </td>
-                                <td class="align-middle">
-                                    <a href=/delete/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
-                                </td>
-                            </tr>
-                            <%  }  %>
-                                <!--  TABLA CON LOS DATOS-->
-                    </tbody>
-                </table>
+            <div class="row mt-5 text-center ">
+                <div class="col">
+                    <a href="/ajustes/" class="myButton btn-red">Regresar</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <%- include ("./partials/_footer") %>
+        <!--  TABLA CON LOS DATOS-->
+
+        <div class="col-md-7 mt-md-0 mt-5 mb-5">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="text-white tabla">
+                    <tr>
+                        <th>#</th>
+                        <th>Proveedor</th>
+                        <th>Opción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i =0; i < tasks.length; i++)  {     %>
+                    <tr>
+                        <td class="align-middle">
+                            <%= i+1 %>
+                        </td>
+                        <td class="align-middle"> <strong> <%= tasks[i].nombre %> </strong> </td>
+                        <td class="align-middle">
+                            <a href=/delete/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
+                        </td>
+                    </tr>
+                    <%  }  %>
+                    <!--  TABLA CON LOS DATOS-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include ("./partials/_footer") %>
