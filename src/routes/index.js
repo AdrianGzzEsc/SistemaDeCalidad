@@ -49,6 +49,9 @@ router.get('/super/', (req, res) => {
 router.get('/registrar/', (req, res) => {
     res.render('registrar');
 });
+router.get('/graficas/', (req, res) => {
+    res.render('Graficas');
+});
 
 router.get('/recepcion/', async(req, res) => {;
     const prov = await provedor.find();
