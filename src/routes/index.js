@@ -10,10 +10,11 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
+
 const defectoOperaciones = require('../model/defectoOperaciones');
-const inspeccion_de_rec = require('../model/inspeccion_de_rec');
+const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
-const altaPNC = require('../model/AltaPnc');
+const { altaPNC, altaPNC_collection } = require('../model/AltaPnc');
 const escuadradora = require('../model/escuadradora');
 const enchapadora = require('../model/enchapadora');
 const taladro = require('../model/taladro');
@@ -42,15 +43,16 @@ router.get('/inicio/', (req, res) => {
     res.render('Inicio');
 });
 
+router.get('/graficas/', (req, res) => {
+    res.render('Graficas');
+});
+
 router.get('/super/', (req, res) => {
     res.render('Super');
 });
 
 router.get('/registrar/', (req, res) => {
     res.render('registrar');
-});
-router.get('/graficas/', (req, res) => {
-    res.render('Graficas');
 });
 
 router.get('/recepcion/', async(req, res) => {;
@@ -69,16 +71,6 @@ router.get('/agregarProveedor/', async(req, res) => {;
     res.render('AgregarProveedors', { tasks });
 });
 
-router.get('/agregarProducto/', async(req, res) => {;
-    const tasks = await productos.find();
-    res.render('AgregarProducto', { tasks });
-});
-
-router.get('/agregarDepartamento/', async(req, res) => {;
-    const tasks = await departamentos.find();
-    res.render('AgregarDepartamento', { tasks });
-});
-
 router.get('/agregarUsuario/', async(req, res) => {;
     const tasks = await userModel.find();
     res.render('AgregarUsuario', { tasks });
@@ -88,6 +80,16 @@ router.get('/agregarUsuario/', async(req, res) => {;
 router.get('/agregarDefecto/', async(req, res) => {;
     const tasks = await defectos.find();
     res.render('AgregarDefecto', { tasks });
+});
+
+router.get('/agregarProducto/', async(req, res) => {;
+    const tasks = await productos.find();
+    res.render('AgregarProducto', { tasks });
+});
+
+router.get('/agregarDepartamento/', async(req, res) => {;
+    const tasks = await departamentos.find();
+    res.render('AgregarDepartamento', { tasks });
 });
 
 router.get('/agregarMaterial/', async(req, res) => {;
@@ -143,8 +145,9 @@ router.get('/escuadradora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Escuadradora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Escuadradora', { ins, defOp, mod, pieza });
+    res.render('Escuadradora', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/enchapadora/', async(req, res) => {
@@ -152,8 +155,9 @@ router.get('/enchapadora/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Enchapadora" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Enchapadora', { ins, defOp, mod, pieza });
+    res.render('Enchapadora', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/taladro/', async(req, res) => {
@@ -161,8 +165,9 @@ router.get('/taladro/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Taladro" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Taladro', { ins, defOp, mod, pieza });
+    res.render('Taladro', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/sacabocados/', async(req, res) => {
@@ -170,8 +175,9 @@ router.get('/sacabocados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Sacabocados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
+    const pM = await piezaModelos.find();
 
-    res.render('Sacabocados', { ins, defOp, mod, pieza });
+    res.render('Sacabocados', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado1/', async(req, res) => {
@@ -179,7 +185,8 @@ router.get('/armado1/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado1" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado1', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado1', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado2/', async(req, res) => {
@@ -187,7 +194,8 @@ router.get('/armado2/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado2" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado2', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado2', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/armado3/', async(req, res) => {
@@ -195,7 +203,8 @@ router.get('/armado3/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Armado3" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Armado3', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Armado3', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/acabados/', async(req, res) => {
@@ -203,7 +212,8 @@ router.get('/acabados/', async(req, res) => {
     const defOp = await defectoOperaciones.find({ operacion: "Acabados" });
     const mod = await modelos.find();
     const pieza = await piezas.find();
-    res.render('Acabados', { ins, defOp, mod, pieza });
+    const pM = await piezaModelos.find();
+    res.render('Acabados', { ins, defOp, mod, pieza, pM });
 });
 
 router.get('/altaPNC/', async(req, res) => {
@@ -451,16 +461,114 @@ router.post('/addDefectoOperacion', async(req, res) => {
     res.redirect('/agregarDefectoOperacion/');
 });
 
-router.post('/addRecepcion', async(req, res) => {
-    const recepcion = new inspeccion_de_rec(req.body);
+router.post('/addRecepcion/', jsonParser, function(req, res) {
+    /*const recepcion = new inspeccion_de_rec(req.body);
     await recepcion.save();
-    res.redirect('/inicio/');
+    res.redirect('/inicio/');*/
+    let { folio, fecha, inspector, entrada, OC, Doc_Pro, Proveedor, Material, Cantidad, Unidad, Inspeccion } = req.body;
+
+    /*if( !folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion ) {
+        res.statusMessage = "Hay uno o varios campos faltantes.";
+        return res.status( 406 ).end();
+    }*/
+
+    if (!folio || !fecha || !inspector || !entrada || !OC || !Doc_Pro || !Proveedor || !Material || !Cantidad || !Unidad || !Inspeccion) {
+        res.statusMessage = "Falta uno o más campos por llenar.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(folio)) {
+        res.statusMessage = "El 'folio' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(entrada)) {
+        res.statusMessage = "La 'entrada' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(OC)) {
+        res.statusMessage = "El 'OC' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(Doc_Pro)) {
+        res.statusMessage = "El 'Doc_Pro' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(Cantidad)) {
+        res.statusMessage = "La 'Cantidad' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        entrada,
+        OC,
+        Doc_Pro,
+        Proveedor,
+        Material,
+        Cantidad,
+        Unidad,
+        Inspeccion
+    }
+
+    inspeccion_de_rec
+        .createInsp(newInsp)
+        .then(result => {
+            if (result.errmsg)
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch(err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addAltaPnc', async(req, res) => {
-    const altaPnc = new altaPNC(req.body);
+router.post('/addAltaPnc/', async(req, res) => {
+    /*const altaPnc = new altaPNC(req.body);
     await altaPnc.save();
-    res.redirect('/inicio/');
+    res.redirect('/inicio/');*/
+    let { folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector } = req.body;
+
+    if (!folio || !Fecha || !Orden || !Proceso || !Modelo || !Defectos || !Cantidad || !Comentarios || !Retrabajo || !inspector) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    if (isNaN(Cantidad)) {
+        res.statusMessage = "La 'Cantidad' debe ser un numero.";
+        return res.status(406).end();
+    }
+
+    let newAlta = {
+        folio,
+        Fecha,
+        Orden,
+        Proceso,
+        Modelo,
+        Defectos,
+        Cantidad,
+        Comentarios,
+        Retrabajo,
+        inspector
+    }
+
+    altaPNC_collection
+        .createAlta(newAlta)
+        .then(result => {
+            if (result.errmsg)
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch(err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
 router.post('/addInspeccionProceso', async(req, res) => {
@@ -502,6 +610,7 @@ router.post('/addFinal', async(req, res) => {
 });
 
 router.post('/addEscuadradora/:id', async(req, res) => {
+    console.log("HOLA");
     var id = req.params.id
     await escuadradora.update({ folio: id }, req.body);
     res.redirect('/enchapadora/');
@@ -617,24 +726,6 @@ router.get('/deleteMaterial/:id', async(req, res) => {
     res.redirect('/agregarMaterial/');
 });
 
-router.get('/deleteProducto/:id', async(req, res) => {
-    var id = req.params.id;
-    await productos.remove({ _id: id });
-    res.redirect('/agregarProducto/');
-});
-
-router.get('/deleteDepartamento/:id', async(req, res) => {
-    var id = req.params.id;
-    await departamentos.remove({ _id: id });
-    res.redirect('/agregarDepartamento/');
-});
-
-router.get('/deleteMaterial/:id', async(req, res) => {
-    var id = req.params.id;
-    await materiales.remove({ _id: id });
-    res.redirect('/agregarMaterial/');
-});
-
 router.get('/deleteModelo/:id', async(req, res) => {
     var id = req.params.id;
     await modelos.remove({ _id: id });
@@ -657,6 +748,18 @@ router.get('/deletePiezaModelo/:id', async(req, res) => {
     var id = req.params.id;
     await piezaModelos.remove({ _id: id });
     res.redirect('/agregarPiezaModelo/');
+});
+
+router.get('/deleteProducto/:id', async(req, res) => {
+    var id = req.params.id;
+    await productos.remove({ _id: id });
+    res.redirect('/agregarProducto/');
+});
+
+router.get('/deleteDepartamento/:id', async(req, res) => {
+    var id = req.params.id;
+    await departamentos.remove({ _id: id });
+    res.redirect('/agregarDepartamento/');
 });
 
 router.get('/deleteAltaPnc/:id', async(req, res) => {

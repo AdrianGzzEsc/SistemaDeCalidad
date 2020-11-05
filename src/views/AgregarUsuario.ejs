@@ -1,99 +1,96 @@
 <%- include ("./partials/_header") %>
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <div class="row">
-        <!-- FORMULARIO-->
-        <div class="col-md-5">
-            <div id="agregar-error"></div>
-            <div class="card">
-                <p class="subtitle mb-0">Registrar Usuario</p>
-                <div class="card-body">
-                    <form action="/addUsuario/" method="post">
-                        <div class="form-group">
-                            <label for="fName">Nombre:</label>
-                            <input id="fName" class="form-control" type="text" name="nombre" placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="lName">Apellido:</label>
-                            <input id="lName" class="form-control" type="text" name="nombre" placeholder="Apellido">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo electrónico:</label>
-                            <input id="email" class="form-control" type="email" name="nombre"
-                                placeholder="ejemplo@grupofimsa.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Contraseña:</label>
-                            <input id="password" class="form-control" type="password" name="nombre"
-                                placeholder="Contraseña">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm">Confirmar contraseña:</label>
-                            <input id="confirm" class="form-control" type="password" name="nombre"
-                                placeholder="Confirmar Contraseña">
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4" style="max-width: 200px;">
-                                <label for="superuser">Administrador:</label>
-                                <select id="superuser" class="form-control" name="Inspeccion">
-                                    <option value="False">Falso</option>
-                                    <option value="True">Verdadero</option>
+        <div class="row">
+            <!-- FORMULARIO-->
+            <div class="col-md-5">
+                <div id="agregar-error"></div>
+                <div class="card">
+                    <p class="subtitle mb-0">Registrar Usuario</p>
+                    <div class="card-body">
+                        <form action="/addUsuario/" method="post">
+                            <div class="form-group">
+                                <label for="fName">Nombre:</label>
+                                <input id="fName" class="form-control" type="text" name="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="lName">Apellido:</label>
+                                <input id="lName" class="form-control" type="text" name="nombre" placeholder="Apellido">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico:</label>
+                                <input id="email" class="form-control" type="email" name="nombre" placeholder="ejemplo@grupofimsa.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña:</label>
+                                <input id="password" class="form-control" type="password" name="nombre" placeholder="Contraseña">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm">Confirmar contraseña:</label>
+                                <input id="confirm" class="form-control" type="password" name="nombre" placeholder="Confirmar Contraseña">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4" style="max-width: 200px;">
+                                    <label for="superuser">Administrador:</label>
+                                    <select id="superuser" class="form-control" name="Inspeccion">
+                                    <option value="false">Falso</option>
+                                    <option value="true">Verdadero</option>
                                 </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row text-center">
-                            <div class="col">
-                                <button class="myButton" type="submit" id="registerBtn">Registrar</button>
-                            </div>
+                            <div class="form-group row text-center">
+                                <div class="col">
+                                    <button class="myButton" type="submit" id="registerBtn">Registrar</button>
+                                </div>
 
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-5 text-center">
+                    <div class="col">
+                        <a href="/super/" class="myButton btn-red">Regresar</a>
+                    </div>
                 </div>
             </div>
-            <div class="row mt-5 text-center">
-                <div class="col">
-                    <a href="/super/" class="myButton btn-red">Regresar</a>
-                </div>
+            <!--  TABLA CON LOS DATOS-->
+            <div class="col-md-7 mt-md-0 mt-5 mb-5">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="text-white tabla">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>E-mail</th>
+                            <th>Super</th>
+                            <th>Opción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% for (var i =0; i < tasks.length; i++)  {     %>
+
+                            <tr>
+                                <td class="align-middle">
+                                    <%= i+1 %>
+                                </td>
+                                <td class="align-middle"> <strong> <%= tasks[i].fName %> </strong> </td>
+                                <td class="align-middle"> <strong> <%= tasks[i].lName %> </strong> </td>
+                                <td class="align-middle"> <strong> <%= tasks[i].email %> </strong> </td>
+                                <td class="align-middle"> <strong> <%= tasks[i].superuser %> </strong> </td>
+                                <td class="align-middle">
+                                    <a href=/deleteUsuario/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
+                                </td>
+                            </tr>
+                            <%  }  %>
+                                <!--  TABLA CON LOS DATOS-->
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <!--  TABLA CON LOS DATOS-->
-        <div class="col-md-7 mt-md-0 mt-5 mb-5">
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="text-white tabla">
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>E-mail</th>
-                        <th>Super</th>
-                        <th>Opción</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <% for (var i =0; i < tasks.length; i++)  {     %>
-
-                    <tr>
-                        <td class="align-middle">
-                            <%= i+1 %>
-                        </td>
-                        <td class="align-middle"> <strong> <%= tasks[i].fName %> </strong> </td>
-                        <td class="align-middle"> <strong> <%= tasks[i].lName %> </strong> </td>
-                        <td class="align-middle"> <strong> <%= tasks[i].email %> </strong> </td>
-                        <td class="align-middle"> <strong> <%= tasks[i].superuser %> </strong> </td>
-                        <td class="align-middle">
-                            <a href=/deleteUsuario/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
-                        </td>
-                    </tr>
-                    <%  }  %>
-                    <!--  TABLA CON LOS DATOS-->
-                </tbody>
-            </table>
         </div>
     </div>
-</div>
 
-<script src="/js/signup.js"></script>
+    <script src="/js/signup.js"></script>
 
-<%- include ("./partials/_footer") %>
+    <%- include ("./partials/_footer") %>

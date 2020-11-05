@@ -11,15 +11,10 @@
                         <form>
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-5">
-                                    <label for="proceso">Proceso del defecto:</label>
-                                    <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso">
-                                        <option value="" disabled selected hidden>Seleccionar proceso</option>
-                                        <% for (var i =0; i < oper.length; i++)  {     %>
-                                        <option value="<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
-                                        <%  }  %>
-                                    </select>
+                                    <label for="folio">Folio:</label>
+                                    <input class="form-control" type="text" name="Folio" placeholder="Folio" id="folio">
                                 </div>
-                                <div class="col-sm-5" style="max-width: 200px;">
+                                <div class="col-sm-5">
                                     <label for="fechaform">Fecha:</label>
                                     <input class="form-control" type="date" name="Fecha" placeholder="Fecha" id="fechaform">
                                 </div>
@@ -27,8 +22,14 @@
 
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-5">
-                                    <label for="folio">Folio:</label>
-                                    <input class="form-control" type="text" name="Folio" placeholder="Folio" id="folio">
+                                    <label for="proceso">Proceso del defecto:</label>
+                                    <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso">
+                                        <option value="" disabled selected hidden>Seleccionar proceso</option>
+                                        <% for (var i =0; i < oper.length; i++)  {     %>
+                                        <option value="<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
+                                        <%  }  %>
+                                    </select>
+
                                     <label for="orden">No. orden:</label>
                                     <input class="form-control" type="text" name="Orden" placeholder="Orden de Producción" id="orden">
                                 </div>
@@ -136,8 +137,7 @@
                 opt.innerText = array[i];
                 select.add(opt);
             }
-            https: //github.com/AdrianGzzEsc/SistemaDeCalidad.git
-                $('.selectpicker').selectpicker('refresh');
+            $('.selectpicker').selectpicker('refresh');
             console.log(select);
         })
     </script>

@@ -24,12 +24,7 @@ function validate() {
 }
 
 function userEmail( data ) {
-    console.log( data );
-    /*
-    if( data.superuser == true ) {
-        window.location.href = "/super/";
-    } 
-    */
+    console.log( "nothing." );
 }
 
 function logout() {
