@@ -13,6 +13,7 @@ const bajaSchema = Schema({
     Retrabajo: String,
     FechaRetrabajo: Date,
     Retrabajable: String,
+    RetrabajadoPersona: String,
     Costo: Number,
     ComentariosRe: String
 

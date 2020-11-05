@@ -355,16 +355,15 @@ router.get('/user/validate-user', (req, res) => {
 router.get('/user/get-user-byemail/:id', (req, res) => {
     let userEmail = req.params.id;
     Users
-        .getUserByEmail( userEmail )
-        .then( result => {
-            if( !result ) {
+        .getUserByEmail(userEmail)
+        .then(result => {
+            if (!result) {
                 res.statusMessage = `No existe el usuario con el correo ${userEmail}`;
-                return res.status( 404 ).end();
+                return res.status(404).end();
+            } else {
+                return res.status(200).json(result);
             }
-            else {
-                return res.status( 200 ).json( result );
-            }
-        }) 
+        })
 })
 
 // Ruta para mostrar usuarios
@@ -382,45 +381,45 @@ router.get('/user/get-users', (req, res) => {
 
 //Ruta para borrar usuario
 router.delete('/user/delete-user/:id', (req, res) => {
-    let userID = req.params.id
-    Users
-        .eraseUser(userID)
-        .then(result => {
-            return res.status(404).json(result)
-        })
-        .catch(err => {
-            return err
-        })
+        let userID = req.params.id
+        Users
+            .eraseUser(userID)
+            .then(result => {
+                return res.status(404).json(result)
+            })
+            .catch(err => {
+                return err
+            })
 
-}),
+    }),
 
-//Ruta para actualizar usuarios
-router.patch('/users/update/:id', jsonParser, (req, res) => {
-    console.log("Patch a profile");
-    console.log(req.params);
+    //Ruta para actualizar usuarios
+    router.patch('/users/update/:id', jsonParser, (req, res) => {
+        console.log("Patch a profile");
+        console.log(req.params);
 
-    let idP = req.params.id;
-    let idB = req.body.email;
+        let idP = req.params.id;
+        let idB = req.body.email;
 
-    if (!idB) {
-        res.statusMessage = "The 'id' in the body is missing.";
-        return res.status(406).end();
-    }
+        if (!idB) {
+            res.statusMessage = "The 'id' in the body is missing.";
+            return res.status(406).end();
+        }
 
-    if (idB != idP) {
-        res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
-        return res.status(409).end();
-    }
+        if (idB != idP) {
+            res.statusMessage = "The 'id' in the body should be the same as in the parameters.";
+            return res.status(409).end();
+        }
 
-    Users
-        .updateUser(req.body)
-        .then(result => {
-            return res.status(202).json(result);
-        })
-        .catch(err => {
-            return err;
-        })
-})
+        Users
+            .updateUser(req.body)
+            .then(result => {
+                return res.status(202).json(result);
+            })
+            .catch(err => {
+                return err;
+            })
+    })
 
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
@@ -551,7 +550,7 @@ router.post('/addAltaPnc/', async(req, res) => {
     res.redirect('/inicio/');*/
     let { folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector } = req.body;
 
-    if (!folio || !Fecha || !Orden || !Proceso || !Modelo || !Defectos || !Cantidad || !Comentarios || !Retrabajo || !inspector) {
+    if (!folio || !Fecha || !Orden || !Proceso || !Modelo || !Defectos || !Cantidad || !Retrabajo || !inspector) {
         res.statusMessage = "Falta de llenar uno o más campos.";
         return res.status(406).end();
     }

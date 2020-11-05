@@ -13,18 +13,18 @@
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-5">
                                     <label for="foliodefectos">Folio:</label>
-                                    <input id="foliodefectos" class="form-control" type="text" name="folio" placeholder="Folio">
+                                    <input id="foliodefectos" class="form-control" type="text" name="folio" placeholder="Folio" required>
                                 </div>
-                                <div class="col-sm-5" style="max-width: 200px;">
+                                <div class="col-sm-5">
                                     <label for="fechadefecto">Fecha:</label>
-                                    <input id="fechadefecto" class="form-control" type="date" name="fecha" placeholder="Fecha">
+                                    <input id="fechadefecto" class="form-control" type="date" name="fecha" placeholder="Fecha" required>
                                 </div>
                             </div>
 
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-6">
                                     <label for="dptodefecto">Departamento</label>
-                                    <select id="dptodefecto" class="form-control" name="departamento">
+                                    <select id="dptodefecto" class="form-control" name="departamento" required>
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < dep.length; i++)  {     %>
                                     <option value="<%= dep[i].nombre %>"> <%= dep[i].nombre %> </option>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-sm-5">
                                     <label for="opdefecto">Operación:</label>
-                                    <select id="opdefecto" class="form-control" name="operacion">
+                                    <select id="opdefecto" class="form-control" name="operacion" required>
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < ope.length; i++)  {     %>
                                     <option value="<%= ope[i].nombre %>"> <%= ope[i].nombre %> </option>
@@ -45,7 +45,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="productodefecto">Producto:</label>
-                                    <select id="productodefecto" class="form-control" name="producto" placeholder="Producto">
+                                    <select id="productodefecto" class="form-control" name="producto" placeholder="Producto" required> 
                                     <option value="" disabled selected hidden>Producto</option>
                                     <% for (var i =0; i < prod.length; i++)  {     %>
                                     <option value="<%= prod[i].nombre %>"> <%= prod[i].nombre %> </option>
@@ -57,7 +57,7 @@
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-6">
                                     <label id="defecto" for="productodefecto">Defecto:</label>
-                                    <select id="defecto" class="form-control" name="defecto" placeholder="Defecto">
+                                    <select id="defecto" class="form-control" name="defecto" placeholder="Defecto" required>
                                     <option value="" disabled selected hidden>Defecto</option>
                                     <% for (var i =0; i < def.length; i++)  {     %>
                                     <option value="<%= def[i].nombre %>"> <%= def[i].nombre %> </option>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-sm-5">
                                     <label for="cantidaddefecto">Cantidad:</label>
-                                    <input id="cantidaddefecto" class="form-control" type="number" name="cantidad" placeholder="Cantidad">
+                                    <input id="cantidaddefecto" class="form-control" type="number" name="cantidad" placeholder="Cantidad" required>
                                 </div>
                             </div>
 

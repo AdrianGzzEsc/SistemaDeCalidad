@@ -1,62 +1,52 @@
 <%- include ("./partials/_header") %>
 
-<div class="subtitle3">Reporte de Inspección en Proceso</div>
+    <div class="subtitle3">Reporte de Inspección en Proceso</div>
 
-<div class="container">
-    <form action="/addInspeccionProceso" method="POST">
-        <div class="card text-center">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" href="/inspeccionProceso">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/escuadradora/">Escuadradora</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/enchapadora/">Enchapadora</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/taladro/">Taladro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/sacabocados/">Sacabocados</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/armado1/">Armado1</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/armado2/">Armado2</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/armado3/">Armado3</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="/acabados/">Acabados</a>
-              </li>
-            </ul>
-          </div>
-      
-          <div class="card-body">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <input
-                    class="form-control"
-                    type="text"
-                    name="folio"
-                    placeholder="Folio"
-                  />
+    <div class="container">
+        <form action="/addInspeccionProceso" method="POST">
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/inspeccionProceso">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/escuadradora/">Escuadradora</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/enchapadora/">Enchapadora</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/taladro/">Taladro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/sacabocados/">Sacabocados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/armado1/">Armado1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/armado2/">Armado2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/armado3/">Armado3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/acabados/">Acabados</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-4" id="inspproceso">
-                    <input
-                    class="form-control"
-                    type="date"
-                    name="fecha"
-                    placeholder="Fecha"
-                  />
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control" name="hora" style="height: 42px;" id="inspproceso">
+
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="folio" placeholder="Folio" required />
+                        </div>
+                        <div class="col-md-4" id="inspproceso">
+                            <input class="form-control" type="date" name="fecha" placeholder="Fecha" required/>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="hora" style="height: 42px;" id="inspproceso" required>
                         <option value="" disabled selected hidden>Hora</option>
                         <option value="8:00 AM">8:00 AM</option>
                         <option value="10:00 AM">10:00 AM</option>
@@ -64,21 +54,21 @@
                         <option value="2:00 PM">2:00 PM</option>
                         <option value="4:00 PM">4:00 PM</option>
                       </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
-        </div>
-        <div class="row justify-content-center pb-3">
-            <div class="col p-0 px-3">
-                <a class="myButton btn-red" href="/inicio">Salir</a>
+            <div class="row justify-content-center pb-3">
+                <div class="col p-0 px-3">
+                    <a class="myButton btn-red" href="/inicio">Salir</a>
+                </div>
+                <div class="col p-0 px-3">
+                    <button class="myButton" type="submit" onclick="this.parentNode.submit()">Iniciar Reporte</button>
+                </div>
+
             </div>
-            <div class="col p-0 px-3">
-                <button class="myButton" type="submit" onclick="this.parentNode.submit()">Iniciar Reporte</button>
-            </div>
+        </form>
 
-        </div>
-      </form>
+    </div>
 
-</div>
-
-<%- include ("./partials/_footer") %>
+    <%- include ("./partials/_footer") %>

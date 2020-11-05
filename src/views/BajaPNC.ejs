@@ -1,146 +1,135 @@
 <%- include ("./partials/_header") %>
 
-<p class="subtitle3">Baja Producto No Conforme</p>
+    <p class="subtitle3">Baja Producto No Conforme</p>
 
-<!-- FORMULARIO-->
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col px-3" style="max-width: 750px;">
-            <div class="card mb-5">
-                <div class="card-header">
-                    <form action="/add" method="post">
-                        <div class="form-group row justify-content-between">
-                            <div class="col-sm-4 col-12">
-                                <label for="select-state">Folio:</label>
-                                <select id="select-state" class="form-control" placeholder="Folio" name="folio"
-                                    onchange="location = this.value;">
+    <!-- FORMULARIO-->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col px-3" style="max-width: 750px;">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <form action="/add" method="post">
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-4 col-12">
+                                    <label for="select-state">Folio:</label>
+                                    <select id="select-state" class="form-control" placeholder="Folio" name="folio" onchange="location = this.value;">
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < altpnc.length; i++)  {     %>
                                     <option value="/enviarFolio/<%=altpnc[i].folio %>"> <%= altpnc[i].folio %> </option>
                                     <%  }  %>
                                 </select>
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <label for="fechaformbaja">Fecha:</label>
+                                    <input id="fechaformbaja" class="form-control" type="text" name="Fecha" placeholder="Fecha" readonly>
+                                </div>
                             </div>
-                            <div class="col-sm-4 col-12" style="max-width: 150px;">
-                                <label for="fechaformbaja">Fecha:</label>
-                                <input id="fechaformbaja" class="form-control" type="text" name="Fecha"
-                                    placeholder="Fecha" readonly>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-lg-4" style="max-width: 250px;">
-                                <label for="ordenbaja"">No. orden:</label>
-                                            <input id=" ordenbaja" class="form-control" type="text" name="Orden"
-                                    placeholder="Orden" readonly>
+                            <div class="form-group row">
+                                <div class="col-lg-4" style="max-width: 250px;">
+                                    <label for="ordenbaja" ">No. orden:</label>
+                                            <input id=" ordenbaja " class="form-control " type="text " name="Orden "
+                                    placeholder="Orden " readonly>
                             </div>
-                            <div class="col-lg-4" style="max-width: 250px;">
-                                <label for="procesobaja">Proceso de ocurrencia:</label>
-                                <input id="procesobaja" class="form-control" type="text" name="ProcesoDefecto"
-                                    placeholder="Proceso" readonly>
+                            <div class="col-lg-4 " style="max-width: 250px; ">
+                                <label for="procesobaja ">Proceso de ocurrencia:</label>
+                                <input id="procesobaja " class="form-control " type="text " name="ProcesoDefecto "
+                                    placeholder="Proceso " readonly>
                             </div>
-                            <div class="col-lg-4" style="max-width: 350px;">
-                                <label for="modelobaja"">Modelo:</label>
-                                            <input id=" modelobaja" class="form-control" type="text" name="Modelo"
-                                    placeholder="Modelo" readonly>
+                            <div class="col-lg-4 " style="max-width: 350px; ">
+                                <label for="modelobaja "">Modelo:</label>
+                                    <input id=" modelobaja" class="form-control" type="text" name="Modelo" placeholder="Modelo" readonly>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="defectosbaja">Defectos seleccionados:</label>
-                                <textarea id="defectosbaja" class="form-control resumen" name="Defectos" cols="80"
-                                    rows="3" readonly></textarea>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="defectosbaja">Defectos seleccionados:</label>
+                                    <textarea id="defectosbaja" class="form-control resumen" name="Defectos" cols="80" rows="3" readonly></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="cantidadbaja">Cantidad:</label>
-                                <input id="cantidadbaja" class="form-control" type="text" name="Cantidad"
-                                    placeholder="Cantidad" style="max-width:fit-content" readonly>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="cantidadbaja">Cantidad:</label>
+                                    <input id="cantidadbaja" class="form-control" type="text" name="Cantidad" placeholder="Cantidad" style="max-width:fit-content" readonly>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="retrabajobaja">Retrabajo:</label>
+                                    <input class="form-control" type="text" name="Retrabajable" placeholder="Retrabajable" style="max-width:fit-content" readonly>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="retrabajobaja">Retrabajo:</label>
-                                <input class="form-control" type="text" name="Retrabajable" placeholder="Retrabajable"
-                                    style="max-width:fit-content" readonly>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="comentariosbaja">Comentarios:</label>
-                                <textarea id="comentariosbaja" class="form-control resumen" name="Comentarios" cols="80"
-                                    rows="5" placeholder="Comentarios" readonly></textarea>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="comentariosbaja">Comentarios:</label>
+                                    <textarea id="comentariosbaja" class="form-control resumen" name="Comentarios" cols="80" rows="5" placeholder="Comentarios" readonly></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr>
+                                </div>
                             </div>
-                        </div>
-                        <!--Abajo de la linea-->
-                        <div class="form-group row justify-content-between">
-                            <div class="col-md-3" style="max-width: 200px;">
-                                <label for="fecharetrabajo">Fecha de Retrabajo:</label>
-                                <input class="form-control" type="date" name="Fecha" placeholder="Fecha">
+                            <!--Abajo de la linea-->
+                            <div class="form-group row justify-content-between">
+                                <div class="col-md-3" style="max-width: 200px;">
+                                    <label for="fecharetrabajo">Fecha de Retrabajo:</label>
+                                    <input class="form-control" type="date" name="Fecha" placeholder="Fecha">
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="retrabajador">Retrabajado por:</label>
+                                    <input id="retrabajador" class="form-control" type="text" name="RetrabajadoPersona" placeholder="Retrabajado Por">
+                                </div>
                             </div>
-                            <div class="col-md-7">
-                                <label for="retrabajador">Retrabajado por:</label>
-                                <input id="retrabajador" class="form-control" type="text" name="RetrabajadoPersona"
-                                    placeholder="Retrabajado Por">
-                            </div>
-                        </div>
 
-                        <div class="form-group row justify-content-around">
-                            <div class="col-sm-4">
-                                <label for="costobaja">Costo:</label>
-                                <input id="costobaja" class="form-control" type="number" name="Costo"
-                                    placeholder="Costo">
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="tipocosto">Tipo de costo:</label>
-                                <select id="costobaja" class="form-control" name="Retrabajable"
-                                    placeholder="Tipo costo">
+                            <div class="form-group row justify-content-around">
+                                <div class="col-sm-4">
+                                    <label for="costobaja">Costo:</label>
+                                    <input id="costobaja" class="form-control" type="number" name="Costo" placeholder="Costo">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="tipocosto">Tipo de costo:</label>
+                                    <select id="costobaja" class="form-control" name="Retrabajable" placeholder="Tipo costo">
                                     <option value="" disabled selected hidden>Tipo costo</option>
                                     <option value="Retrabajo">Costo de Retrabajo</option>
                                     <option value="Scrap">Costo de Scrap</option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col">
-                                <label for="comentariosbaja">Comentarios:</label>
-                                <textarea id="comentariosbaja" class="form-control resumen mb-4" name="Comentarios"
-                                    cols="80" rows="5" placeholder="Sus comentarios aquí"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center pb-3">
-                            <div class="col p-0 px-3">
-                                <a class="myButton btn-red" href="/inicio">Salir</a>
-                            </div>
-                            <div class="col p-0 px-3">
-                                <button class="myButton" type="submit">Enviar</button>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="comentariosbaja">Comentarios:</label>
+                                    <textarea id="comentariosbaja" class="form-control resumen mb-4" name="Comentarios" cols="80" rows="5" placeholder="Sus comentarios aquí"></textarea>
+                                </div>
+                            </div>
 
-                    </form>
-                </div>
-                <div class="col-12 col-md">
+                            <div class="row justify-content-center pb-3">
+                                <div class="col p-0 px-3">
+                                    <a class="myButton btn-red" href="/inicio">Salir</a>
+                                </div>
+                                <div class="col p-0 px-3">
+                                    <button class="myButton" type="submit">Enviar</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-12 col-md">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('select').selectize({
-            sortField: 'text'
+    <script>
+        $(document).ready(function() {
+            $('select').selectize({
+                sortField: 'text'
+            });
         });
-    });
-</script>
+    </script>
 
-<%- include ("./partials/_footer") %>
+    <%- include ("./partials/_footer") %>

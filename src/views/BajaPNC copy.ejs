@@ -3,168 +3,156 @@
         Baja PNC</div>
     <!-- FORMULARIO-->
 
-    <div class="flex">
-
-
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header">
-                    <form action="/addBajaPnc/<%=altpnc2[0].folio %>" method="POST">
-                        <div class="flex4">
-                            <div class="form-group">
-                                <select id="select-state" name="folio" style="width: 150px;" onchange="location = this.value;">
-                                    <option value="<%= altpnc2[0].folio %>"   ><%= altpnc2[0].folio %></option>
-
-                                    <% for (var i =0; i < altpnc.length; i++)  {     %>
-
-                                        <option value="/enviarFolio/<%=altpnc[i].folio %>">  <%= altpnc[i].folio %> </option>
-        
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col px-3" style="max-width: 750px;">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <form action="/addBajaPnc/<%=altpnc2[0].folio %>" method="POST">
+                            <div class="form-group row justify-content-between">
+                                <div class="col-sm-4 col-12">
+                                    <label for="select-state">Folio:</label>
+                                    <select id="select-state" class="form-control" placeholder="Folio" name="folio" onchange="location = this.value;">
+                                        <option value="<%= altpnc2[0].folio %>"   ><%= altpnc2[0].folio %></option>
+                                        <% for (var i =0; i < altpnc.length; i++)  {     %>
+                                        <option value="/enviarFolio/<%=altpnc[i].folio %>"> <%= altpnc[i].folio %> </option>
                                         <%  }  %>
-                                  </select>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <label for="fechaformbaja">Fecha:</label>
+                                    <input id="fechaformbaja" class="form-control" value="<%= altpnc2[0].Fecha %>" type="text" name="Fecha" placeholder="Fecha" readonly>
+                                </div>
+                            </div>
 
+                            <div class="form-group row">
+                                <div class="col-lg-4" style="max-width: 250px;">
+                                    <label for="ordenbaja" ">No. orden:</label>
+                                                <input id=" ordenbaja " class="form-control " value="<%=altpnc2[0].Orden %>" type="text" name="Orden" placeholder="Orden" readonly>
+                                </div>
+                                <div class="col-lg-4" style="max-width: 250px;">
+                                    <label for="procesobaja">Proceso de ocurrencia:</label>
+                                    <input id="procesobaja" class="form-control" type="text" value="<%= altpnc2[0].Proceso %>" name="ProcesoDefecto" placeholder="Proceso" readonly>
+                                </div>
+                                <div class="col-lg-4" style="max-width: 350px;">
+                                    <label for="modelobaja" ">Modelo:</label>
+                                                <input id=" modelobaja " class="form-control " value="<%=altpnc2[0].Modelo %>" type="text" name="Modelo" placeholder="Modelo" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="defectosbaja">Defectos seleccionados:</label>
+                                    <textarea id="defectosbaja" class="form-control resumen" name="Defectos" cols="80" rows="3" readonly><%= altpnc2[0].Defectos %></textarea>
+                                </div>
                             </div>
 
 
-
-
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="Fecha" value="<%= altpnc2[0].Fecha %>" placeholder="<%= altpnc2[0].Fecha %>" style="width: 290px; margin-left: 10%;" readonly>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="cantidadbaja">Cantidad:</label>
+                                    <input id="cantidadbaja" class="form-control" type="text" value="<%= altpnc2[0].Cantidad %>" name="Cantidad" placeholder="Cantidad" style="max-width:fit-content" readonly>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="retrabajobaja">Retrabajo:</label>
+                                    <input class="form-control" type="text" name="Retrabajo" value="<%= altpnc2[0].Retrabajo %>" placeholder="Retrabajable" style="max-width:fit-content" readonly>
+                                </div>
                             </div>
 
-                        </div>
-
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="Orden" value="<%= altpnc2[0].Orden %>" placeholder="<%= altpnc2[0].Orden %>" style="width: fit-content;  " readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <input class="form-control" type="text" value="<%= altpnc2[0].Operacion %>" name="ProcesoDefecto" placeholder="<%= altpnc2[0].Operacion %>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <input class="form-control" type="text" value="<%= altpnc2[0].Modelo %>" name="Modelo" placeholder="<%= altpnc2[0].Modelo %>" readonly>
-                        </div>
-
-
-
-
-                        <div class="flex5">
-
-                            <label for="name"> Defectos seleccionados:</label >
-                        </div>
-                        <div class="flex4">
-
-                           
-                        <div class="form-group">
-                            <textarea class="form-control" name="Defectos"  cols="80" readonly><%= altpnc2[0].Defectos %></textarea>
-                        </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="Cantidad"  value="<%= altpnc2[0].Cantidad %>" placeholder="<%= altpnc2[0].Cantidad %>" style="width: fit-content; " readonly>
-                        </div>
-
-
-
-
-                        <div class="form-group">
-                            <textarea class="form-control" name="Comentarios" cols="80"  placeholder="<%= altpnc2[0].Comentarios %>" readonly><%= altpnc2[0].Comentarios %></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="Retrabajo" value="<%= altpnc2[0].Retrabajo %>" placeholder="<%= altpnc2[0].Retrabajo %>" style="width: fit-content; " readonly>
-                        </div>
-                        <hr class="my-4">
-
-                           <div class="flex6">
-                            <label for="name" > Fecha de Retrabajo:</label >
-
-                            <div class="form-group">
-                                <input class="form-control" type="date" name="FechaRetrabajo" placeholder="Fecha" style="width: fit-content;">
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="comentariosbaja">Comentarios:</label>
+                                    <textarea id="comentariosbaja" class="form-control resumen" name="Comentarios" cols="80" rows="5" readonly><%= altpnc2[0].Comentarios %></textarea>
+                                </div>
                             </div>
-                        </div>
-
-                        
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="RetrabajadoPersona"  placeholder="Retrabajado Por" >
-                        </div>
-
-                    <div class="flex4">
 
 
-                        <div class="form-group">
-                            <select class="form-control" name="Retrabajable" placeholder="Retrabajable" style="width: fit-content;">
-                            <option value="" disabled selected hidden>Tipo</option>
-                            <option value="Costo de Retrabajo">Costo de Retrabajo</option>
-                            <option value="Costo de Scrap">Costo de Scrap</option>
-                        </select>
-                        </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+                            </div>
 
-                     
+                            <!--Abajo de la linea-->
+                            <div class="form-group row justify-content-between">
+                                <div class="col-md-3" style="max-width: 200px;">
+                                    <label for="fecharetrabajo">Fecha de Retrabajo:</label>
+                                    <input class="form-control" type="date" name="FechaRetrabajo" placeholder="Fecha" required>
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="retrabajador">Retrabajado por:</label>
+                                    <input id="retrabajador" class="form-control" type="text" name="RetrabajadoPersona" placeholder="Retrabajado Por" required>
+                                </div>
+                            </div>
 
+                            <div class="form-group row justify-content-around">
+                                <div class="col-sm-4">
+                                    <label for="costobaja">Costo:</label>
+                                    <input id="costobaja" class="form-control" type="number" name="Costo" placeholder="Costo" required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="tipocosto">Tipo de costo:</label>
+                                    <select id="costobaja" class="form-control" name="Retrabajable" placeholder="Tipo costo" required>
+                                     <option value="" disabled selected hidden>Tipo costo</option>
+                                    <option value="Retrabajo">Costo de Retrabajo</option>
+                                        <option value="Scrap">Costo de Scrap</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="comentariosbaja">Comentarios:</label>
+                                    <textarea id="comentariosbaja" class="form-control resumen mb-4" name="ComentariosRe" cols="80" rows="5" placeholder="Sus comentarios aquí"></textarea>
+                                </div>
+                            </div>
 
+                            <div class="row justify-content-center pb-3">
+                                <div class="col p-0 px-3">
+                                    <a class="myButton btn-red" href="/inicio">Salir</a>
+                                </div>
+                                <div class="col p-0 px-3">
+                                    <button class="myButton" type="submit">Enviar</button>
+                                </div>
+                            </div>
 
-
-                        <div class="form-group">
-                            <input class="form-control" type="number" name="Costo" placeholder="Costo" style="width: fit-content; margin-left: 10%;">
-                        </div>
-
-
+                        </form>
                     </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="ComentariosRe" cols="80" placeholder="Comentarios"></textarea>
-                        </div>
-                        
-
-
-                       
-                       
-                        <div class="flex4">
-                            <button class="btn btn-primary" type="submit">
-                                    Enviar 
-                                 
-                            </button>
-
-                            <a class="btn btn-primary" type="submit" href="/inicio" style="margin-left: 10%;">
-                                Salir
-                         </a>
-
-                        </div>
-
-                    </form>
-                 
-                      
+                    <div class="col-12 col-md">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-<script>
-    function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
 
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
-}
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-$(document).ready(function () {
-      $('select').selectize({
-          sortField: 'text'
-      });
-  });
-</script>
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+
+        $(document).ready(function() {
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+    </script>
     <%- include ("./partials/_footer") %>
+
+        value="
+        <%= altpnc2[0].Fecha %>"
