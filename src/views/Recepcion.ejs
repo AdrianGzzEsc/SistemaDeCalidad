@@ -8,7 +8,7 @@
             <div class="col px-3" style="max-width: 750px">
                 <div class="card mb-5">
                     <div class="card-header">
-                        <form action="/addRecepcion/" method="post">
+                        <form>
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-5">
                                     <label for="foliorecepcion">Folio:</label>
@@ -41,7 +41,8 @@
                             <div class="form-group row justify-content-between">
                                 <div class="col-md-6">
                                     <label for="proveedorrecepcion">Proveedor:</label>
-                                    <select id="select-state" class="form-control" placeholder="Seleccionar" name="Provedor" onchange="location = this.value;">
+                                    <!-- que significa location en onchange? -->
+                                    <select id="select-state" class="form-control" placeholder="Seleccionar" name="Provedor">
                                         <option value="" disabled selected hidden>Seleccionar</option>
                                         <% for (var i =0; i < prov.length; i++)  {     %>
                                             <option value="<%= prov[i].nombre %>"> <%= prov[i].nombre %> </option>
@@ -56,11 +57,11 @@
                                 <div class="col-md-6">
                                     <label for="materialrecepcion">Material:</label>
                                     <select id="materialrecepcion" class="form-control" name="Material" placeholder="Seleccionar">
-                                    <option value="" disabled selected hidden>Seleccionar</option>
-                                    <% for (var i =0; i < mat.length; i++)  {     %>
-                                    <option value="<%= mat[i].nombre %>"> <%= mat[i].nombre %> </option>
-                                    <%  }  %>
-                                </select>
+                                        <option value="" disabled selected hidden>Seleccionar</option>
+                                        <% for (var i =0; i < mat.length; i++)  {     %>
+                                        <option value="<%= mat[i].nombre %>"> <%= mat[i].nombre %> </option>
+                                        <%  }  %>
+                                    </select>
                                 </div>
                             </div>
 
@@ -72,14 +73,14 @@
                                 <div class="col-sm-3">
                                     <label for="unidadrecepcion">Unidad:</label>
                                     <select id="unidadrecepcion" class="form-control" name="Unidad">
-                                    <option value="" disabled selected hidden>--</option>
-                                    <option value="Kg">Kg</option>
-                                    <option value="Piezas">Piezas</option>
-                                    <option value="Juego">Juego</option>
-                                    <option value="m">m</option>
-                                    <option value="m2">m2</option>
-                                    <option value="Corrugado">Corrugado</option>
-                                </select>
+                                        <option value="" disabled selected hidden>--</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Piezas">Piezas</option>
+                                        <option value="Juego">Juego</option>
+                                        <option value="m">m</option>
+                                        <option value="m2">m2</option>
+                                        <option value="Corrugado">Corrugado</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -87,10 +88,10 @@
                                 <div class="col-sm-4" style="max-width: 200px;">
                                     <label for="inspeccionrecepcion">Inspección:</label>
                                     <select id="inspeccionrecepcion" class="form-control" name="Inspeccion">
-                                    <option value="" disabled selected hidden>--</option>
-                                    <option value="Aceptado">Aceptado</option>
-                                    <option value="Rechazado">Rechazado</option>
-                                </select>
+                                        <option value="" disabled selected hidden>--</option>
+                                        <option value="Aceptado">Aceptado</option>
+                                        <option value="Rechazado">Rechazado</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -99,10 +100,10 @@
                                     <a class="myButton btn-red" href="/Inicio">Salir</a>
                                 </div>
                                 <div class="col p-0 px-3">
-                                    <button class="myButton" type="submit" onclick="alerta()">Enviar</button>
+                                    <button id="btnSubmit" class="myButton" type="button">Enviar</button>
                                 </div>
                             </div>
-
+                            
                         </form>
                     </div>
                 </div>
@@ -117,6 +118,8 @@
             });
         });
     </script>
-    <!-- <script src="../js/validate.js"></script> -->
 
-    <%- include ("./partials/_footer") %>
+</body>
+<script src="../../js/home.js"></script>
+<script src="../../js/recepcion.js"></script>
+</html>

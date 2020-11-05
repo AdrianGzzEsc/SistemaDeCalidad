@@ -1,4 +1,4 @@
-function userSignupFetch( email, fName, lName, password ){
+function userSignupFetch(email, fName, lName, password, superuser) {
     let url = '/registrar';
 
     let data = {
@@ -6,29 +6,31 @@ function userSignupFetch( email, fName, lName, password ){
         lName,
         password,
         email,
-        superuser : false
+        superuser
     }
 
     let settings = {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body : JSON.stringify( data )
+        body: JSON.stringify(data)
     }
 
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ){
+    fetch(url, settings)
+        .then(response => {
+            if (response.ok) {
                 return response.json();
             }
-            throw new Error( response.statusText );
+            throw new Error(response.statusText);
         })
-        .then( responseJSON => {
+        .then(responseJSON => {
             // console.log( responseJSON );
             // alert("Se ha regitrado el usuario con éxito.");
             // Muestra alerta de bootstrap de exito
+
             var mensaje = "Se ha regitrado el usuario con éxito.";
+
             $('#agregar-error').html(`
                 <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
                     ${mensaje}
@@ -38,8 +40,9 @@ function userSignupFetch( email, fName, lName, password ){
                 </div>
             `);
             borraAlerta();
+            espera()
         })
-        .catch( err => {
+        .catch(err => {
             // alert(err.message);
             // Muestra alerta de bootstrap de error
             var mensaje = err.message;
@@ -52,46 +55,55 @@ function userSignupFetch( email, fName, lName, password ){
                 </div>
             `);
             borraAlerta();
-            
         });
 }
 
 // Funcion que borra la alerta de bootstrap despues de 5000ms
 function borraAlerta() {
     setTimeout(function() {
-            $('#agregar-error').html('');
+        $('#agregar-error').html('');
     }, 5000);
 }
 
-function init() {
-    let registerBtn = document.getElementById( 'registerBtn' );
+function espera() {
+    setTimeout(() => { console.log("World!"); }, 5000);
+    location.reload();
+}
 
-    registerBtn.addEventListener( 'click', ( event ) => {
+function init() {
+    let registerBtn = document.getElementById('registerBtn');
+
+    registerBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        let fName = document.getElementById( 'fName' ).value;
-        let lName = document.getElementById( 'lName' ).value;
-        let email = document.getElementById( 'email' ).value;
-        let password = document.getElementById( 'password' ).value;
-        let confirm = document.getElementById( 'confirm' ).value;
-        if( confirm == password ) {
-            userSignupFetch( email, fName, lName, password );
-        }
-        else {
+        let fName = document.getElementById('fName').value;
+        let lName = document.getElementById('lName').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let confirm = document.getElementById('confirm').value;
+        let select = document.getElementById('superuser').value;
+        let superuser;
+        if (select == 'true')
+            superuser = true;
+        else
+            superuser = false;
+        if (confirm == password) {
+            userSignupFetch(email, fName, lName, password, superuser);
+
+        } else {
             alert("Las contraseñas no coinciden.");
         }
     })
 
-    let confirm = document.getElementById( 'confirm' );
+    let confirm = document.getElementById('confirm');
 
-    confirm.addEventListener( 'change', function () {
-        let password = document.getElementById( 'password' ).value;
-        if( password != confirm.value ) {
-            confirm.classList.add( 'false' );
-            confirm.classList.remove( 'correct' );
-        }
-        else {
-            confirm.classList.add( 'correct' );
-            confirm.classList.remove( 'false' );
+    confirm.addEventListener('change', function() {
+        let password = document.getElementById('password').value;
+        if (password != confirm.value) {
+            confirm.classList.add('false');
+            confirm.classList.remove('correct');
+        } else {
+            confirm.classList.add('correct');
+            confirm.classList.remove('false');
         }
     })
 }

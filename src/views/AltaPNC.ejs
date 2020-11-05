@@ -8,16 +8,16 @@
             <div class="col px-3" style="max-width: 750px;">
                 <div class="card mb-5">
                     <div class="card-header">
-                        <form action="/add" method="post">
+                        <form>
                             <div class="form-group row justify-content-between">
                                 <div class="col-sm-5">
                                     <label for="proceso">Proceso del defecto:</label>
-                                    <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso" onchange="location = this.value;">
-                                    <option value="" disabled selected hidden>Seleccionar proceso</option>
-                                    <% for (var i =0; i < oper.length; i++)  {     %>
-                                    <option value="/enviarvariable/<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
-                                    <%  }  %>
-                                </select>
+                                    <select id="proceso" class="form-control" name="Proceso" placeholder="Proceso">
+                                        <option value="" disabled selected hidden>Seleccionar proceso</option>
+                                        <% for (var i =0; i < oper.length; i++)  {     %>
+                                        <option value="<%=oper[i].nombre %>"> <%= oper[i].nombre %></option>
+                                        <%  }  %>
+                                    </select>
                                 </div>
                                 <div class="col-sm-5" style="max-width: 200px;">
                                     <label for="fechaform">Fecha:</label>
@@ -36,11 +36,11 @@
                                 <div class="col-sm-5">
                                     <label for="modelo">Modelo:</label>
                                     <select id="modelo" class="form-control" name="Modelo" placeholder="Modelo">
-                                    <option value="" disabled selected hidden>Modelo</option>
-                                    <% for (var i =0; i < mod.length; i++)  {     %>
-                                    <option value="<%= mod[i].nombre %> "> <%= mod[i].nombre %> </option>
-                                    <%  }  %>
-                                </select>
+                                        <option value="" disabled selected hidden>Modelo</option>
+                                        <% for (var i =0; i < mod.length; i++)  {     %>
+                                        <option value="<%= mod[i].nombre %> "> <%= mod[i].nombre %> </option>
+                                        <%  }  %>
+                                    </select>
                                 </div>
                             </div>
 
@@ -48,10 +48,8 @@
                                 <div class="col-sm-6">
                                     <label for="seleccion">Seleccione los Defectos:</label>
                                     <select id="seleccion" class="selectpicker" multiple data-live-search="true" class="form-control">
-                                    <% for (var i =0; i < defOp.length; i++)  {     %>
-                                    <option value=""> <%= defOp[i].defecto %> </option>
-                                    <%  }  %>
-                                </select>
+                                        <option></option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-5">
                                     <label for="cantidad">Cantidad:</label>
@@ -68,12 +66,12 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-5">
-                                    <label for="seleccion">Retrabajable:</label>
-                                    <select id="seleccion" class="form-control" name="Retrabajable" placeholder="Seleccionar" style="width: fit-content;">
-                                    <option value="" disabled selected hidden>Seleccionar</option>
-                                    <option value="Menor">Si</option>
-                                    <option value="Mayor">No</option>
-                                </select>
+                                    <label for="seleccionRet">Retrabajable:</label>
+                                    <select id="seleccionRet" class="form-control" name="Retrabajable" placeholder="Seleccionar" style="width: fit-content;">
+                                        <option value="" disabled selected hidden>Seleccionar</option>
+                                        <option value="Menor">Si</option>
+                                        <option value="Mayor">No</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -82,7 +80,7 @@
                                     <a class="myButton btn-red" href="/inicio">Salir</a>
                                 </div>
                                 <div class="col p-0 px-3">
-                                    <button class="myButton" type="submit">Enviar</button>
+                                    <button id="btnSubmit" class="myButton" type="button">Enviar</button>
                                 </div>
                             </div>
                         </form>
@@ -91,7 +89,13 @@
             </div>
         </div>
     </div>
-
+    <div hidden>
+        <select hidden>
+            <% for (var i =0; i < defOp.length; i++)  {     %>
+                <option hidden class="<%=defOp[i].operacion%>" value="<%=defOp[i].defecto%>"><%= defOp[i].defecto %></option>
+            <%  }  %>
+        </select>
+    </div>
     <script>
         function getModel() {
             var x = document.getElementById("model").value;
@@ -109,5 +113,34 @@
             });
         });
     </script>
-
-    <%- include ("./partials/_footer") %>
+    <script>
+        let sel = document.getElementById( 'proceso' );
+        let select = document.getElementById('seleccion');
+        sel.addEventListener( 'change', ( event ) => {
+            event.preventDefault();
+            $(".selectpicker").selectpicker();
+            var array = [];
+            for(let i = 0; i < document.getElementsByClassName(sel.value).length; i++) {
+                let outerHTML = document.getElementsByClassName(sel.value)[i].outerHTML;
+                var strDef = outerHTML.search(">");
+                var strDef2 = outerHTML.search("/");
+                var defecto = outerHTML.substring(strDef+1, strDef2-1);
+                array.push(defecto);
+            }
+            console.log(select.innerHTML);
+            console.log("change.");
+            select.innerHTML = ``;
+            for( let i = 0; i < array.length; i++ ) {
+                let opt = document.createElement('option');
+                opt.value = array[i];
+                opt.innerText = array[i];
+                select.add(opt);
+            }
+            $('.selectpicker').selectpicker('refresh');
+            console.log(select);
+        })
+    </script>
+</body>
+<script src="../../js/home.js"></script>
+<script src="../../js/altaPNC.js"></script>
+</html>

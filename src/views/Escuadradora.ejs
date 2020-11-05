@@ -33,64 +33,39 @@
             </ul>
         </div>
         <div class="card-body">
-
             <div class="flex">
-
-
-
                 <form action="/addEscuadradora/<%= ins[ins.length-1].folio %>" method="post">
-
                     <div class="flex">
-
-
                         <div class="form-group">
-                            <select class="form-control" name="modelo" placeholder="Modelo" style="width: 200px">
-                            <option value="" disabled selected hidden>Modelo</option>
-                            <% for (var i =0; i < mod.length; i++)  {     %>
+                            <select id="modelo" class="form-control" name="modelo" placeholder="Modelo" style="width: 200px" onchange="change()">
+                                <option value="" disabled selected hidden>Modelo</option>
+                                <% for (var i =0; i < mod.length; i++)  {     %>
 
-                                <option value="<%= mod[i].nombre %>">  <%= mod[i].nombre %> </option>
+                                    <option value="<%=mod[i].nombre%>"><%= mod[i].nombre %></option>
 
-                                <%  }  %>
-                        </select>
+                                    <%  }  %>
+                            </select>
                         </div>
-
-
-
-                        <div class="form-group">
-                            <select class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
-                            <option value="" disabled selected hidden>Pieza</option>
-
-                            <% for (var i =0; i < pieza.length; i++)  {     %>
-
-                                <option value="<%= pieza[i].nombre %>">  <%= pieza[i].nombre %> </option>
-
-                                <%  }  %>
-                        </select>
+                        <div id="divPiezas" class="form-group">
+                            <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
+                                <option value="" disabled selected hidden>Pieza</option>
+                            </select>
                         </div>
-
                     </div>
                     <div class="flexx">
-
-
                         <div>
-
                             <label for="name"> Pieza 1:</label >
-
                             <div class="form-group">
-
                                 <select class="form-control" name="ins1">
                                 <option value="" disabled selected hidden>Inspección</option>
                                 <option value="Aceptado">Aceptado</option>
                                 <option value="Rechazado">Rechazado</option>
                             </select>
                             </div>
-
                             <div class="flex">
-
                                 <label for="name"> Selecciona los Defectos:</label >
                             </div>
                             <div class="flex">
-    
                                 <div class="form-group">
                                     <select class="selectpicker" multiple data-live-search="true" class="form-control" name = "def1" >
                                         <% for (var i =0; i < defOp.length; i++)  {     %>
@@ -102,27 +77,19 @@
                                 </div>
                             </div>
                             </div>
-
-                            
                             <div style="margin-left: 5%; margin-right: 5%;">
-
                                 <label for="name"> Pieza 2:</label >
-
                             <div class="form-group">
-
                                 <select class="form-control" name="ins2">
                                 <option value="" disabled selected hidden>Inspección</option>
                                 <option value="Aceptado">Aceptado</option>
                                 <option value="Rechazado">Rechazado</option>
                             </select>
                             </div>
-
                             <div class="flex">
-
                                 <label for="name"> Selecciona los Defectos:</label >
                             </div>
                             <div class="flex">
-    
                                 <div class="form-group">
                                     <select class="selectpicker" multiple data-live-search="true" class="form-control" name = "def2" >
                                         <% for (var i =0; i < defOp.length; i++)  {     %>
@@ -134,12 +101,8 @@
                                 </div>
                             </div>
                             </div>
-
-                            
                             <div>
-
                                 <label for="name"> Pieza 3:</label >
-
                             <div class="form-group">
 
                                 <select class="form-control" name="ins3">
@@ -148,7 +111,6 @@
                                 <option value="Rechazado">Rechazado</option>
                             </select>
                             </div>
-
                             <div class="flex">
 
                                 <label for="name"> Selecciona los Defectos:</label >
@@ -166,36 +128,31 @@
                                 </div>
                             </div>
                             </div>
-
                         </div>
-
                   <div>
-
-                  
                         <a class="btn btn-primary" type="submit" style="margin-left: 10%;" onclick="this.parentNode.submit()">
                             Siguiente
                         </a>
-
-                    
-                        
-                        
-                    </form>
-
-                    
+                    </form> 
                 </div>
             </div>
-        
-          
-        
-            
-
         </div>
-      
     </div>
     
     <div class="flex7" style="margin-top: 10px;margin-right: 18%;">
             <a href="/inicio/" class="btn btn-danger">Salir</a>
     </div>
+
+    <div hidden>
+        <select id="busqueda" hidden class="form-control" placeholder="Pieza" style="width: 200px">
+            <% for (var i =0; i < pM.length; i++)  {     %>
+
+                <option class="<%=pM[i].modelo%>"><%=pM[i].pieza%></option>
+
+                <%  }  %>
+        </select>
+    </div>
+    
     <script>
         $(document).ready(function() {
             $(document.getElementsByName("modelo")).selectize({
@@ -208,6 +165,31 @@
                 sortField: 'text'
             });
         });
+    </script>
+
+    <script>
+        function change() {
+            let sel = document.getElementById( 'modelo' );
+            var array = [];
+            let piezas = document.getElementsByClassName(sel.value);
+            for(let i = 0; i < piezas.length; i++) {
+                let outerHTML = piezas[i].outerHTML;
+                var strDef = outerHTML.search(">");
+                var strDef2 = outerHTML.search("/");
+                var defecto = outerHTML.substring(strDef+1, strDef2-1);
+                array.push(defecto);
+            }
+            let someHTML = ``;
+            for( let i = 0; i < array.length; i++ ) {
+                someHTML += `<option value="${array[i]}">${array[i]}</option>`;
+            }
+            let divPiezas = document.getElementById( 'divPiezas' );
+            divPiezas.innerHTML = `
+            <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" style="width: 200px">
+                ${someHTML}
+            </select>
+            `;
+        }
     </script>
 
     <!-- FORMULARIO-->
