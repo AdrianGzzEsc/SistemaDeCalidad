@@ -67,30 +67,30 @@
                     </thead>
                     <tbody>
 
-                        <% for (var i =0; i < tasks.length; i++)  {     %>
-
-                            <tr>
-                                <td>
-                                    <%= i+1 %>
-                                </td>
-                                <td> <strong> <%= tasks[i].modelo %>   </strong> </td>
-                                <td> <strong> <%= tasks[i].pieza %>   </strong> </td>
-
-
+                        <% var cont = 0; %>
+                            <% for (var i = tasks.length-1; i > 0; i--)  {     %>
+                                <tr>
+                                    <td>
+                                        <%= cont+1 %>
+                                    </td>
+                                    <td> <strong> <%= tasks[i].modelo %>   </strong> </td>
+                                    <td> <strong> <%= tasks[i].pieza %>   </strong> </td>
 
 
-                                <td>
-
-                                    <a href=/deletePiezaModelo/<%=tasks[i]._id %>   class="btn btn-danger" href="turn">Eliminar </a>
 
 
-                                </td>
+                                    <td>
 
-                            </tr>
+                                        <a href=/deletePiezaModelo/<%=tasks[i]._id %>   class="btn btn-danger" href="turn">Eliminar </a>
 
 
-                            <%  }  %>
-                                <!--  TABLA CON LOS DATOS-->
+                                    </td>
+
+                                </tr>
+
+
+                                <% cont++; }  %>
+                                    <!--  TABLA CON LOS DATOS-->
 
                     </tbody>
                 </table>
