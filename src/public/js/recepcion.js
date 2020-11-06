@@ -30,16 +30,42 @@ function addRecepcionFetch( folio, fecha, inspector, entrada, OC, Doc_Pro, Prove
             throw new Error( response.statusText );
         })
         .then( responseJSON => {
-            displayPost( responseJSON ); 
+            var mensaje = "Se ha regitrado el usuario con éxito.";
+
+            $('#agregar-error').html(`
+                <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
+                    ${mensaje}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+            borraAlerta();
+            displayPost( responseJSON );
         })
         .catch( err => {
-            alert( err );
+            var mensaje = err.message;
+            $('#agregar-error').html(`
+                <div class="alert alert-danger alert-dismissible fade show msg-error" role="alert">
+                    ${mensaje}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+            borraAlerta();
         })
 }
 
 function displayPost( data ) {
     alert( "Se hizo inspeccion con exito." );
     window.location.href = "/inicio/";
+}
+
+function borraAlerta() {
+    setTimeout(function() {
+        $('#agregar-error').html('');
+    }, 5000);
 }
 
 function validate() {
