@@ -10,7 +10,6 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
-
 const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
@@ -43,8 +42,9 @@ router.get('/inicio/', (req, res) => {
     res.render('Inicio');
 });
 
-router.get('/graficas/', (req, res) => {
-    res.render('Graficas');
+router.get('/graficas/', async(req, res) => {
+    const escu = await escuadradora.find();
+    res.render('Graficas', { escu });
 });
 
 router.get('/super/', (req, res) => {

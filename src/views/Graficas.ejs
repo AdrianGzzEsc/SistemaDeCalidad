@@ -1,5 +1,4 @@
 <%- include ("./partials/_header") %>
-
     <section>
         <div class="container">
             <div class="row">
@@ -121,12 +120,14 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
+
                                     <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
+                                </th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -700,47 +701,7 @@
             </div>
         </div>
     </div>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
-
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45]
-                }]
-            },
-
-            // Configuration options go here
-            options: {}
-        });
-        var ctx = document.getElementById('tablaDos').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
-
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45]
-                }]
-            },
-
-            // Configuration options go here
-            options: {}
-        });
-    </script>
-
-<script src="/js/validategraficas.js"></script>
+    <script src="/js/graficas.js"></script>
+    <script src="/js/validategraficas.js"></script>
 
     <%- include ("./partials/_footer") %>
