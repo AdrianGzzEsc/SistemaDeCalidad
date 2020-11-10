@@ -44,7 +44,13 @@ router.get('/inicio/', (req, res) => {
 
 router.get('/graficas/', async(req, res) => {
     const escu = await escuadradora.find();
-    res.render('Graficas', { escu });
+    const escAp = await escuadradora.find({ "ins1": "Aceptado" }).count();
+    const escAp2 = await escuadradora.find({ "ins2": "Aceptado" }).count();
+    const escAp3 = await escuadradora.find({ "ins3": "Aceptado" }).count();
+    const escRe = await escuadradora.find({ "ins1": "Rechazado" }).count();
+    const escRe2 = await escuadradora.find({ "ins2": "Rechazado" }).count();
+    const escRe3 = await escuadradora.find({ "ins3": "Rechazado" }).count();
+    res.render('Graficas', { escu, escAp, escAp2, escAp3, escRe, escRe2, escRe3 });
 });
 
 router.get('/super/', (req, res) => {

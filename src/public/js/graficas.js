@@ -1,6 +1,8 @@
 function init() {
 
 
+
+
     names = ['Defectos en Proceso - Escuadradora', 'Defectos en Proceso - Enchapadora', 'Defectos en Proceso - Taladro', 'Defectos en Proceso - Sacabocas', 'Defectos en Proceso - Armado1', 'Defectos en Proceso - Armado2', 'Defectos en Proceso - Armado3', 'Defectos en Proceso - Acabados'];
     fechas = ["Fecha-1", "Fecha-2", "Fecha-3", "Fecha-4", "Fecha-5", "Total"]
 
