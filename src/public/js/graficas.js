@@ -90,9 +90,19 @@ function refresh() {
             var fechasEscRe = [0, 0, 0, 0, 0];
             var fechasEscT = [0, 0, 0, 0, 0];
             var iEsc = 0;
+            var previousObj;
+            var ArrayEscAp = {};
+            var ArrayEscRe = {};
 
             for (var key in responseJSON.escuad) {
                 var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayEscAp)) {
+                    ArrayEscAp[keyNew] = 0;
+                    ArrayEscRe[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContEscAp++;
                 else
@@ -109,12 +119,17 @@ function refresh() {
                 fechasEsc[iEsc] = ContEscAp;
                 fechasEscRe[iEsc] = ContEscRe;
                 fechasEscT[iEsc] = ContEscRe + ContEscAp;
-                ContEscRT = ContEscRT + ContEscRe;
-                ContEscAT = ContEscAT + ContEscAp;
+                ContEscRT += ContEscRe;
+                ContEscAT += ContEscAp;
+                previousObj = obj;
+                ArrayEscAp[keyNew] += ContEscAp;
+                ArrayEscRe[keyNew] += ContEscRe;
                 ContEscAp = 0;
                 ContEscRe = 0;
                 iEsc++;
+
             }
+
             fechasEsc[5] = ContEscAT;
             fechasEscRe[5] = ContEscRT;
             fechasEscT[5] = ContEscAT + ContEscRT;
@@ -124,10 +139,26 @@ function refresh() {
             var EscT = ["EscT", "EscT1", "EscT2", "EscT3", "EscT4", "EscT5"];
 
             for (var i = 0; i < EscAp.length; i++) {
-                document.getElementById(EscAp[i]).innerHTML = fechasEsc[i];
-                document.getElementById(EscRe[i]).innerHTML = fechasEscRe[i];
-                document.getElementById(EscT[i]).innerHTML = fechasEscT[i];
+                document.getElementById(EscAp[i]).innerHTML = 0;
+                document.getElementById(EscRe[i]).innerHTML = 0;
+                document.getElementById(EscT[i]).innerHTML = 0;
             }
+
+            document.getElementById(EscAp[5]).innerHTML = fechasEsc[5];
+            document.getElementById(EscRe[5]).innerHTML = fechasEscRe[5];
+            document.getElementById(EscT[5]).innerHTML = fechasEscT[5];
+
+            var x = 0;
+            for (var key in ArrayEscAp) {
+                var obj = ArrayEscAp[key];
+                var obj2 = ArrayEscRe[key];
+                document.getElementById(EscAp[x]).innerHTML = obj;
+                document.getElementById(EscRe[x]).innerHTML = obj2;
+                document.getElementById(EscT[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
+
 
             //Enchapadora
             var ContEncAp = 0;
@@ -138,9 +169,19 @@ function refresh() {
             var fechasEncRe = [0, 0, 0, 0, 0];
             var fechasEncT = [0, 0, 0, 0, 0];
             var iEnc = 0;
+            var previousObj;
+            var ArrayEncAp = {};
+            var ArrayEncRe = {};
 
-            for (var key in responseJSON.enchap) {
-                var obj = responseJSON.enchap[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayEncAp)) {
+                    ArrayEncAp[keyNew] = 0;
+                    ArrayEncRe[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContEncAp++;
                 else
@@ -157,12 +198,17 @@ function refresh() {
                 fechasEnc[iEnc] = ContEncAp;
                 fechasEncRe[iEnc] = ContEncRe;
                 fechasEncT[iEnc] = ContEncRe + ContEncAp;
-                ContEncRT = ContEncRT + ContEncRe;
-                ContEncAT = ContEncAT + ContEncAp;
+                ContEncRT += ContEncRe;
+                ContEncAT += ContEncAp;
+                previousObj = obj;
+                ArrayEncAp[keyNew] += ContEncAp;
+                ArrayEncRe[keyNew] += ContEncRe;
                 ContEncAp = 0;
                 ContEncRe = 0;
                 iEnc++;
+
             }
+
             fechasEnc[5] = ContEncAT;
             fechasEncRe[5] = ContEncRT;
             fechasEncT[5] = ContEncAT + ContEncRT;
@@ -172,10 +218,25 @@ function refresh() {
             var EncT = ["EncT", "EncT1", "EncT2", "EncT3", "EncT4", "EncT5"];
 
             for (var i = 0; i < EncAp.length; i++) {
-                document.getElementById(EncAp[i]).innerHTML = fechasEnc[i];
-                document.getElementById(EncRe[i]).innerHTML = fechasEncRe[i];
-                document.getElementById(EncT[i]).innerHTML = fechasEncT[i];
+                document.getElementById(EncAp[i]).innerHTML = 0;
+                document.getElementById(EncRe[i]).innerHTML = 0;
+                document.getElementById(EncT[i]).innerHTML = 0;
             }
+
+            document.getElementById(EncAp[5]).innerHTML = fechasEnc[5];
+            document.getElementById(EncRe[5]).innerHTML = fechasEncRe[5];
+            document.getElementById(EncT[5]).innerHTML = fechasEncT[5];
+
+            var x = 0;
+            for (var key in ArrayEncAp) {
+                var obj = ArrayEncAp[key];
+                var obj2 = ArrayEncRe[key];
+                document.getElementById(EncAp[x]).innerHTML = obj;
+                document.getElementById(EncRe[x]).innerHTML = obj2;
+                document.getElementById(EncT[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Taladro
             var ContTalAp = 0;
@@ -186,9 +247,19 @@ function refresh() {
             var fechasTalRe = [0, 0, 0, 0, 0];
             var fechasTalT = [0, 0, 0, 0, 0];
             var iTal = 0;
+            var previousObj;
+            var ArrayTalAp = {};
+            var ArrayTalRe = {};
 
-            for (var key in responseJSON.talad) {
-                var obj = responseJSON.talad[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayTalAp)) {
+                    ArrayTalAp[keyNew] = 0;
+                    ArrayTalRe[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContTalAp++;
                 else
@@ -205,12 +276,17 @@ function refresh() {
                 fechasTal[iTal] = ContTalAp;
                 fechasTalRe[iTal] = ContTalRe;
                 fechasTalT[iTal] = ContTalRe + ContTalAp;
-                ContTalRT = ContTalRT + ContTalRe;
-                ContTalAT = ContTalAT + ContTalAp;
+                ContTalRT += ContTalRe;
+                ContTalAT += ContTalAp;
+                previousObj = obj;
+                ArrayTalAp[keyNew] += ContTalAp;
+                ArrayTalRe[keyNew] += ContTalRe;
                 ContTalAp = 0;
                 ContTalRe = 0;
                 iTal++;
+
             }
+
             fechasTal[5] = ContTalAT;
             fechasTalRe[5] = ContTalRT;
             fechasTalT[5] = ContTalAT + ContTalRT;
@@ -220,10 +296,25 @@ function refresh() {
             var TalT = ["TalT", "TalT1", "TalT2", "TalT3", "TalT4", "TalT5"];
 
             for (var i = 0; i < TalAp.length; i++) {
-                document.getElementById(TalAp[i]).innerHTML = fechasTal[i];
-                document.getElementById(TalRe[i]).innerHTML = fechasTalRe[i];
-                document.getElementById(TalT[i]).innerHTML = fechasTalT[i];
+                document.getElementById(TalAp[i]).innerHTML = 0;
+                document.getElementById(TalRe[i]).innerHTML = 0;
+                document.getElementById(TalT[i]).innerHTML = 0;
             }
+
+            document.getElementById(TalAp[5]).innerHTML = fechasTal[5];
+            document.getElementById(TalRe[5]).innerHTML = fechasTalRe[5];
+            document.getElementById(TalT[5]).innerHTML = fechasTalT[5];
+
+            var x = 0;
+            for (var key in ArrayTalAp) {
+                var obj = ArrayTalAp[key];
+                var obj2 = ArrayTalRe[key];
+                document.getElementById(TalAp[x]).innerHTML = obj;
+                document.getElementById(TalRe[x]).innerHTML = obj2;
+                document.getElementById(TalT[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Sacabocados
 
@@ -235,9 +326,19 @@ function refresh() {
             var fechasSacRe = [0, 0, 0, 0, 0];
             var fechasSacT = [0, 0, 0, 0, 0];
             var iSac = 0;
+            var previousObj;
+            var ArraySacAp = {};
+            var ArraySacRe = {};
 
-            for (var key in responseJSON.talad) {
-                var obj = responseJSON.talad[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArraySacAp)) {
+                    ArraySacAp[keyNew] = 0;
+                    ArraySacRe[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContSacAp++;
                 else
@@ -254,12 +355,17 @@ function refresh() {
                 fechasSac[iSac] = ContSacAp;
                 fechasSacRe[iSac] = ContSacRe;
                 fechasSacT[iSac] = ContSacRe + ContSacAp;
-                ContSacRT = ContSacRT + ContSacRe;
-                ContSacAT = ContSacAT + ContSacAp;
+                ContSacRT += ContSacRe;
+                ContSacAT += ContSacAp;
+                previousObj = obj;
+                ArraySacAp[keyNew] += ContSacAp;
+                ArraySacRe[keyNew] += ContSacRe;
                 ContSacAp = 0;
                 ContSacRe = 0;
                 iSac++;
+
             }
+
             fechasSac[5] = ContSacAT;
             fechasSacRe[5] = ContSacRT;
             fechasSacT[5] = ContSacAT + ContSacRT;
@@ -269,10 +375,25 @@ function refresh() {
             var SacT = ["SacT", "SacT1", "SacT2", "SacT3", "SacT4", "SacT5"];
 
             for (var i = 0; i < SacAp.length; i++) {
-                document.getElementById(SacAp[i]).innerHTML = fechasSac[i];
-                document.getElementById(SacRe[i]).innerHTML = fechasSacRe[i];
-                document.getElementById(SacT[i]).innerHTML = fechasSacT[i];
+                document.getElementById(SacAp[i]).innerHTML = 0;
+                document.getElementById(SacRe[i]).innerHTML = 0;
+                document.getElementById(SacT[i]).innerHTML = 0;
             }
+
+            document.getElementById(SacAp[5]).innerHTML = fechasSac[5];
+            document.getElementById(SacRe[5]).innerHTML = fechasSacRe[5];
+            document.getElementById(SacT[5]).innerHTML = fechasSacT[5];
+
+            var x = 0;
+            for (var key in ArraySacAp) {
+                var obj = ArraySacAp[key];
+                var obj2 = ArraySacRe[key];
+                document.getElementById(SacAp[x]).innerHTML = obj;
+                document.getElementById(SacRe[x]).innerHTML = obj2;
+                document.getElementById(SacT[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Armado1
 
@@ -284,9 +405,19 @@ function refresh() {
             var fechasAr1Re = [0, 0, 0, 0, 0];
             var fechasAr1T = [0, 0, 0, 0, 0];
             var iAr1 = 0;
+            var previousObj;
+            var ArrayAr1Ap = {};
+            var ArrayAr1Re = {};
 
-            for (var key in responseJSON.arm1) {
-                var obj = responseJSON.arm1[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayAr1Ap)) {
+                    ArrayAr1Ap[keyNew] = 0;
+                    ArrayAr1Re[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContAr1Ap++;
                 else
@@ -303,12 +434,17 @@ function refresh() {
                 fechasAr1[iAr1] = ContAr1Ap;
                 fechasAr1Re[iAr1] = ContAr1Re;
                 fechasAr1T[iAr1] = ContAr1Re + ContAr1Ap;
-                ContAr1RT = ContAr1RT + ContAr1Re;
-                ContAr1AT = ContAr1AT + ContAr1Ap;
+                ContAr1RT += ContAr1Re;
+                ContAr1AT += ContAr1Ap;
+                previousObj = obj;
+                ArrayAr1Ap[keyNew] += ContAr1Ap;
+                ArrayAr1Re[keyNew] += ContAr1Re;
                 ContAr1Ap = 0;
                 ContAr1Re = 0;
                 iAr1++;
+
             }
+
             fechasAr1[5] = ContAr1AT;
             fechasAr1Re[5] = ContAr1RT;
             fechasAr1T[5] = ContAr1AT + ContAr1RT;
@@ -318,10 +454,25 @@ function refresh() {
             var Ar1T = ["Ar1T", "Ar1T1", "Ar1T2", "Ar1T3", "Ar1T4", "Ar1T5"];
 
             for (var i = 0; i < Ar1Ap.length; i++) {
-                document.getElementById(Ar1Ap[i]).innerHTML = fechasAr1[i];
-                document.getElementById(Ar1Re[i]).innerHTML = fechasAr1Re[i];
-                document.getElementById(Ar1T[i]).innerHTML = fechasAr1T[i];
+                document.getElementById(Ar1Ap[i]).innerHTML = 0;
+                document.getElementById(Ar1Re[i]).innerHTML = 0;
+                document.getElementById(Ar1T[i]).innerHTML = 0;
             }
+
+            document.getElementById(Ar1Ap[5]).innerHTML = fechasAr1[5];
+            document.getElementById(Ar1Re[5]).innerHTML = fechasAr1Re[5];
+            document.getElementById(Ar1T[5]).innerHTML = fechasAr1T[5];
+
+            var x = 0;
+            for (var key in ArrayAr1Ap) {
+                var obj = ArrayAr1Ap[key];
+                var obj2 = ArrayAr1Re[key];
+                document.getElementById(Ar1Ap[x]).innerHTML = obj;
+                document.getElementById(Ar1Re[x]).innerHTML = obj2;
+                document.getElementById(Ar1T[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Armado2
 
@@ -333,9 +484,19 @@ function refresh() {
             var fechasAr2Re = [0, 0, 0, 0, 0];
             var fechasAr2T = [0, 0, 0, 0, 0];
             var iAr2 = 0;
+            var previousObj;
+            var ArrayAr2Ap = {};
+            var ArrayAr2Re = {};
 
-            for (var key in responseJSON.arm2) {
-                var obj = responseJSON.arm2[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayAr2Ap)) {
+                    ArrayAr2Ap[keyNew] = 0;
+                    ArrayAr2Re[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContAr2Ap++;
                 else
@@ -352,12 +513,17 @@ function refresh() {
                 fechasAr2[iAr2] = ContAr2Ap;
                 fechasAr2Re[iAr2] = ContAr2Re;
                 fechasAr2T[iAr2] = ContAr2Re + ContAr2Ap;
-                ContAr2RT = ContAr2RT + ContAr2Re;
-                ContAr2AT = ContAr2AT + ContAr2Ap;
+                ContAr2RT += ContAr2Re;
+                ContAr2AT += ContAr2Ap;
+                previousObj = obj;
+                ArrayAr2Ap[keyNew] += ContAr2Ap;
+                ArrayAr2Re[keyNew] += ContAr2Re;
                 ContAr2Ap = 0;
                 ContAr2Re = 0;
                 iAr2++;
+
             }
+
             fechasAr2[5] = ContAr2AT;
             fechasAr2Re[5] = ContAr2RT;
             fechasAr2T[5] = ContAr2AT + ContAr2RT;
@@ -367,10 +533,25 @@ function refresh() {
             var Ar2T = ["Ar2T", "Ar2T1", "Ar2T2", "Ar2T3", "Ar2T4", "Ar2T5"];
 
             for (var i = 0; i < Ar2Ap.length; i++) {
-                document.getElementById(Ar2Ap[i]).innerHTML = fechasAr2[i];
-                document.getElementById(Ar2Re[i]).innerHTML = fechasAr2Re[i];
-                document.getElementById(Ar2T[i]).innerHTML = fechasAr2T[i];
+                document.getElementById(Ar2Ap[i]).innerHTML = 0;
+                document.getElementById(Ar2Re[i]).innerHTML = 0;
+                document.getElementById(Ar2T[i]).innerHTML = 0;
             }
+
+            document.getElementById(Ar2Ap[5]).innerHTML = fechasAr2[5];
+            document.getElementById(Ar2Re[5]).innerHTML = fechasAr2Re[5];
+            document.getElementById(Ar2T[5]).innerHTML = fechasAr2T[5];
+
+            var x = 0;
+            for (var key in ArrayAr2Ap) {
+                var obj = ArrayAr2Ap[key];
+                var obj2 = ArrayAr2Re[key];
+                document.getElementById(Ar2Ap[x]).innerHTML = obj;
+                document.getElementById(Ar2Re[x]).innerHTML = obj2;
+                document.getElementById(Ar2T[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Armado3
 
@@ -382,9 +563,19 @@ function refresh() {
             var fechasAr3Re = [0, 0, 0, 0, 0];
             var fechasAr3T = [0, 0, 0, 0, 0];
             var iAr3 = 0;
+            var previousObj;
+            var ArrayAr3Ap = {};
+            var ArrayAr3Re = {};
 
-            for (var key in responseJSON.arm3) {
-                var obj = responseJSON.arm3[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayAr3Ap)) {
+                    ArrayAr3Ap[keyNew] = 0;
+                    ArrayAr3Re[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContAr3Ap++;
                 else
@@ -401,12 +592,17 @@ function refresh() {
                 fechasAr3[iAr3] = ContAr3Ap;
                 fechasAr3Re[iAr3] = ContAr3Re;
                 fechasAr3T[iAr3] = ContAr3Re + ContAr3Ap;
-                ContAr3RT = ContAr3RT + ContAr3Re;
-                ContAr3AT = ContAr3AT + ContAr3Ap;
+                ContAr3RT += ContAr3Re;
+                ContAr3AT += ContAr3Ap;
+                previousObj = obj;
+                ArrayAr3Ap[keyNew] += ContAr3Ap;
+                ArrayAr3Re[keyNew] += ContAr3Re;
                 ContAr3Ap = 0;
                 ContAr3Re = 0;
                 iAr3++;
+
             }
+
             fechasAr3[5] = ContAr3AT;
             fechasAr3Re[5] = ContAr3RT;
             fechasAr3T[5] = ContAr3AT + ContAr3RT;
@@ -416,10 +612,25 @@ function refresh() {
             var Ar3T = ["Ar3T", "Ar3T1", "Ar3T2", "Ar3T3", "Ar3T4", "Ar3T5"];
 
             for (var i = 0; i < Ar3Ap.length; i++) {
-                document.getElementById(Ar3Ap[i]).innerHTML = fechasAr3[i];
-                document.getElementById(Ar3Re[i]).innerHTML = fechasAr3Re[i];
-                document.getElementById(Ar3T[i]).innerHTML = fechasAr3T[i];
+                document.getElementById(Ar3Ap[i]).innerHTML = 0;
+                document.getElementById(Ar3Re[i]).innerHTML = 0;
+                document.getElementById(Ar3T[i]).innerHTML = 0;
             }
+
+            document.getElementById(Ar3Ap[5]).innerHTML = fechasAr3[5];
+            document.getElementById(Ar3Re[5]).innerHTML = fechasAr3Re[5];
+            document.getElementById(Ar3T[5]).innerHTML = fechasAr3T[5];
+
+            var x = 0;
+            for (var key in ArrayAr3Ap) {
+                var obj = ArrayAr3Ap[key];
+                var obj2 = ArrayAr3Re[key];
+                document.getElementById(Ar3Ap[x]).innerHTML = obj;
+                document.getElementById(Ar3Re[x]).innerHTML = obj2;
+                document.getElementById(Ar3T[x]).innerHTML = obj + obj2;
+                x++;
+            }
+
 
             //Acabados
 
@@ -431,9 +642,19 @@ function refresh() {
             var fechasAcaRe = [0, 0, 0, 0, 0];
             var fechasAcaT = [0, 0, 0, 0, 0];
             var iAca = 0;
+            var previousObj;
+            var ArrayAcaAp = {};
+            var ArrayAcaRe = {};
 
-            for (var key in responseJSON.acab) {
-                var obj = responseJSON.acab[key];
+            for (var key in responseJSON.escuad) {
+                var obj = responseJSON.escuad[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayAcaAp)) {
+                    ArrayAcaAp[keyNew] = 0;
+                    ArrayAcaRe[keyNew] = 0;
+                }
+
+
                 if (obj.ins1 == "Aceptado")
                     ContAcaAp++;
                 else
@@ -450,12 +671,17 @@ function refresh() {
                 fechasAca[iAca] = ContAcaAp;
                 fechasAcaRe[iAca] = ContAcaRe;
                 fechasAcaT[iAca] = ContAcaRe + ContAcaAp;
-                ContAcaRT = ContAcaRT + ContAcaRe;
-                ContAcaAT = ContAcaAT + ContAcaAp;
+                ContAcaRT += ContAcaRe;
+                ContAcaAT += ContAcaAp;
+                previousObj = obj;
+                ArrayAcaAp[keyNew] += ContAcaAp;
+                ArrayAcaRe[keyNew] += ContAcaRe;
                 ContAcaAp = 0;
                 ContAcaRe = 0;
                 iAca++;
+
             }
+
             fechasAca[5] = ContAcaAT;
             fechasAcaRe[5] = ContAcaRT;
             fechasAcaT[5] = ContAcaAT + ContAcaRT;
@@ -465,9 +691,23 @@ function refresh() {
             var AcaT = ["AcaT", "AcaT1", "AcaT2", "AcaT3", "AcaT4", "AcaT5"];
 
             for (var i = 0; i < AcaAp.length; i++) {
-                document.getElementById(AcaAp[i]).innerHTML = fechasAca[i];
-                document.getElementById(AcaRe[i]).innerHTML = fechasAcaRe[i];
-                document.getElementById(AcaT[i]).innerHTML = fechasAcaT[i];
+                document.getElementById(AcaAp[i]).innerHTML = 0;
+                document.getElementById(AcaRe[i]).innerHTML = 0;
+                document.getElementById(AcaT[i]).innerHTML = 0;
+            }
+
+            document.getElementById(AcaAp[5]).innerHTML = fechasAca[5];
+            document.getElementById(AcaRe[5]).innerHTML = fechasAcaRe[5];
+            document.getElementById(AcaT[5]).innerHTML = fechasAcaT[5];
+
+            var x = 0;
+            for (var key in ArrayAcaAp) {
+                var obj = ArrayAcaAp[key];
+                var obj2 = ArrayAcaRe[key];
+                document.getElementById(AcaAp[x]).innerHTML = obj;
+                document.getElementById(AcaRe[x]).innerHTML = obj2;
+                document.getElementById(AcaT[x]).innerHTML = obj + obj2;
+                x++;
             }
 
 
@@ -575,9 +815,19 @@ function init() {
                 var fechasEscRe = [0, 0, 0, 0, 0];
                 var fechasEscT = [0, 0, 0, 0, 0];
                 var iEsc = 0;
+                var previousObj;
+                var ArrayEscAp = {};
+                var ArrayEscRe = {};
 
                 for (var key in responseJSON.escuad) {
                     var obj = responseJSON.escuad[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayEscAp)) {
+                        ArrayEscAp[keyNew] = 0;
+                        ArrayEscRe[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContEscAp++;
                     else
@@ -594,12 +844,17 @@ function init() {
                     fechasEsc[iEsc] = ContEscAp;
                     fechasEscRe[iEsc] = ContEscRe;
                     fechasEscT[iEsc] = ContEscRe + ContEscAp;
-                    ContEscRT = ContEscRT + ContEscRe;
-                    ContEscAT = ContEscAT + ContEscAp;
+                    ContEscRT += ContEscRe;
+                    ContEscAT += ContEscAp;
+                    previousObj = obj;
+                    ArrayEscAp[keyNew] += ContEscAp;
+                    ArrayEscRe[keyNew] += ContEscRe;
                     ContEscAp = 0;
                     ContEscRe = 0;
                     iEsc++;
+
                 }
+
                 fechasEsc[5] = ContEscAT;
                 fechasEscRe[5] = ContEscRT;
                 fechasEscT[5] = ContEscAT + ContEscRT;
@@ -609,10 +864,26 @@ function init() {
                 var EscT = ["EscT", "EscT1", "EscT2", "EscT3", "EscT4", "EscT5"];
 
                 for (var i = 0; i < EscAp.length; i++) {
-                    document.getElementById(EscAp[i]).innerHTML = fechasEsc[i];
-                    document.getElementById(EscRe[i]).innerHTML = fechasEscRe[i];
-                    document.getElementById(EscT[i]).innerHTML = fechasEscT[i];
+                    document.getElementById(EscAp[i]).innerHTML = 0;
+                    document.getElementById(EscRe[i]).innerHTML = 0;
+                    document.getElementById(EscT[i]).innerHTML = 0;
                 }
+
+                document.getElementById(EscAp[5]).innerHTML = fechasEsc[5];
+                document.getElementById(EscRe[5]).innerHTML = fechasEscRe[5];
+                document.getElementById(EscT[5]).innerHTML = fechasEscT[5];
+
+                var x = 0;
+                for (var key in ArrayEscAp) {
+                    var obj = ArrayEscAp[key];
+                    var obj2 = ArrayEscRe[key];
+                    document.getElementById(EscAp[x]).innerHTML = obj;
+                    document.getElementById(EscRe[x]).innerHTML = obj2;
+                    document.getElementById(EscT[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
+
 
                 //Enchapadora
                 var ContEncAp = 0;
@@ -623,9 +894,19 @@ function init() {
                 var fechasEncRe = [0, 0, 0, 0, 0];
                 var fechasEncT = [0, 0, 0, 0, 0];
                 var iEnc = 0;
+                var previousObj;
+                var ArrayEncAp = {};
+                var ArrayEncRe = {};
 
                 for (var key in responseJSON.enchap) {
                     var obj = responseJSON.enchap[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayEncAp)) {
+                        ArrayEncAp[keyNew] = 0;
+                        ArrayEncRe[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContEncAp++;
                     else
@@ -642,12 +923,17 @@ function init() {
                     fechasEnc[iEnc] = ContEncAp;
                     fechasEncRe[iEnc] = ContEncRe;
                     fechasEncT[iEnc] = ContEncRe + ContEncAp;
-                    ContEncRT = ContEncRT + ContEncRe;
-                    ContEncAT = ContEncAT + ContEncAp;
+                    ContEncRT += ContEncRe;
+                    ContEncAT += ContEncAp;
+                    previousObj = obj;
+                    ArrayEncAp[keyNew] += ContEncAp;
+                    ArrayEncRe[keyNew] += ContEncRe;
                     ContEncAp = 0;
                     ContEncRe = 0;
                     iEnc++;
+
                 }
+
                 fechasEnc[5] = ContEncAT;
                 fechasEncRe[5] = ContEncRT;
                 fechasEncT[5] = ContEncAT + ContEncRT;
@@ -657,10 +943,25 @@ function init() {
                 var EncT = ["EncT", "EncT1", "EncT2", "EncT3", "EncT4", "EncT5"];
 
                 for (var i = 0; i < EncAp.length; i++) {
-                    document.getElementById(EncAp[i]).innerHTML = fechasEnc[i];
-                    document.getElementById(EncRe[i]).innerHTML = fechasEncRe[i];
-                    document.getElementById(EncT[i]).innerHTML = fechasEncT[i];
+                    document.getElementById(EncAp[i]).innerHTML = 0;
+                    document.getElementById(EncRe[i]).innerHTML = 0;
+                    document.getElementById(EncT[i]).innerHTML = 0;
                 }
+
+                document.getElementById(EncAp[5]).innerHTML = fechasEnc[5];
+                document.getElementById(EncRe[5]).innerHTML = fechasEncRe[5];
+                document.getElementById(EncT[5]).innerHTML = fechasEncT[5];
+
+                var x = 0;
+                for (var key in ArrayEncAp) {
+                    var obj = ArrayEncAp[key];
+                    var obj2 = ArrayEncRe[key];
+                    document.getElementById(EncAp[x]).innerHTML = obj;
+                    document.getElementById(EncRe[x]).innerHTML = obj2;
+                    document.getElementById(EncT[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Taladro
                 var ContTalAp = 0;
@@ -671,9 +972,19 @@ function init() {
                 var fechasTalRe = [0, 0, 0, 0, 0];
                 var fechasTalT = [0, 0, 0, 0, 0];
                 var iTal = 0;
+                var previousObj;
+                var ArrayTalAp = {};
+                var ArrayTalRe = {};
 
                 for (var key in responseJSON.talad) {
                     var obj = responseJSON.talad[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayTalAp)) {
+                        ArrayTalAp[keyNew] = 0;
+                        ArrayTalRe[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContTalAp++;
                     else
@@ -690,12 +1001,17 @@ function init() {
                     fechasTal[iTal] = ContTalAp;
                     fechasTalRe[iTal] = ContTalRe;
                     fechasTalT[iTal] = ContTalRe + ContTalAp;
-                    ContTalRT = ContTalRT + ContTalRe;
-                    ContTalAT = ContTalAT + ContTalAp;
+                    ContTalRT += ContTalRe;
+                    ContTalAT += ContTalAp;
+                    previousObj = obj;
+                    ArrayTalAp[keyNew] += ContTalAp;
+                    ArrayTalRe[keyNew] += ContTalRe;
                     ContTalAp = 0;
                     ContTalRe = 0;
                     iTal++;
+
                 }
+
                 fechasTal[5] = ContTalAT;
                 fechasTalRe[5] = ContTalRT;
                 fechasTalT[5] = ContTalAT + ContTalRT;
@@ -705,10 +1021,25 @@ function init() {
                 var TalT = ["TalT", "TalT1", "TalT2", "TalT3", "TalT4", "TalT5"];
 
                 for (var i = 0; i < TalAp.length; i++) {
-                    document.getElementById(TalAp[i]).innerHTML = fechasTal[i];
-                    document.getElementById(TalRe[i]).innerHTML = fechasTalRe[i];
-                    document.getElementById(TalT[i]).innerHTML = fechasTalT[i];
+                    document.getElementById(TalAp[i]).innerHTML = 0;
+                    document.getElementById(TalRe[i]).innerHTML = 0;
+                    document.getElementById(TalT[i]).innerHTML = 0;
                 }
+
+                document.getElementById(TalAp[5]).innerHTML = fechasTal[5];
+                document.getElementById(TalRe[5]).innerHTML = fechasTalRe[5];
+                document.getElementById(TalT[5]).innerHTML = fechasTalT[5];
+
+                var x = 0;
+                for (var key in ArrayTalAp) {
+                    var obj = ArrayTalAp[key];
+                    var obj2 = ArrayTalRe[key];
+                    document.getElementById(TalAp[x]).innerHTML = obj;
+                    document.getElementById(TalRe[x]).innerHTML = obj2;
+                    document.getElementById(TalT[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Sacabocados
 
@@ -720,9 +1051,19 @@ function init() {
                 var fechasSacRe = [0, 0, 0, 0, 0];
                 var fechasSacT = [0, 0, 0, 0, 0];
                 var iSac = 0;
+                var previousObj;
+                var ArraySacAp = {};
+                var ArraySacRe = {};
 
-                for (var key in responseJSON.talad) {
-                    var obj = responseJSON.talad[key];
+                for (var key in responseJSON.sacab) {
+                    var obj = responseJSON.sacab[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArraySacAp)) {
+                        ArraySacAp[keyNew] = 0;
+                        ArraySacRe[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContSacAp++;
                     else
@@ -739,12 +1080,17 @@ function init() {
                     fechasSac[iSac] = ContSacAp;
                     fechasSacRe[iSac] = ContSacRe;
                     fechasSacT[iSac] = ContSacRe + ContSacAp;
-                    ContSacRT = ContSacRT + ContSacRe;
-                    ContSacAT = ContSacAT + ContSacAp;
+                    ContSacRT += ContSacRe;
+                    ContSacAT += ContSacAp;
+                    previousObj = obj;
+                    ArraySacAp[keyNew] += ContSacAp;
+                    ArraySacRe[keyNew] += ContSacRe;
                     ContSacAp = 0;
                     ContSacRe = 0;
                     iSac++;
+
                 }
+
                 fechasSac[5] = ContSacAT;
                 fechasSacRe[5] = ContSacRT;
                 fechasSacT[5] = ContSacAT + ContSacRT;
@@ -754,10 +1100,25 @@ function init() {
                 var SacT = ["SacT", "SacT1", "SacT2", "SacT3", "SacT4", "SacT5"];
 
                 for (var i = 0; i < SacAp.length; i++) {
-                    document.getElementById(SacAp[i]).innerHTML = fechasSac[i];
-                    document.getElementById(SacRe[i]).innerHTML = fechasSacRe[i];
-                    document.getElementById(SacT[i]).innerHTML = fechasSacT[i];
+                    document.getElementById(SacAp[i]).innerHTML = 0;
+                    document.getElementById(SacRe[i]).innerHTML = 0;
+                    document.getElementById(SacT[i]).innerHTML = 0;
                 }
+
+                document.getElementById(SacAp[5]).innerHTML = fechasSac[5];
+                document.getElementById(SacRe[5]).innerHTML = fechasSacRe[5];
+                document.getElementById(SacT[5]).innerHTML = fechasSacT[5];
+
+                var x = 0;
+                for (var key in ArraySacAp) {
+                    var obj = ArraySacAp[key];
+                    var obj2 = ArraySacRe[key];
+                    document.getElementById(SacAp[x]).innerHTML = obj;
+                    document.getElementById(SacRe[x]).innerHTML = obj2;
+                    document.getElementById(SacT[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Armado1
 
@@ -769,9 +1130,19 @@ function init() {
                 var fechasAr1Re = [0, 0, 0, 0, 0];
                 var fechasAr1T = [0, 0, 0, 0, 0];
                 var iAr1 = 0;
+                var previousObj;
+                var ArrayAr1Ap = {};
+                var ArrayAr1Re = {};
 
                 for (var key in responseJSON.arm1) {
                     var obj = responseJSON.arm1[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayAr1Ap)) {
+                        ArrayAr1Ap[keyNew] = 0;
+                        ArrayAr1Re[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContAr1Ap++;
                     else
@@ -788,12 +1159,17 @@ function init() {
                     fechasAr1[iAr1] = ContAr1Ap;
                     fechasAr1Re[iAr1] = ContAr1Re;
                     fechasAr1T[iAr1] = ContAr1Re + ContAr1Ap;
-                    ContAr1RT = ContAr1RT + ContAr1Re;
-                    ContAr1AT = ContAr1AT + ContAr1Ap;
+                    ContAr1RT += ContAr1Re;
+                    ContAr1AT += ContAr1Ap;
+                    previousObj = obj;
+                    ArrayAr1Ap[keyNew] += ContAr1Ap;
+                    ArrayAr1Re[keyNew] += ContAr1Re;
                     ContAr1Ap = 0;
                     ContAr1Re = 0;
                     iAr1++;
+
                 }
+
                 fechasAr1[5] = ContAr1AT;
                 fechasAr1Re[5] = ContAr1RT;
                 fechasAr1T[5] = ContAr1AT + ContAr1RT;
@@ -803,10 +1179,25 @@ function init() {
                 var Ar1T = ["Ar1T", "Ar1T1", "Ar1T2", "Ar1T3", "Ar1T4", "Ar1T5"];
 
                 for (var i = 0; i < Ar1Ap.length; i++) {
-                    document.getElementById(Ar1Ap[i]).innerHTML = fechasAr1[i];
-                    document.getElementById(Ar1Re[i]).innerHTML = fechasAr1Re[i];
-                    document.getElementById(Ar1T[i]).innerHTML = fechasAr1T[i];
+                    document.getElementById(Ar1Ap[i]).innerHTML = 0;
+                    document.getElementById(Ar1Re[i]).innerHTML = 0;
+                    document.getElementById(Ar1T[i]).innerHTML = 0;
                 }
+
+                document.getElementById(Ar1Ap[5]).innerHTML = fechasAr1[5];
+                document.getElementById(Ar1Re[5]).innerHTML = fechasAr1Re[5];
+                document.getElementById(Ar1T[5]).innerHTML = fechasAr1T[5];
+
+                var x = 0;
+                for (var key in ArrayAr1Ap) {
+                    var obj = ArrayAr1Ap[key];
+                    var obj2 = ArrayAr1Re[key];
+                    document.getElementById(Ar1Ap[x]).innerHTML = obj;
+                    document.getElementById(Ar1Re[x]).innerHTML = obj2;
+                    document.getElementById(Ar1T[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Armado2
 
@@ -818,9 +1209,19 @@ function init() {
                 var fechasAr2Re = [0, 0, 0, 0, 0];
                 var fechasAr2T = [0, 0, 0, 0, 0];
                 var iAr2 = 0;
+                var previousObj;
+                var ArrayAr2Ap = {};
+                var ArrayAr2Re = {};
 
                 for (var key in responseJSON.arm2) {
                     var obj = responseJSON.arm2[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayAr2Ap)) {
+                        ArrayAr2Ap[keyNew] = 0;
+                        ArrayAr2Re[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContAr2Ap++;
                     else
@@ -837,12 +1238,17 @@ function init() {
                     fechasAr2[iAr2] = ContAr2Ap;
                     fechasAr2Re[iAr2] = ContAr2Re;
                     fechasAr2T[iAr2] = ContAr2Re + ContAr2Ap;
-                    ContAr2RT = ContAr2RT + ContAr2Re;
-                    ContAr2AT = ContAr2AT + ContAr2Ap;
+                    ContAr2RT += ContAr2Re;
+                    ContAr2AT += ContAr2Ap;
+                    previousObj = obj;
+                    ArrayAr2Ap[keyNew] += ContAr2Ap;
+                    ArrayAr2Re[keyNew] += ContAr2Re;
                     ContAr2Ap = 0;
                     ContAr2Re = 0;
                     iAr2++;
+
                 }
+
                 fechasAr2[5] = ContAr2AT;
                 fechasAr2Re[5] = ContAr2RT;
                 fechasAr2T[5] = ContAr2AT + ContAr2RT;
@@ -852,10 +1258,25 @@ function init() {
                 var Ar2T = ["Ar2T", "Ar2T1", "Ar2T2", "Ar2T3", "Ar2T4", "Ar2T5"];
 
                 for (var i = 0; i < Ar2Ap.length; i++) {
-                    document.getElementById(Ar2Ap[i]).innerHTML = fechasAr2[i];
-                    document.getElementById(Ar2Re[i]).innerHTML = fechasAr2Re[i];
-                    document.getElementById(Ar2T[i]).innerHTML = fechasAr2T[i];
+                    document.getElementById(Ar2Ap[i]).innerHTML = 0;
+                    document.getElementById(Ar2Re[i]).innerHTML = 0;
+                    document.getElementById(Ar2T[i]).innerHTML = 0;
                 }
+
+                document.getElementById(Ar2Ap[5]).innerHTML = fechasAr2[5];
+                document.getElementById(Ar2Re[5]).innerHTML = fechasAr2Re[5];
+                document.getElementById(Ar2T[5]).innerHTML = fechasAr2T[5];
+
+                var x = 0;
+                for (var key in ArrayAr2Ap) {
+                    var obj = ArrayAr2Ap[key];
+                    var obj2 = ArrayAr2Re[key];
+                    document.getElementById(Ar2Ap[x]).innerHTML = obj;
+                    document.getElementById(Ar2Re[x]).innerHTML = obj2;
+                    document.getElementById(Ar2T[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Armado3
 
@@ -867,9 +1288,19 @@ function init() {
                 var fechasAr3Re = [0, 0, 0, 0, 0];
                 var fechasAr3T = [0, 0, 0, 0, 0];
                 var iAr3 = 0;
+                var previousObj;
+                var ArrayAr3Ap = {};
+                var ArrayAr3Re = {};
 
                 for (var key in responseJSON.arm3) {
                     var obj = responseJSON.arm3[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayAr3Ap)) {
+                        ArrayAr3Ap[keyNew] = 0;
+                        ArrayAr3Re[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContAr3Ap++;
                     else
@@ -886,12 +1317,17 @@ function init() {
                     fechasAr3[iAr3] = ContAr3Ap;
                     fechasAr3Re[iAr3] = ContAr3Re;
                     fechasAr3T[iAr3] = ContAr3Re + ContAr3Ap;
-                    ContAr3RT = ContAr3RT + ContAr3Re;
-                    ContAr3AT = ContAr3AT + ContAr3Ap;
+                    ContAr3RT += ContAr3Re;
+                    ContAr3AT += ContAr3Ap;
+                    previousObj = obj;
+                    ArrayAr3Ap[keyNew] += ContAr3Ap;
+                    ArrayAr3Re[keyNew] += ContAr3Re;
                     ContAr3Ap = 0;
                     ContAr3Re = 0;
                     iAr3++;
+
                 }
+
                 fechasAr3[5] = ContAr3AT;
                 fechasAr3Re[5] = ContAr3RT;
                 fechasAr3T[5] = ContAr3AT + ContAr3RT;
@@ -901,10 +1337,25 @@ function init() {
                 var Ar3T = ["Ar3T", "Ar3T1", "Ar3T2", "Ar3T3", "Ar3T4", "Ar3T5"];
 
                 for (var i = 0; i < Ar3Ap.length; i++) {
-                    document.getElementById(Ar3Ap[i]).innerHTML = fechasAr3[i];
-                    document.getElementById(Ar3Re[i]).innerHTML = fechasAr3Re[i];
-                    document.getElementById(Ar3T[i]).innerHTML = fechasAr3T[i];
+                    document.getElementById(Ar3Ap[i]).innerHTML = 0;
+                    document.getElementById(Ar3Re[i]).innerHTML = 0;
+                    document.getElementById(Ar3T[i]).innerHTML = 0;
                 }
+
+                document.getElementById(Ar3Ap[5]).innerHTML = fechasAr3[5];
+                document.getElementById(Ar3Re[5]).innerHTML = fechasAr3Re[5];
+                document.getElementById(Ar3T[5]).innerHTML = fechasAr3T[5];
+
+                var x = 0;
+                for (var key in ArrayAr3Ap) {
+                    var obj = ArrayAr3Ap[key];
+                    var obj2 = ArrayAr3Re[key];
+                    document.getElementById(Ar3Ap[x]).innerHTML = obj;
+                    document.getElementById(Ar3Re[x]).innerHTML = obj2;
+                    document.getElementById(Ar3T[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
 
                 //Acabados
 
@@ -916,9 +1367,19 @@ function init() {
                 var fechasAcaRe = [0, 0, 0, 0, 0];
                 var fechasAcaT = [0, 0, 0, 0, 0];
                 var iAca = 0;
+                var previousObj;
+                var ArrayAcaAp = {};
+                var ArrayAcaRe = {};
 
                 for (var key in responseJSON.acab) {
                     var obj = responseJSON.acab[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayAcaAp)) {
+                        ArrayAcaAp[keyNew] = 0;
+                        ArrayAcaRe[keyNew] = 0;
+                    }
+
+
                     if (obj.ins1 == "Aceptado")
                         ContAcaAp++;
                     else
@@ -935,12 +1396,17 @@ function init() {
                     fechasAca[iAca] = ContAcaAp;
                     fechasAcaRe[iAca] = ContAcaRe;
                     fechasAcaT[iAca] = ContAcaRe + ContAcaAp;
-                    ContAcaRT = ContAcaRT + ContAcaRe;
-                    ContAcaAT = ContAcaAT + ContAcaAp;
+                    ContAcaRT += ContAcaRe;
+                    ContAcaAT += ContAcaAp;
+                    previousObj = obj;
+                    ArrayAcaAp[keyNew] += ContAcaAp;
+                    ArrayAcaRe[keyNew] += ContAcaRe;
                     ContAcaAp = 0;
                     ContAcaRe = 0;
                     iAca++;
+
                 }
+
                 fechasAca[5] = ContAcaAT;
                 fechasAcaRe[5] = ContAcaRT;
                 fechasAcaT[5] = ContAcaAT + ContAcaRT;
@@ -950,9 +1416,23 @@ function init() {
                 var AcaT = ["AcaT", "AcaT1", "AcaT2", "AcaT3", "AcaT4", "AcaT5"];
 
                 for (var i = 0; i < AcaAp.length; i++) {
-                    document.getElementById(AcaAp[i]).innerHTML = fechasAca[i];
-                    document.getElementById(AcaRe[i]).innerHTML = fechasAcaRe[i];
-                    document.getElementById(AcaT[i]).innerHTML = fechasAcaT[i];
+                    document.getElementById(AcaAp[i]).innerHTML = 0;
+                    document.getElementById(AcaRe[i]).innerHTML = 0;
+                    document.getElementById(AcaT[i]).innerHTML = 0;
+                }
+
+                document.getElementById(AcaAp[5]).innerHTML = fechasAca[5];
+                document.getElementById(AcaRe[5]).innerHTML = fechasAcaRe[5];
+                document.getElementById(AcaT[5]).innerHTML = fechasAcaT[5];
+
+                var x = 0;
+                for (var key in ArrayAcaAp) {
+                    var obj = ArrayAcaAp[key];
+                    var obj2 = ArrayAcaRe[key];
+                    document.getElementById(AcaAp[x]).innerHTML = obj;
+                    document.getElementById(AcaRe[x]).innerHTML = obj2;
+                    document.getElementById(AcaT[x]).innerHTML = obj + obj2;
+                    x++;
                 }
 
 

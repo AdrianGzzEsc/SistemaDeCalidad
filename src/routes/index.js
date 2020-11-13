@@ -127,7 +127,7 @@ router.get('/GraficasByDate/:Fecha/:Fecha5/', async(req, res) => {;
         }
     }).sort({ "fecha": 1 });
 
-
+    console.log(escuad);
     var response = { escuad, enchap, talad, sacab, arm1, arm2, arm3, acab };
     return res.status(200).json(response);
 
