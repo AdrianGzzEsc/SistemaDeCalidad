@@ -67,14 +67,202 @@ router.get('/recepcion/', async(req, res) => {;
     res.render('Recepcion', { prov, mat });
 });
 
-router.get('/GraficasByDate/:Fecha', async(req, res) => {;
+router.get('/GraficasByDate/:Fecha/:Fecha2/:Fecha3/:Fecha4/:Fecha5/', async(req, res) => {;
     let fecha = req.params.Fecha;
-    const prov = await escuadradora.find();
-    console.log(fecha);
+    let fecha2 = req.params.Fecha2;
+    let fecha3 = req.params.Fecha3;
+    let fecha4 = req.params.Fecha4;
+    let fecha5 = req.params.Fecha5;
+    /*
+    const rangoFechas = await escuadradora.find({
+        "fecha": {
+            $gte: fecha,
+            $lt: fecha2
+        }
+    })
+*/
+    const escAp1 = await escuadradora.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await escuadradora.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await escuadradora.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const escAp2 = await escuadradora.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await escuadradora.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await escuadradora.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const escAp3 = await escuadradora.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await escuadradora.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await escuadradora.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const escAp4 = await escuadradora.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await escuadradora.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await escuadradora.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const escAp5 = await escuadradora.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await escuadradora.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await escuadradora.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const escRe1 = await escuadradora.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await escuadradora.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await escuadradora.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const escRe2 = await escuadradora.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await escuadradora.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await escuadradora.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const escRe3 = await escuadradora.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await escuadradora.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await escuadradora.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const escRe4 = await escuadradora.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await escuadradora.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await escuadradora.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const escRe5 = await escuadradora.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await escuadradora.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await escuadradora.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const encAp1 = await enchapadora.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await enchapadora.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await enchapadora.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const encAp2 = await enchapadora.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await enchapadora.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await enchapadora.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const encAp3 = await enchapadora.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await enchapadora.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await enchapadora.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const encAp4 = await enchapadora.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await enchapadora.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await enchapadora.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const encAp5 = await enchapadora.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await enchapadora.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await enchapadora.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const encRe1 = await enchapadora.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await enchapadora.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await enchapadora.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const encRe2 = await enchapadora.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await enchapadora.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await enchapadora.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const encRe3 = await enchapadora.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await enchapadora.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await enchapadora.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const encRe4 = await enchapadora.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await enchapadora.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await enchapadora.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const encRe5 = await enchapadora.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await enchapadora.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await enchapadora.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const talAp1 = await taladro.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await taladro.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await taladro.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const talAp2 = await taladro.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await taladro.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await taladro.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const talAp3 = await taladro.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await taladro.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await taladro.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const talAp4 = await taladro.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await taladro.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await taladro.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const talAp5 = await taladro.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await taladro.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await taladro.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const talRe1 = await taladro.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await taladro.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await taladro.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const talRe2 = await taladro.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await taladro.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await taladro.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const talRe3 = await taladro.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await taladro.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await taladro.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const talRe4 = await taladro.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await taladro.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await taladro.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const talRe5 = await taladro.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await taladro.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await taladro.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const sacAp1 = await sacabocados.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await sacabocados.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await sacabocados.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const sacAp2 = await sacabocados.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await sacabocados.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await sacabocados.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const sacAp3 = await sacabocados.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await sacabocados.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await sacabocados.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const sacAp4 = await sacabocados.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await sacabocados.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await sacabocados.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const sacAp5 = await sacabocados.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await sacabocados.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await sacabocados.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const sacRe1 = await sacabocados.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await sacabocados.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await sacabocados.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const sacRe2 = await sacabocados.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await sacabocados.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await sacabocados.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const sacRe3 = await sacabocados.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await sacabocados.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await sacabocados.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const sacRe4 = await sacabocados.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await sacabocados.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await sacabocados.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const sacRe5 = await sacabocados.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await sacabocados.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await sacabocados.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const ar1Ap1 = await armado1.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await armado1.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await armado1.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const ar1Ap2 = await armado1.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await armado1.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await armado1.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const ar1Ap3 = await armado1.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await armado1.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await armado1.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const ar1Ap4 = await armado1.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await armado1.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await armado1.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const ar1Ap5 = await armado1.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await armado1.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await armado1.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const ar1Re1 = await armado1.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await armado1.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await armado1.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const ar1Re2 = await armado1.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await armado1.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await armado1.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const ar1Re3 = await armado1.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await armado1.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await armado1.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const ar1Re4 = await armado1.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await armado1.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await armado1.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const ar1Re5 = await armado1.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await armado1.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await armado1.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const ar2Ap1 = await armado2.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await armado2.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await armado2.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const ar2Ap2 = await armado2.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await armado2.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await armado2.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const ar2Ap3 = await armado2.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await armado2.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await armado2.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const ar2Ap4 = await armado2.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await armado2.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await armado2.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const ar2Ap5 = await armado2.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await armado2.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await armado2.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const ar2Re1 = await armado2.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await armado2.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await armado2.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const ar2Re2 = await armado2.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await armado2.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await armado2.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const ar2Re3 = await armado2.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await armado2.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await armado2.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const ar2Re4 = await armado2.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await armado2.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await armado2.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const ar2Re5 = await armado2.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await armado2.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await armado2.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const ar3Ap1 = await armado3.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await armado3.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await armado3.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const ar3Ap2 = await armado3.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await armado3.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await armado3.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const ar3Ap3 = await armado3.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await armado3.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await armado3.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const ar3Ap4 = await armado3.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await armado3.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await armado3.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const ar3Ap5 = await armado3.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await armado3.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await armado3.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const ar3Re1 = await armado3.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await armado3.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await armado3.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const ar3Re2 = await armado3.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await armado3.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await armado3.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const ar3Re3 = await armado3.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await armado3.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await armado3.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const ar3Re4 = await armado3.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await armado3.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await armado3.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const ar3Re5 = await armado3.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await armado3.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await armado3.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+    const acaAp1 = await acabados.find({ "ins1": "Aceptado", "fecha": fecha }).count() + await acabados.find({ "ins2": "Aceptado", "fecha": fecha }).count() + await acabados.find({ "ins3": "Aceptado", "fecha": fecha }).count();
+    const acaAp2 = await acabados.find({ "ins1": "Aceptado", "fecha": fecha2 }).count() + await acabados.find({ "ins2": "Aceptado", "fecha": fecha2 }).count() + await acabados.find({ "ins3": "Aceptado", "fecha": fecha2 }).count();
+    const acaAp3 = await acabados.find({ "ins1": "Aceptado", "fecha": fecha3 }).count() + await acabados.find({ "ins2": "Aceptado", "fecha": fecha3 }).count() + await acabados.find({ "ins3": "Aceptado", "fecha": fecha3 }).count();
+    const acaAp4 = await acabados.find({ "ins1": "Aceptado", "fecha": fecha4 }).count() + await acabados.find({ "ins2": "Aceptado", "fecha": fecha4 }).count() + await acabados.find({ "ins3": "Aceptado", "fecha": fecha4 }).count();
+    const acaAp5 = await acabados.find({ "ins1": "Aceptado", "fecha": fecha5 }).count() + await acabados.find({ "ins2": "Aceptado", "fecha": fecha5 }).count() + await acabados.find({ "ins3": "Aceptado", "fecha": fecha5 }).count();
+    const acaRe1 = await acabados.find({ "ins1": "Rechazado", "fecha": fecha }).count() + await acabados.find({ "ins2": "Rechazado", "fecha": fecha }).count() + await acabados.find({ "ins3": "Rechazado", "fecha": fecha }).count();
+    const acaRe2 = await acabados.find({ "ins1": "Rechazado", "fecha": fecha2 }).count() + await acabados.find({ "ins2": "Rechazado", "fecha": fecha2 }).count() + await acabados.find({ "ins3": "Rechazado", "fecha": fecha2 }).count();
+    const acaRe3 = await acabados.find({ "ins1": "Rechazado", "fecha": fecha3 }).count() + await acabados.find({ "ins2": "Rechazado", "fecha": fecha3 }).count() + await acabados.find({ "ins3": "Rechazado", "fecha": fecha3 }).count();
+    const acaRe4 = await acabados.find({ "ins1": "Rechazado", "fecha": fecha4 }).count() + await acabados.find({ "ins2": "Rechazado", "fecha": fecha4 }).count() + await acabados.find({ "ins3": "Rechazado", "fecha": fecha4 }).count();
+    const acaRe5 = await acabados.find({ "ins1": "Rechazado", "fecha": fecha5 }).count() + await acabados.find({ "ins2": "Rechazado", "fecha": fecha5 }).count() + await acabados.find({ "ins3": "Rechazado", "fecha": fecha5 }).count();
+
+
+
+
+
+    // console.log(escAp);
+    var response = {
+        escAp1,
+        escAp2,
+        escAp3,
+        escAp4,
+        escAp5,
+        escRe1,
+        escRe2,
+        escRe3,
+        escRe4,
+        escRe5,
+        encAp1,
+        encAp2,
+        encAp3,
+        encAp4,
+        encAp5,
+        encRe1,
+        encRe2,
+        encRe3,
+        encRe4,
+        encRe5,
+        talAp1,
+        talAp2,
+        talAp3,
+        talAp4,
+        talAp5,
+        talRe1,
+        talRe2,
+        talRe3,
+        talRe4,
+        talRe5,
+        sacAp1,
+        sacAp2,
+        sacAp3,
+        sacAp4,
+        sacAp5,
+        sacRe1,
+        sacRe2,
+        sacRe3,
+        sacRe4,
+        sacRe5,
+        ar1Ap1,
+        ar1Ap2,
+        ar1Ap3,
+        ar1Ap4,
+        ar1Ap5,
+        ar1Re1,
+        ar1Re2,
+        ar1Re3,
+        ar1Re4,
+        ar1Re5,
+        ar2Ap1,
+        ar2Ap2,
+        ar2Ap3,
+        ar2Ap4,
+        ar2Ap5,
+        ar2Re1,
+        ar2Re2,
+        ar2Re3,
+        ar2Re4,
+        ar2Re5,
+        ar3Ap1,
+        ar3Ap2,
+        ar3Ap3,
+        ar3Ap4,
+        ar3Ap5,
+        ar3Re1,
+        ar3Re2,
+        ar3Re3,
+        ar3Re4,
+        ar3Re5,
+        acaAp1,
+        acaAp2,
+        acaAp3,
+        acaAp4,
+        acaAp5,
+        acaRe1,
+        acaRe2,
+        acaRe3,
+        acaRe4,
+        acaRe5
+    };
+    return res.status(200).json(response);
+    //const prov = await escuadradora.find();
     const fechaEs = await escuadradora.find({ "fecha": fecha });
-    console.log(fechaEs);
-    const mat = await materiales.find();
-    // res.render('Graficas', { prov, mat });
+    //console.log(fechaEs);
+
+    //console.log(fechaEs);
+    // res.render('Graficas', { rangoFechas });
 });
 
 

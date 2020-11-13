@@ -31,27 +31,12 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <%   var month = new Array();
-                                    month[0] = "Ene";
-                                    month[1] = "Feb";
-                                    month[2] = "Mar";
-                                    month[3] = "Abr";
-                                    month[4] = "May";
-                                    month[5] = "Jun";
-                                    month[6] = "Jul";
-                                    month[7] = "Ago";
-                                    month[8] = "Sep";
-                                    month[9] = "Oct";
-                                    month[10] = "Nov";
-                                    month[11] = "Dic";%>
-                                        <% for (var i = 0; i < 5; i++)  {     %>
-                                            <% date = new Date(escu[i].fecha) %>
-                                                <th scope="col" style="background: orangered;border: 1px black;">
-                                                    <%=date.getDate()%> /
-                                                        <%=month[date.getMonth()] %>
-                                                </th>
-                                                <% }  %>
-                                                    <th scope="col" style="background: orangered;border: 1px black;">Total</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -137,7 +122,9 @@
             </div>
         </div>
     </section>
+    <input id="esc" hidden>
     <section>
+
         <div class="container ">
             <div class="row">
                 <div class="col-lg-7 my-3 pb-0">
@@ -147,11 +134,13 @@
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
 
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">
+                                        Fecha-1
+                                    </th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                                 </th>
                             </thead>
@@ -159,34 +148,34 @@
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="EscT">Dato1.0 Porcentaje</td>
+                                    <td id="EscT1">Dato1.1 Porcentaje</td>
+                                    <td id="EscT2">Dato1.2 Porcentaje</td>
+                                    <td id="EscT3">Dato1.3 Porcentaje</td>
+                                    <td id="EscT4">Dato1.4 Porcentaje</td>
+                                    <td id="EscT5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="EscAp" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="EscAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="EscAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="EscAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="EscAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="EscAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="EscRe" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="EscRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="EscRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="EscRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="EscRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="EscRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -222,45 +211,45 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="EncT">Dato1.0 Porcentaje</td>
+                                    <td id="EncT1">Dato1.1 Porcentaje</td>
+                                    <td id="EncT2">Dato1.2 Porcentaje</td>
+                                    <td id="EncT3">Dato1.3 Porcentaje</td>
+                                    <td id="EncT4">Dato1.4 Porcentaje</td>
+                                    <td id="EncT5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="EncAp" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="EncAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="EncAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="EncAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="EncAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="EncAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="EncRe" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="EncRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="EncRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="EncRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="EncRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="EncRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -294,49 +283,50 @@
                     <div class="table-responsive-md">
                         <table class="table">
                             <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                <thead>
+                                    <th style="border: 0px;">
+                                        <th scope="col" style="border: 0px;"></th>
+                                        <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                        <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                        <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                        <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                        <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                        <th scope="col" style="background: orangered;border: 1px black;">Total</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="border: 0px;"><b>Total</b></th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="TalT">Dato1.0 Porcentaje</td>
+                                        <td id="TalT1">Dato1.1 Porcentaje</td>
+                                        <td id="TalT2">Dato1.2 Porcentaje</td>
+                                        <td id="TalT3">Dato1.3 Porcentaje</td>
+                                        <td id="TalT4">Dato1.4 Porcentaje</td>
+                                        <td id="TalT5">Dato1.5 Porcentaje</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Aprobado</th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="TalAp" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                        <td id="TalAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                        <td id="TalAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                        <td id="TalAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                        <td id="TalAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                        <td id="TalAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="border: 0px;">Rechazado</th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="TalRe" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                        <td id="TalRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                        <td id="TalRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                        <td id="TalRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                        <td id="TalRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                        <td id="TalRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    </tr>
+                                </tbody>
                         </table>
                     </div>
                     <div class="form-group">
@@ -368,49 +358,50 @@
                     <div class="table-responsive-md">
                         <table class="table">
                             <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                <thead>
+                                    <th style="border: 0px;">
+                                        <th scope="col" style="border: 0px;"></th>
+                                        <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                        <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                        <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                        <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                        <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                        <th scope="col" style="background: orangered;border: 1px black;">Total</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="border: 0px;"><b>Total</b></th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="SacT">Dato1.0 Porcentaje</td>
+                                        <td id="SacT1">Dato1.1 Porcentaje</td>
+                                        <td id="SacT2">Dato1.2 Porcentaje</td>
+                                        <td id="SacT3">Dato1.3 Porcentaje</td>
+                                        <td id="SacT4">Dato1.4 Porcentaje</td>
+                                        <td id="SacT5">Dato1.5 Porcentaje</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Aprobado</th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="SacAp" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                        <td id="SacAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                        <td id="SacAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                        <td id="SacAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                        <td id="SacAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                        <td id="SacAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="border: 0px;">Rechazado</th>
+                                        <td style="border: 0px;"></td>
+                                        <td id="SacRe" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                        <td id="SacRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                        <td id="SacRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                        <td id="SacRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                        <td id="SacRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                        <td id="SacRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    </tr>
+                                </tbody>
                         </table>
                     </div>
                     <div class="form-group">
@@ -444,45 +435,45 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="Ar1T">Dato1.0 Porcentaje</td>
+                                    <td id="Ar1T1">Dato1.1 Porcentaje</td>
+                                    <td id="Ar1T2">Dato1.2 Porcentaje</td>
+                                    <td id="Ar1T3">Dato1.3 Porcentaje</td>
+                                    <td id="Ar1T4">Dato1.4 Porcentaje</td>
+                                    <td id="Ar1T5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="Ar1Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="Ar1Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="Ar1Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="Ar1Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="Ar1Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="Ar1Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="Ar1Re" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="Ar1Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="Ar1Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="Ar1Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="Ar1Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="Ar1Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -518,45 +509,45 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="Ar2T">Dato1.0 Porcentaje</td>
+                                    <td id="Ar2T1">Dato1.1 Porcentaje</td>
+                                    <td id="Ar2T2">Dato1.2 Porcentaje</td>
+                                    <td id="Ar2T3">Dato1.3 Porcentaje</td>
+                                    <td id="Ar2T4">Dato1.4 Porcentaje</td>
+                                    <td id="Ar2T5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="Ar2Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="Ar2Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="Ar2Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="Ar2Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="Ar2Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="Ar2Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="Ar2Re" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="Ar2Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="Ar2Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="Ar2Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="Ar2Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="Ar2Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -592,45 +583,45 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="Ar3T">Dato1.0 Porcentaje</td>
+                                    <td id="Ar3T1">Dato1.1 Porcentaje</td>
+                                    <td id="Ar3T2">Dato1.2 Porcentaje</td>
+                                    <td id="Ar3T3">Dato1.3 Porcentaje</td>
+                                    <td id="Ar3T4">Dato1.4 Porcentaje</td>
+                                    <td id="Ar3T5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="Ar3Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="Ar3Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="Ar3Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="Ar3Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="Ar3Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="Ar3Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="Ar3Re" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="Ar3Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="Ar3Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="Ar3Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="Ar3Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="Ar3Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -666,45 +657,45 @@
                             <thead>
                                 <th style="border: 0px;">
                                     <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;">Fecha-5</th>
+                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
+                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
+                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
+                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
+                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
                                     <th scope="col" style="background: orangered;border: 1px black;">Total</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row" style="border: 0px;"><b>Total</b></th>
                                     <td style="border: 0px;"></td>
-                                    <td>Dato1.0 Porcentaje</td>
-                                    <td>Dato1.1 Porcentaje</td>
-                                    <td>Dato1.2 Porcentaje</td>
-                                    <td>Dato1.3 Porcentaje</td>
-                                    <td>Dato1.4 Porcentaje</td>
-                                    <td>Dato1.5 Porcentaje</td>
+                                    <td id="AcaT">Dato1.0 Porcentaje</td>
+                                    <td id="AcaT1">Dato1.1 Porcentaje</td>
+                                    <td id="AcaT2">Dato1.2 Porcentaje</td>
+                                    <td id="AcaT3">Dato1.3 Porcentaje</td>
+                                    <td id="AcaT4">Dato1.4 Porcentaje</td>
+                                    <td id="AcaT5">Dato1.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Aprobado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td style="border-color: black;">Dato2.5 Porcentaje</td>
+                                    <td id="AcaAp" style="border-color: black;">Dato2.0 Porcentaje</td>
+                                    <td id="AcaAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
+                                    <td id="AcaAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
+                                    <td id="AcaAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
+                                    <td id="AcaAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
+                                    <td id="AcaAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row" style="border: 0px;">Rechazado</th>
                                     <td style="border: 0px;"></td>
-                                    <td style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td style="border: 0px;">Dato3.5 Porcentaje</td>
+                                    <td id="AcaRe" style="border: 0px;">Dato3.0 Porcentaje</td>
+                                    <td id="AcaRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
+                                    <td id="AcaRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
+                                    <td id="AcaRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
+                                    <td id="AcaRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
+                                    <td id="AcaRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
                                 </tr>
                             </tbody>
                         </table>
