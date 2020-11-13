@@ -81,6 +81,73 @@ function refresh() {
             throw new Error(response.statusText);
         })
         .then(responseJSON => {
+            //Inspeccion Final
+            var ContInsFAp = 0;
+            var ContInsFRe = 0;
+            var ContInsFAT = 0;
+            var ContInsFRT = 0;
+            var fechasInsF = [0, 0, 0, 0, 0];
+            var fechasInsFRe = [0, 0, 0, 0, 0];
+            var fechasInsFT = [0, 0, 0, 0, 0];
+            var iInsF = 0;
+            var previousObj;
+            var ArrayInsFAp = {};
+            var ArrayInsFRe = {};
+
+            for (var key in responseJSON.inspF) {
+                var obj = responseJSON.inspF[key];
+                var keyNew = obj.fecha;
+                if (!(keyNew in ArrayInsFAp)) {
+                    ArrayInsFAp[keyNew] = 0;
+                    ArrayInsFRe[keyNew] = 0;
+                }
+                if (obj.estatus == "Aceptado")
+                    ContInsFAp++;
+                else
+                    ContInsFRe++;
+
+
+                fechasInsF[iInsF] = ContInsFAp;
+                fechasInsFRe[iInsF] = ContInsFRe;
+                fechasInsFT[iInsF] = ContInsFRe + ContInsFAp;
+                ContInsFRT += ContInsFRe;
+                ContInsFAT += ContInsFAp;
+                previousObj = obj;
+                ArrayInsFAp[keyNew] += ContInsFAp;
+                ArrayInsFRe[keyNew] += ContInsFRe;
+                ContInsFAp = 0;
+                ContInsFRe = 0;
+                iInsF++;
+
+            }
+
+            fechasInsF[5] = ContInsFAT;
+            fechasInsFRe[5] = ContInsFRT;
+            fechasInsFT[5] = ContInsFAT + ContInsFRT;
+
+            var InsFAp = ["InsFAp", "InsFAp1", "InsFAp2", "InsFAp3", "InsFAp4", "InsFAp5"];
+            var InsFRe = ["InsFRe", "InsFRe1", "InsFRe2", "InsFRe3", "InsFRe4", "InsFRe5"];
+            var InsFT = ["InsFT", "InsFT1", "InsFT2", "InsFT3", "InsFT4", "InsFT5"];
+
+            for (var i = 0; i < InsFAp.length; i++) {
+                document.getElementById(InsFAp[i]).innerHTML = 0;
+                document.getElementById(InsFRe[i]).innerHTML = 0;
+                document.getElementById(InsFT[i]).innerHTML = 0;
+            }
+
+            document.getElementById(InsFAp[5]).innerHTML = fechasInsF[5];
+            document.getElementById(InsFRe[5]).innerHTML = fechasInsFRe[5];
+            document.getElementById(InsFT[5]).innerHTML = fechasInsFT[5];
+
+            var x = 0;
+            for (var key in ArrayInsFAp) {
+                var obj = ArrayInsFAp[key];
+                var obj2 = ArrayInsFRe[key];
+                document.getElementById(InsFAp[x]).innerHTML = obj;
+                document.getElementById(InsFRe[x]).innerHTML = obj2;
+                document.getElementById(InsFT[x]).innerHTML = obj + obj2;
+                x++;
+            }
             //Escuadradora
             var ContEscAp = 0;
             var ContEscRe = 0;
@@ -806,6 +873,75 @@ function init() {
                 throw new Error(response.statusText);
             })
             .then(responseJSON => {
+                //Inspeccion Final
+                var ContInsFAp = 0;
+                var ContInsFRe = 0;
+                var ContInsFAT = 0;
+                var ContInsFRT = 0;
+                var fechasInsF = [0, 0, 0, 0, 0];
+                var fechasInsFRe = [0, 0, 0, 0, 0];
+                var fechasInsFT = [0, 0, 0, 0, 0];
+                var iInsF = 0;
+                var previousObj;
+                var ArrayInsFAp = {};
+                var ArrayInsFRe = {};
+
+                for (var key in responseJSON.inspF) {
+                    var obj = responseJSON.inspF[key];
+                    var keyNew = obj.fecha;
+                    if (!(keyNew in ArrayInsFAp)) {
+                        ArrayInsFAp[keyNew] = 0;
+                        ArrayInsFRe[keyNew] = 0;
+                    }
+                    if (obj.estatus == "Aceptado")
+                        ContInsFAp++;
+                    else
+                        ContInsFRe++;
+
+
+                    fechasInsF[iInsF] = ContInsFAp;
+                    fechasInsFRe[iInsF] = ContInsFRe;
+                    fechasInsFT[iInsF] = ContInsFRe + ContInsFAp;
+                    ContInsFRT += ContInsFRe;
+                    ContInsFAT += ContInsFAp;
+                    previousObj = obj;
+                    ArrayInsFAp[keyNew] += ContInsFAp;
+                    ArrayInsFRe[keyNew] += ContInsFRe;
+                    ContInsFAp = 0;
+                    ContInsFRe = 0;
+                    iInsF++;
+
+                }
+
+                fechasInsF[5] = ContInsFAT;
+                fechasInsFRe[5] = ContInsFRT;
+                fechasInsFT[5] = ContInsFAT + ContInsFRT;
+
+                var InsFAp = ["InsFAp", "InsFAp1", "InsFAp2", "InsFAp3", "InsFAp4", "InsFAp5"];
+                var InsFRe = ["InsFRe", "InsFRe1", "InsFRe2", "InsFRe3", "InsFRe4", "InsFRe5"];
+                var InsFT = ["InsFT", "InsFT1", "InsFT2", "InsFT3", "InsFT4", "InsFT5"];
+
+                for (var i = 0; i < InsFAp.length; i++) {
+                    document.getElementById(InsFAp[i]).innerHTML = 0;
+                    document.getElementById(InsFRe[i]).innerHTML = 0;
+                    document.getElementById(InsFT[i]).innerHTML = 0;
+                }
+
+                document.getElementById(InsFAp[5]).innerHTML = fechasInsF[5];
+                document.getElementById(InsFRe[5]).innerHTML = fechasInsFRe[5];
+                document.getElementById(InsFT[5]).innerHTML = fechasInsFT[5];
+
+                var x = 0;
+                for (var key in ArrayInsFAp) {
+                    var obj = ArrayInsFAp[key];
+                    var obj2 = ArrayInsFRe[key];
+                    document.getElementById(InsFAp[x]).innerHTML = obj;
+                    document.getElementById(InsFRe[x]).innerHTML = obj2;
+                    document.getElementById(InsFT[x]).innerHTML = obj + obj2;
+                    x++;
+                }
+
+
                 //Escuadradora
                 var ContEscAp = 0;
                 var ContEscRe = 0;
@@ -882,8 +1018,6 @@ function init() {
                     document.getElementById(EscT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-
-
 
                 //Enchapadora
                 var ContEncAp = 0;
