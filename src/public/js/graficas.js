@@ -1,3 +1,11 @@
+function GetFormattedDate() {
+    var todayTime = new Date();
+    var month = format(todayTime.getMonth() + 1);
+    var day = format(todayTime.getDate());
+    var year = format(todayTime.getFullYear());
+    return month + "/" + day + "/" + year;
+}
+
 function init() {
 
 
@@ -13,16 +21,40 @@ function init() {
     var d = ((dateWeek - 1) * 7) - 1;
 
     // primer dia de la semana en formato fecha
-    dateFDW = new Date(dateYear, 0, d)
+    dateFDW = new Date();
 
-    console.log(dateFDW)
+    //console.log(dateFDW.UTC();
+
+
+    //ar B = GetFormattedDate();
+
 
     semana = document.getElementById("filtro-semana")
     semana.addEventListener("change", event => {
         event.preventDefault()
         console.log(event.target.value)
+        let url = `/GraficasByDate/${dateFDW}`;
 
+
+        let settings = {
+            method: 'GET'
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok)
+                    return response.json();
+                throw new Error(response.statusText);
+            })
+            .then(responseJSON => {
+                console.log(responseJSON);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     })
+
+
 
     var data = [1, 2, 3, 4, 5, 6, 7];
     var ctx = document.getElementById('myChart').getContext('2d');

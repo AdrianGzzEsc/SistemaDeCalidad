@@ -67,6 +67,17 @@ router.get('/recepcion/', async(req, res) => {;
     res.render('Recepcion', { prov, mat });
 });
 
+router.get('/GraficasByDate/:Fecha', async(req, res) => {;
+    let fecha = req.params.Fecha;
+    const prov = await escuadradora.find();
+    console.log(fecha);
+    const fechaEs = await escuadradora.find({ "fecha": fecha });
+    console.log(fechaEs);
+    const mat = await materiales.find();
+    // res.render('Graficas', { prov, mat });
+});
+
+
 router.get('/index/', async(req, res) => {
     const tasks = await Task.find();
     res.render('index', { tasks });
