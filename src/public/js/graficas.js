@@ -1036,8 +1036,8 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayEscDef);
-                var ArrayEscT = count_duplicate(merged);
+                var mergedEsc = [].concat.apply([], ArrayEscDef);
+                var ArrayEscT = count_duplicate(mergedEsc);
                 for (var key in ArrayEscT) {
                     Arr_defEsc.push(key);
                     var temp = parseInt(ArrayEscT[key])
@@ -1120,8 +1120,8 @@ function init() {
                 var ArrayEncRe = {};
                 var ArrayEncDef = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.enchap) {
+                    var obj = responseJSON.enchap[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayEncAp)) {
                         ArrayEncAp[keyNew] = 0;
@@ -1162,8 +1162,8 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayEncDef);
-                var ArrayEncT = count_duplicate(merged);
+                var mergedEnc = [].concat.apply([], ArrayEncDef);
+                var ArrayEncT = count_duplicate(mergedEnc);
                 for (var key in ArrayEncT) {
                     Arr_defEnc.push(key);
                     var temp = parseInt(ArrayEncT[key])
@@ -1246,8 +1246,8 @@ function init() {
                 var ArrayTalRe = {};
                 var ArrayTalDef = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.talad) {
+                    var obj = responseJSON.talad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayTalAp)) {
                         ArrayTalAp[keyNew] = 0;
@@ -1288,8 +1288,8 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayTalDef);
-                var ArrayTalT = count_duplicate(merged);
+                var mergedTal = [].concat.apply([], ArrayTalDef);
+                var ArrayTalT = count_duplicate(mergedTal);
                 for (var key in ArrayTalT) {
                     Arr_defTal.push(key);
                     var temp = parseInt(ArrayTalT[key])
@@ -1372,8 +1372,8 @@ function init() {
                 var ArraySacRe = {};
                 var ArraySacDef = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.sacab) {
+                    var obj = responseJSON.sacab[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArraySacAp)) {
                         ArraySacAp[keyNew] = 0;
@@ -1498,8 +1498,8 @@ function init() {
                 var ArrayAr1Re = {};
                 var ArrayAr1Def = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.arm1) {
+                    var obj = responseJSON.arm1[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr1Ap)) {
                         ArrayAr1Ap[keyNew] = 0;
@@ -1508,10 +1508,7 @@ function init() {
 
                     if (obj.def1.length > 0)
                         ArrayAr1Def.push(obj.def1);
-                    if (obj.def2.length > 0)
-                        ArrayAr1Def.push(obj.def2);
-                    if (obj.def3.length > 0)
-                        ArrayAr1Def.push(obj.def3);
+
 
                     if (obj.ins1 == "Aceptado")
                         ContAr1Ap++;
@@ -1540,8 +1537,8 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayAr1Def);
-                var ArrayAr1T = count_duplicate(merged);
+                var mergedAr1 = [].concat.apply([], ArrayAr1Def);
+                var ArrayAr1T = count_duplicate(mergedAr1);
                 for (var key in ArrayAr1T) {
                     Arr_defAr1.push(key);
                     var temp = parseInt(ArrayAr1T[key])
@@ -1624,8 +1621,8 @@ function init() {
                 var ArrayAr2Re = {};
                 var ArrayAr2Def = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.arm2) {
+                    var obj = responseJSON.arm2[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr2Ap)) {
                         ArrayAr2Ap[keyNew] = 0;
@@ -1634,10 +1631,7 @@ function init() {
 
                     if (obj.def1.length > 0)
                         ArrayAr2Def.push(obj.def1);
-                    if (obj.def2.length > 0)
-                        ArrayAr2Def.push(obj.def2);
-                    if (obj.def3.length > 0)
-                        ArrayAr2Def.push(obj.def3);
+
 
                     if (obj.ins1 == "Aceptado")
                         ContAr2Ap++;
@@ -1748,8 +1742,8 @@ function init() {
                 var ArrayAr3Re = {};
                 var ArrayAr3Def = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.arm3) {
+                    var obj = responseJSON.arm3[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr3Ap)) {
                         ArrayAr3Ap[keyNew] = 0;
@@ -1758,10 +1752,7 @@ function init() {
 
                     if (obj.def1.length > 0)
                         ArrayAr3Def.push(obj.def1);
-                    if (obj.def2.length > 0)
-                        ArrayAr3Def.push(obj.def2);
-                    if (obj.def3.length > 0)
-                        ArrayAr3Def.push(obj.def3);
+
 
                     if (obj.ins1 == "Aceptado")
                         ContAr3Ap++;
@@ -1874,8 +1865,8 @@ function init() {
                 var ArrayAcaRe = {};
                 var ArrayAcaDef = new Array();
 
-                for (var key in responseJSON.escuad) {
-                    var obj = responseJSON.escuad[key];
+                for (var key in responseJSON.acab) {
+                    var obj = responseJSON.acab[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAcaAp)) {
                         ArrayAcaAp[keyNew] = 0;
@@ -1884,10 +1875,7 @@ function init() {
 
                     if (obj.def1.length > 0)
                         ArrayAcaDef.push(obj.def1);
-                    if (obj.def2.length > 0)
-                        ArrayAcaDef.push(obj.def2);
-                    if (obj.def3.length > 0)
-                        ArrayAcaDef.push(obj.def3);
+
 
                     if (obj.ins1 == "Aceptado")
                         ContAcaAp++;
@@ -1916,8 +1904,8 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayAcaDef);
-                var ArrayAcaT = count_duplicate(merged);
+                var mergedAca = [].concat.apply([], ArrayAcaDef);
+                var ArrayAcaT = count_duplicate(mergedAca);
                 for (var key in ArrayAcaT) {
                     Arr_defAca.push(key);
                     var temp = parseInt(ArrayAcaT[key])
@@ -1951,11 +1939,11 @@ function init() {
                     document.getElementById(AcaT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartAca.render();
-                //chartAca.clear();
-                //chartAca = null;
-                var chtAca = document.getElementById('tablaAca').getContext('2d');
 
+                var chtAca = document.getElementById('tablaAca').getContext('2d');
+                //chtAca.render();
+                // chtAca.clear();
+                //chtAca = null;
                 var chartAca = new Chart(chtAca, {
                     // The type of chart we want to create
                     type: 'bar',
