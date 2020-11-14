@@ -4,6 +4,25 @@ function getDateOfWeek(w, y) {
     return new Date(y, 0, d);
 }
 
+function count_duplicate(a) {
+    let counts = {}
+
+    for (let i = 0; i < a.length; i++) {
+        if (counts[a[i]]) {
+            counts[a[i]] += 1
+        } else {
+            counts[a[i]] = 1
+        }
+    }
+    for (let prop in counts) {
+        if (counts[prop] >= 2) {
+            //console.log(prop + " counted: " + counts[prop] + " times.")
+        }
+    }
+    //console.log(counts)
+    return counts;
+}
+
 function refresh() {
 
     var date = new Date();
@@ -792,6 +811,26 @@ function init() {
 
     refresh();
 
+    var Arr_defEsc = new Array();
+    var Arr_numEsc = new Array();
+    var Arr_defEnc = new Array();
+    var Arr_numEnc = new Array();
+    var Arr_defSac = new Array();
+    var Arr_numSac = new Array();
+    var Arr_defTal = new Array();
+    var Arr_numTal = new Array();
+    var Arr_defAr1 = new Array();
+    var Arr_numAr1 = new Array();
+    var Arr_defAr2 = new Array();
+    var Arr_numAr2 = new Array();
+    var Arr_defAr13 = new Array();
+    var Arr_numAr3 = new Array();
+    var Arr_defAca = new Array();
+    var Arr_numAca = new Array();
+    //var EscCanvas = document.getElementId('tablaEsc').getContext('2d');
+    //66EscCanvas.clearRect(0, 0, canvas.width, canvas.height);
+
+
     var date = new Date();
     date.setHours(0, 0, 0, 0);
     date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
@@ -951,9 +990,9 @@ function init() {
                 var fechasEscRe = [0, 0, 0, 0, 0];
                 var fechasEscT = [0, 0, 0, 0, 0];
                 var iEsc = 0;
-                var previousObj;
                 var ArrayEscAp = {};
                 var ArrayEscRe = {};
+                var ArrayEscDef = new Array();
 
                 for (var key in responseJSON.escuad) {
                     var obj = responseJSON.escuad[key];
@@ -963,6 +1002,12 @@ function init() {
                         ArrayEscRe[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayEscDef.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayEscDef.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayEscDef.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContEscAp++;
@@ -989,6 +1034,14 @@ function init() {
                     ContEscRe = 0;
                     iEsc++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayEscDef);
+                var ArrayEscT = count_duplicate(merged);
+                for (var key in ArrayEscT) {
+                    Arr_defEsc.push(key);
+                    var temp = parseInt(ArrayEscT[key])
+                    Arr_numEsc.push(temp);
                 }
 
                 fechasEsc[5] = ContEscAT;
@@ -1018,6 +1071,41 @@ function init() {
                     document.getElementById(EscT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartEsc.render();
+                //chartEsc.clear();
+                //chartEsc = null;
+                var chtEsc = document.getElementById('tablaEsc').getContext('2d');
+
+                var chartEsc = new Chart(chtEsc, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defEsc),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numEsc
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defEsc = [];
+                Arr_numEsc = [];
+
+
 
                 //Enchapadora
                 var ContEncAp = 0;
@@ -1028,18 +1116,24 @@ function init() {
                 var fechasEncRe = [0, 0, 0, 0, 0];
                 var fechasEncT = [0, 0, 0, 0, 0];
                 var iEnc = 0;
-                var previousObj;
                 var ArrayEncAp = {};
                 var ArrayEncRe = {};
+                var ArrayEncDef = new Array();
 
-                for (var key in responseJSON.enchap) {
-                    var obj = responseJSON.enchap[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayEncAp)) {
                         ArrayEncAp[keyNew] = 0;
                         ArrayEncRe[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayEncDef.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayEncDef.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayEncDef.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContEncAp++;
@@ -1066,6 +1160,14 @@ function init() {
                     ContEncRe = 0;
                     iEnc++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayEncDef);
+                var ArrayEncT = count_duplicate(merged);
+                for (var key in ArrayEncT) {
+                    Arr_defEnc.push(key);
+                    var temp = parseInt(ArrayEncT[key])
+                    Arr_numEnc.push(temp);
                 }
 
                 fechasEnc[5] = ContEncAT;
@@ -1095,6 +1197,40 @@ function init() {
                     document.getElementById(EncT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartEnc.render();
+                //chartEnc.clear();
+                //chartEnc = null;
+                var chtEnc = document.getElementById('tablaEnc').getContext('2d');
+
+                var chartEnc = new Chart(chtEnc, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defEnc),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numEnc
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defEnc = [];
+                Arr_numEnc = [];
+
 
 
                 //Taladro
@@ -1106,18 +1242,24 @@ function init() {
                 var fechasTalRe = [0, 0, 0, 0, 0];
                 var fechasTalT = [0, 0, 0, 0, 0];
                 var iTal = 0;
-                var previousObj;
                 var ArrayTalAp = {};
                 var ArrayTalRe = {};
+                var ArrayTalDef = new Array();
 
-                for (var key in responseJSON.talad) {
-                    var obj = responseJSON.talad[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayTalAp)) {
                         ArrayTalAp[keyNew] = 0;
                         ArrayTalRe[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayTalDef.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayTalDef.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayTalDef.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContTalAp++;
@@ -1144,6 +1286,14 @@ function init() {
                     ContTalRe = 0;
                     iTal++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayTalDef);
+                var ArrayTalT = count_duplicate(merged);
+                for (var key in ArrayTalT) {
+                    Arr_defTal.push(key);
+                    var temp = parseInt(ArrayTalT[key])
+                    Arr_numTal.push(temp);
                 }
 
                 fechasTal[5] = ContTalAT;
@@ -1173,6 +1323,39 @@ function init() {
                     document.getElementById(TalT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartTal.render();
+                //chartTal.clear();
+                //chartTal = null;
+                var chtTal = document.getElementById('tablaTal').getContext('2d');
+
+                var chartTal = new Chart(chtTal, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defTal),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numTal
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defTal = [];
+                Arr_numTal = [];
 
 
                 //Sacabocados
@@ -1185,18 +1368,24 @@ function init() {
                 var fechasSacRe = [0, 0, 0, 0, 0];
                 var fechasSacT = [0, 0, 0, 0, 0];
                 var iSac = 0;
-                var previousObj;
                 var ArraySacAp = {};
                 var ArraySacRe = {};
+                var ArraySacDef = new Array();
 
-                for (var key in responseJSON.sacab) {
-                    var obj = responseJSON.sacab[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArraySacAp)) {
                         ArraySacAp[keyNew] = 0;
                         ArraySacRe[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArraySacDef.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArraySacDef.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArraySacDef.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContSacAp++;
@@ -1223,6 +1412,14 @@ function init() {
                     ContSacRe = 0;
                     iSac++;
 
+                }
+
+                var merged = [].concat.apply([], ArraySacDef);
+                var ArraySacT = count_duplicate(merged);
+                for (var key in ArraySacT) {
+                    Arr_defSac.push(key);
+                    var temp = parseInt(ArraySacT[key])
+                    Arr_numSac.push(temp);
                 }
 
                 fechasSac[5] = ContSacAT;
@@ -1252,6 +1449,39 @@ function init() {
                     document.getElementById(SacT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartSac.render();
+                //chartSac.clear();
+                //chartSac = null;
+                var chtSac = document.getElementById('tablaSac').getContext('2d');
+
+                var chartSac = new Chart(chtSac, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defSac),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numSac
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defSac = [];
+                Arr_numSac = [];
 
 
                 //Armado1
@@ -1264,18 +1494,24 @@ function init() {
                 var fechasAr1Re = [0, 0, 0, 0, 0];
                 var fechasAr1T = [0, 0, 0, 0, 0];
                 var iAr1 = 0;
-                var previousObj;
                 var ArrayAr1Ap = {};
                 var ArrayAr1Re = {};
+                var ArrayAr1Def = new Array();
 
-                for (var key in responseJSON.arm1) {
-                    var obj = responseJSON.arm1[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr1Ap)) {
                         ArrayAr1Ap[keyNew] = 0;
                         ArrayAr1Re[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayAr1Def.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayAr1Def.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayAr1Def.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContAr1Ap++;
@@ -1302,6 +1538,14 @@ function init() {
                     ContAr1Re = 0;
                     iAr1++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayAr1Def);
+                var ArrayAr1T = count_duplicate(merged);
+                for (var key in ArrayAr1T) {
+                    Arr_defAr1.push(key);
+                    var temp = parseInt(ArrayAr1T[key])
+                    Arr_numAr1.push(temp);
                 }
 
                 fechasAr1[5] = ContAr1AT;
@@ -1331,6 +1575,39 @@ function init() {
                     document.getElementById(Ar1T[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartAr1.render();
+                //chartAr1.clear();
+                //chartAr1 = null;
+                var chtAr1 = document.getElementById('tablaAr1').getContext('2d');
+
+                var chartAr1 = new Chart(chtAr1, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defAr1),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numAr1
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defAr1 = [];
+                Arr_numAr1 = [];
 
 
                 //Armado2
@@ -1343,18 +1620,24 @@ function init() {
                 var fechasAr2Re = [0, 0, 0, 0, 0];
                 var fechasAr2T = [0, 0, 0, 0, 0];
                 var iAr2 = 0;
-                var previousObj;
                 var ArrayAr2Ap = {};
                 var ArrayAr2Re = {};
+                var ArrayAr2Def = new Array();
 
-                for (var key in responseJSON.arm2) {
-                    var obj = responseJSON.arm2[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr2Ap)) {
                         ArrayAr2Ap[keyNew] = 0;
                         ArrayAr2Re[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayAr2Def.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayAr2Def.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayAr2Def.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContAr2Ap++;
@@ -1381,6 +1664,14 @@ function init() {
                     ContAr2Re = 0;
                     iAr2++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayAr2Def);
+                var ArrayAr2T = count_duplicate(merged);
+                for (var key in ArrayAr2T) {
+                    Arr_defAr2.push(key);
+                    var temp = parseInt(ArrayAr2T[key])
+                    Arr_numAr2.push(temp);
                 }
 
                 fechasAr2[5] = ContAr2AT;
@@ -1410,10 +1701,41 @@ function init() {
                     document.getElementById(Ar2T[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartAr2.render();
+                //chartAr2.clear();
+                //chartAr2 = null;
+                var chtAr2 = document.getElementById('tablaAr2').getContext('2d');
 
+                var chartAr2 = new Chart(chtAr2, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defAr2),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numAr2
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defAr2 = [];
+                Arr_numAr2 = [];
 
                 //Armado3
-
                 var ContAr3Ap = 0;
                 var ContAr3Re = 0;
                 var ContAr3AT = 0;
@@ -1422,18 +1744,24 @@ function init() {
                 var fechasAr3Re = [0, 0, 0, 0, 0];
                 var fechasAr3T = [0, 0, 0, 0, 0];
                 var iAr3 = 0;
-                var previousObj;
                 var ArrayAr3Ap = {};
                 var ArrayAr3Re = {};
+                var ArrayAr3Def = new Array();
 
-                for (var key in responseJSON.arm3) {
-                    var obj = responseJSON.arm3[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAr3Ap)) {
                         ArrayAr3Ap[keyNew] = 0;
                         ArrayAr3Re[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayAr3Def.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayAr3Def.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayAr3Def.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContAr3Ap++;
@@ -1460,6 +1788,14 @@ function init() {
                     ContAr3Re = 0;
                     iAr3++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayAr3Def);
+                var ArrayAr3T = count_duplicate(merged);
+                for (var key in ArrayAr3T) {
+                    Arr_defAr3.push(key);
+                    var temp = parseInt(ArrayAr3T[key])
+                    Arr_numAr3.push(temp);
                 }
 
                 fechasAr3[5] = ContAr3AT;
@@ -1489,6 +1825,39 @@ function init() {
                     document.getElementById(Ar3T[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartAr3.render();
+                //chartAr3.clear();
+                //chartAr3 = null;
+                var chtAr3 = document.getElementById('tablaAr3').getContext('2d');
+
+                var chartAr3 = new Chart(chtAr3, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defAr3),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numAr3
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                Arr_defAr3 = [];
+                Arr_numAr3 = [];
 
 
                 //Acabados
@@ -1501,18 +1870,24 @@ function init() {
                 var fechasAcaRe = [0, 0, 0, 0, 0];
                 var fechasAcaT = [0, 0, 0, 0, 0];
                 var iAca = 0;
-                var previousObj;
                 var ArrayAcaAp = {};
                 var ArrayAcaRe = {};
+                var ArrayAcaDef = new Array();
 
-                for (var key in responseJSON.acab) {
-                    var obj = responseJSON.acab[key];
+                for (var key in responseJSON.escuad) {
+                    var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
                     if (!(keyNew in ArrayAcaAp)) {
                         ArrayAcaAp[keyNew] = 0;
                         ArrayAcaRe[keyNew] = 0;
                     }
 
+                    if (obj.def1.length > 0)
+                        ArrayAcaDef.push(obj.def1);
+                    if (obj.def2.length > 0)
+                        ArrayAcaDef.push(obj.def2);
+                    if (obj.def3.length > 0)
+                        ArrayAcaDef.push(obj.def3);
 
                     if (obj.ins1 == "Aceptado")
                         ContAcaAp++;
@@ -1539,6 +1914,14 @@ function init() {
                     ContAcaRe = 0;
                     iAca++;
 
+                }
+
+                var merged = [].concat.apply([], ArrayAcaDef);
+                var ArrayAcaT = count_duplicate(merged);
+                for (var key in ArrayAcaT) {
+                    Arr_defAca.push(key);
+                    var temp = parseInt(ArrayAcaT[key])
+                    Arr_numAca.push(temp);
                 }
 
                 fechasAca[5] = ContAcaAT;
@@ -1568,6 +1951,41 @@ function init() {
                     document.getElementById(AcaT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+                // chartAca.render();
+                //chartAca.clear();
+                //chartAca = null;
+                var chtAca = document.getElementById('tablaAca').getContext('2d');
+
+                var chartAca = new Chart(chtAca, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: Array.from(Arr_defAca),
+                        datasets: [{
+                            label: 'Defectos',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: Arr_numAca
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }]
+                        }
+                    }
+                });
+                //Arr_defAca = [];
+                // Arr_numAca = [];
+
+
 
 
 
@@ -1599,27 +2017,19 @@ function init() {
         },
 
         // Configuration options go here
-        options: {}
-    });
-    var ctx = document.getElementById('tablaDos').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
+        options: {
 
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45]
-            }]
         },
-
-        // Configuration options go here
-        options: {}
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     });
+
+
 };
 
 
