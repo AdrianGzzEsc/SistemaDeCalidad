@@ -823,7 +823,7 @@ function init() {
     var Arr_numAr1 = new Array();
     var Arr_defAr2 = new Array();
     var Arr_numAr2 = new Array();
-    var Arr_defAr13 = new Array();
+    var Arr_defAr3 = new Array();
     var Arr_numAr3 = new Array();
     var Arr_defAca = new Array();
     var Arr_numAca = new Array();
@@ -1982,8 +1982,8 @@ function init() {
                         }
                     }
                 });
-                //Arr_defAca = [];
-                // Arr_numAca = [];
+                Arr_defAca = [];
+                Arr_numAca = [];
 
 
 
