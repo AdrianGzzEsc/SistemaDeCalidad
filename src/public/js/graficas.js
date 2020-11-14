@@ -1037,6 +1037,9 @@ function init() {
                 }
 
                 var mergedEsc = [].concat.apply([], ArrayEscDef);
+                mergedEsc.sort(function(a, b) {
+                    return a.length - b.length;
+                });
                 var ArrayEscT = count_duplicate(mergedEsc);
                 for (var key in ArrayEscT) {
                     Arr_defEsc.push(key);
@@ -1163,6 +1166,10 @@ function init() {
                 }
 
                 var mergedEnc = [].concat.apply([], ArrayEncDef);
+
+                mergedEnc.sort(function(a, b) {
+                    return a.length - b.length;
+                });
                 var ArrayEncT = count_duplicate(mergedEnc);
                 for (var key in ArrayEncT) {
                     Arr_defEnc.push(key);
@@ -1288,7 +1295,14 @@ function init() {
 
                 }
 
+
+
                 var mergedTal = [].concat.apply([], ArrayTalDef);
+                mergedTal.sort(function(a, b) {
+                    // ASC  -> a.length - b.length
+                    // DESC -> b.length - a.length
+                    return a.length - b.length;
+                });
                 var ArrayTalT = count_duplicate(mergedTal);
                 for (var key in ArrayTalT) {
                     Arr_defTal.push(key);
@@ -1414,8 +1428,11 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArraySacDef);
-                var ArraySacT = count_duplicate(merged);
+                var mergedSac = [].concat.apply([], ArraySacDef);
+                mergedSac.sort(function(a, b) {
+                    return a.length - b.length;
+                });
+                var ArraySacT = count_duplicate(mergedSac);
                 for (var key in ArraySacT) {
                     Arr_defSac.push(key);
                     var temp = parseInt(ArraySacT[key])
@@ -1538,6 +1555,9 @@ function init() {
                 }
 
                 var mergedAr1 = [].concat.apply([], ArrayAr1Def);
+                mergedAr1.sort(function(a, b) {
+                    return a.length - b.length;
+                });
                 var ArrayAr1T = count_duplicate(mergedAr1);
                 for (var key in ArrayAr1T) {
                     Arr_defAr1.push(key);
@@ -1660,8 +1680,11 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayAr2Def);
-                var ArrayAr2T = count_duplicate(merged);
+                var mergedAr2 = [].concat.apply([], ArrayAr2Def);
+                mergedAr2.sort(function(a, b) {
+                    return a.length - b.length;
+                });
+                var ArrayAr2T = count_duplicate(mergedAr2);
                 for (var key in ArrayAr2T) {
                     Arr_defAr2.push(key);
                     var temp = parseInt(ArrayAr2T[key])
@@ -1781,8 +1804,11 @@ function init() {
 
                 }
 
-                var merged = [].concat.apply([], ArrayAr3Def);
-                var ArrayAr3T = count_duplicate(merged);
+                var mergedAr3 = [].concat.apply([], ArrayAr3Def);
+                mergedAr3.sort(function(a, b) {
+                    return a.length - b.length;
+                });
+                var ArrayAr3T = count_duplicate(mergedAr3);
                 for (var key in ArrayAr3T) {
                     Arr_defAr3.push(key);
                     var temp = parseInt(ArrayAr3T[key])
@@ -1905,6 +1931,9 @@ function init() {
                 }
 
                 var mergedAca = [].concat.apply([], ArrayAcaDef);
+                mergedAca.sort(function(a, b) {
+                    return a.length - b.length;
+                });
                 var ArrayAcaT = count_duplicate(mergedAca);
                 for (var key in ArrayAcaT) {
                     Arr_defAca.push(key);

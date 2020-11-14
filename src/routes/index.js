@@ -57,6 +57,10 @@ router.get('/super/', (req, res) => {
     res.render('Super');
 });
 
+router.get('/prueba/', (req, res) => {
+    res.render('prueba');
+});
+
 router.get('/registrar/', (req, res) => {
     res.render('registrar');
 });
