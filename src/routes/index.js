@@ -10,7 +10,6 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
-
 const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
@@ -43,12 +42,23 @@ router.get('/inicio/', (req, res) => {
     res.render('Inicio');
 });
 
-router.get('/graficas/', (req, res) => {
-    res.render('Graficas');
+router.get('/graficas/', async(req, res) => {
+    const escu = await escuadradora.find();
+    const escAp = await escuadradora.find({ "ins1": "Aceptado" }).count();
+    const escAp2 = await escuadradora.find({ "ins2": "Aceptado" }).count();
+    const escAp3 = await escuadradora.find({ "ins3": "Aceptado" }).count();
+    const escRe = await escuadradora.find({ "ins1": "Rechazado" }).count();
+    const escRe2 = await escuadradora.find({ "ins2": "Rechazado" }).count();
+    const escRe3 = await escuadradora.find({ "ins3": "Rechazado" }).count();
+    res.render('Graficas', { escu, escAp, escAp2, escAp3, escRe, escRe2, escRe3 });
 });
 
 router.get('/super/', (req, res) => {
     res.render('Super');
+});
+
+router.get('/prueba/', (req, res) => {
+    res.render('prueba');
 });
 
 router.get('/registrar/', (req, res) => {
@@ -60,6 +70,79 @@ router.get('/recepcion/', async(req, res) => {;
     const mat = await materiales.find();
     res.render('Recepcion', { prov, mat });
 });
+
+router.get('/GraficasByDate/:Fecha/:Fecha5/', async(req, res) => {;
+    let fecha = req.params.Fecha;
+    let fecha5 = req.params.Fecha5;
+
+    const escuad = await escuadradora.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const enchap = await enchapadora.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const talad = await taladro.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const sacab = await sacabocados.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const arm1 = await armado1.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const arm2 = await armado2.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const arm3 = await armado3.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const acab = await acabados.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    const inspF = await inspeccion.find({
+        "fecha": {
+            $gte: fecha,
+            $lte: fecha5
+        }
+    }).sort({ "fecha": 1 });
+
+    var response = { escuad, enchap, talad, sacab, arm1, arm2, arm3, acab, inspF };
+    return res.status(200).json(response);
+
+});
+
 
 router.get('/index/', async(req, res) => {
     const tasks = await Task.find();
