@@ -31,8 +31,28 @@ function updateTable(chart, label, data) {
 
 
 
-function refresh() {
+function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca) {
 
+    var Arr_defEsc = new Array();
+    var Arr_numEsc = new Array();
+    var Arr_defEnc = new Array();
+    var Arr_numEnc = new Array();
+    var Arr_defSac = new Array();
+    var Arr_numSac = new Array();
+    var Arr_defTal = new Array();
+    var Arr_numTal = new Array();
+    var Arr_defAr1 = new Array();
+    var Arr_numAr1 = new Array();
+    var Arr_defAr2 = new Array();
+    var Arr_numAr2 = new Array();
+    var Arr_defAr3 = new Array();
+    var Arr_numAr3 = new Array();
+    var Arr_defAca = new Array();
+    var Arr_numAca = new Array();
+
+
+
+    //Filtro Fecha Ajustes
     var date = new Date();
     date.setHours(0, 0, 0, 0);
     date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
@@ -43,21 +63,10 @@ function refresh() {
     document.getElementById("filtro-semana").value = defaultDate
     var d = ((dateWeek - 1) * 7) - 1;
 
-    var monthArray = new Array();
-    monthArray[0] = "Ene";
-    monthArray[1] = "Feb";
-    monthArray[2] = "Mar";
-    monthArray[3] = "Abr";
-    monthArray[4] = "May";
-    monthArray[5] = "Jun";
-    monthArray[6] = "Jul";
-    monthArray[7] = "Ago";
-    monthArray[8] = "Sep";
-    monthArray[9] = "Oct";
-    monthArray[10] = "Nov";
-    monthArray[11] = "Dic";
+    // primer dia de la semana en formato fecha
+    dateFDW = new Date();
 
-
+    var monthArray = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
     var filtro = document.getElementById("filtro-semana").value;
     var year = String(filtro).substr(0, 4);
@@ -71,27 +80,63 @@ function refresh() {
     var year = (res.getFullYear());
     var fechaFiltro = String(year + "-" + month + "-" + day + "T00:00:00.000+00:00");
 
+    var day1 = (parseInt(day))
+    if (day1 < 10) {
+        day1 = "0" + day1;
+    }
+    var fechaFiltro1 = String(year + "-" + month + "-" + day1 + "T00:00:00.000Z");
+
+    var day6 = (parseInt(day))
+    if (day6 < 10) {
+        day6 = "0" + day6;
+    }
+    var fechaFiltro6 = String(year + "-" + month + "-" + day6 + "T00:00:00.000Z");
+
+    var day2 = (parseInt(day) + 1)
+    if (day2 < 10) {
+        day2 = "0" + day2;
+    }
+    var fechaFiltro2 = String(year + "-" + month + "-" + day2 + "T00:00:00.000Z");
+
+
+    var day3 = (parseInt(day) + 2)
+    if (day3 < 10) {
+        day3 = "0" + day3;
+    }
+    var fechaFiltro3 = String(year + "-" + month + "-" + day3 + "T00:00:00.000Z");
+
+
+    var day4 = (parseInt(day) + 3)
+    if (day4 < 10) {
+        day4 = "0" + day4;
+    }
+    var fechaFiltro4 = String(year + "-" + month + "-" + day4 + "T00:00:00.000Z");
+
     var day5 = (parseInt(day) + 4)
     if (day5 < 10) {
         day5 = "0" + day5;
     }
     var fechaFiltro5 = String(year + "-" + month + "-" + day5 + "T00:00:00.000+00:00");
-
+    var FechasSemana = [String(fechaFiltro1), String(fechaFiltro2), String(fechaFiltro3), String(fechaFiltro4), String(fechaFiltro6)];
 
     var FechaEsc = document.getElementsByClassName("FechaEsc");
     var FechaEsc1 = document.getElementsByClassName("FechaEsc1");
     var FechaEsc2 = document.getElementsByClassName("FechaEsc2");
     var FechaEsc3 = document.getElementsByClassName("FechaEsc3");
     var FechaEsc4 = document.getElementsByClassName("FechaEsc4");
+
     for (var i = 0; i < FechaEsc1.length; i++) {
         FechaEsc[i].innerHTML = String(parseInt(day)) + "-" + monthArray[month - 1];
         FechaEsc1[i].innerHTML = String(parseInt(day) + 1) + "-" + monthArray[month - 1];
         FechaEsc2[i].innerHTML = String(parseInt(day) + 2) + "-" + monthArray[month - 1];
         FechaEsc3[i].innerHTML = String(parseInt(day) + 3) + "-" + monthArray[month - 1];
         FechaEsc4[i].innerHTML = String(parseInt(day) + 4) + "-" + monthArray[month - 1];
+        FechaEsc[i].style = "background: orangered;border: 1px black; font-size: small;"
+        FechaEsc1[i].style = "background: orangered;border: 1px black; font-size: small;"
+        FechaEsc2[i].style = "background: orangered;border: 1px black; font-size: small;"
+        FechaEsc3[i].style = "background: orangered;border: 1px black; font-size: small;"
+        FechaEsc4[i].style = "background: orangered;border: 1px black; font-size: small;"
     }
-
-
 
 
     let url = `/GraficasByDate/${fechaFiltro}/${fechaFiltro5}/`;
@@ -120,6 +165,11 @@ function refresh() {
             var previousObj;
             var ArrayInsFAp = {};
             var ArrayInsFRe = {};
+
+            for (var i = 0; i < 5; i++) {
+                ArrayInsFAp[FechasSemana[i]] = 0;
+                ArrayInsFRe[FechasSemana[i]] = 0;
+            }
 
             for (var key in responseJSON.inspF) {
                 var obj = responseJSON.inspF[key];
@@ -175,7 +225,11 @@ function refresh() {
                 document.getElementById(InsFT[x]).innerHTML = obj + obj2;
                 x++;
             }
+
+
             //Escuadradora
+
+            //Declaracion de variables
             var ContEscAp = 0;
             var ContEscRe = 0;
             var ContEscAT = 0;
@@ -184,10 +238,18 @@ function refresh() {
             var fechasEscRe = [0, 0, 0, 0, 0];
             var fechasEscT = [0, 0, 0, 0, 0];
             var iEsc = 0;
-            var previousObj;
             var ArrayEscAp = {};
             var ArrayEscRe = {};
+            var ArrayEscDef = new Array();
 
+            //Loop para meter indices de fecha
+            for (var i = 0; i < 5; i++) {
+                ArrayEscAp[FechasSemana[i]] = 0;
+                ArrayEscRe[FechasSemana[i]] = 0;
+            }
+
+
+            //Loop para contar rechazados, aceptados, y guardar todos los defectos en un arreglo
             for (var key in responseJSON.escuad) {
                 var obj = responseJSON.escuad[key];
                 var keyNew = obj.fecha;
@@ -196,6 +258,12 @@ function refresh() {
                     ArrayEscRe[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayEscDef.push(obj.def1);
+                if (obj.def2.length > 0)
+                    ArrayEscDef.push(obj.def2);
+                if (obj.def3.length > 0)
+                    ArrayEscDef.push(obj.def3);
 
                 if (obj.ins1 == "Aceptado")
                     ContEscAp++;
@@ -221,27 +289,46 @@ function refresh() {
                 ContEscAp = 0;
                 ContEscRe = 0;
                 iEsc++;
-
             }
 
-            fechasEsc[5] = ContEscAT;
-            fechasEscRe[5] = ContEscRT;
-            fechasEscT[5] = ContEscAT + ContEscRT;
+            //Arreglo de Arreglos lo convierte en solo uno
+            var mergedEsc = [].concat.apply([], ArrayEscDef);
 
+            //Ordenamos de palabra mas grande a mayor
+            mergedEsc.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            //Contamos duplicados y regresa un objeto
+            var ArrayEscT = count_duplicate(mergedEsc);
+
+            //Loop para acomodar nombre de defectos en un arreglo y cantidades en otro
+            for (var key in ArrayEscT) {
+                Arr_defEsc.push(key);
+                var temp = parseInt(ArrayEscT[key])
+                Arr_numEsc.push(temp);
+            }
+
+            //Se saca el total y los promedios
+            fechasEscT[5] = ContEscAT + ContEscRT;
+            fechasEsc[5] = ContEscAT + "  (" + Math.round((ContEscAT / fechasEscT[5] * 100)) + "%)";
+            fechasEscRe[5] = ContEscRT + "  (" + Math.round((ContEscRT / fechasEscT[5] * 100)) + "%)";
+
+            //Arreglos con IDs de html
             var EscAp = ["EscAp", "EscAp1", "EscAp2", "EscAp3", "EscAp4", "EscAp5"];
             var EscRe = ["EscRe", "EscRe1", "EscRe2", "EscRe3", "EscRe4", "EscRe5"];
             var EscT = ["EscT", "EscT1", "EscT2", "EscT3", "EscT4", "EscT5"];
-
+            //Loop para inicilizar toda la tabla en 0s
             for (var i = 0; i < EscAp.length; i++) {
                 document.getElementById(EscAp[i]).innerHTML = 0;
                 document.getElementById(EscRe[i]).innerHTML = 0;
                 document.getElementById(EscT[i]).innerHTML = 0;
             }
-
+            //Pone el valor de columna "Total"
             document.getElementById(EscAp[5]).innerHTML = fechasEsc[5];
             document.getElementById(EscRe[5]).innerHTML = fechasEscRe[5];
             document.getElementById(EscT[5]).innerHTML = fechasEscT[5];
 
+            //Loop para llenar datos de tabla
             var x = 0;
             for (var key in ArrayEscAp) {
                 var obj = ArrayEscAp[key];
@@ -251,6 +338,13 @@ function refresh() {
                 document.getElementById(EscT[x]).innerHTML = obj + obj2;
                 x++;
             }
+
+
+            //Update de tabla
+            updateTable(chartEsc, Arr_defEsc, Arr_numEsc);
+            //Arreglos se vacian
+            Arr_defEsc = [];
+            Arr_numEsc = [];
 
 
 
@@ -263,18 +357,28 @@ function refresh() {
             var fechasEncRe = [0, 0, 0, 0, 0];
             var fechasEncT = [0, 0, 0, 0, 0];
             var iEnc = 0;
-            var previousObj;
             var ArrayEncAp = {};
             var ArrayEncRe = {};
+            var ArrayEncDef = new Array();
+            for (var i = 0; i < 5; i++) {
+                ArrayEncAp[FechasSemana[i]] = 0;
+                ArrayEncRe[FechasSemana[i]] = 0;
+            }
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+            for (var key in responseJSON.enchap) {
+                var obj = responseJSON.enchap[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayEncAp)) {
                     ArrayEncAp[keyNew] = 0;
                     ArrayEncRe[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayEncDef.push(obj.def1);
+                if (obj.def2.length > 0)
+                    ArrayEncDef.push(obj.def2);
+                if (obj.def3.length > 0)
+                    ArrayEncDef.push(obj.def3);
 
                 if (obj.ins1 == "Aceptado")
                     ContEncAp++;
@@ -303,9 +407,22 @@ function refresh() {
 
             }
 
-            fechasEnc[5] = ContEncAT;
-            fechasEncRe[5] = ContEncRT;
+
+            var mergedEnc = [].concat.apply([], ArrayEncDef);
+
+            mergedEnc.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayEncT = count_duplicate(mergedEnc);
+            for (var key in ArrayEncT) {
+                Arr_defEnc.push(key);
+                var temp = parseInt(ArrayEncT[key])
+                Arr_numEnc.push(temp);
+            }
+
             fechasEncT[5] = ContEncAT + ContEncRT;
+            fechasEnc[5] = ContEncAT + "  (" + Math.round((ContEncAT / fechasEncT[5] * 100)) + "%)";
+            fechasEncRe[5] = ContEncRT + "  (" + Math.round((ContEncRT / fechasEncT[5] * 100)) + "%)";
 
             var EncAp = ["EncAp", "EncAp1", "EncAp2", "EncAp3", "EncAp4", "EncAp5"];
             var EncRe = ["EncRe", "EncRe1", "EncRe2", "EncRe3", "EncRe4", "EncRe5"];
@@ -331,6 +448,10 @@ function refresh() {
                 x++;
             }
 
+            updateTable(chartEnc, Arr_defEnc, Arr_numEnc);
+            Arr_defEnc = [];
+            Arr_numEnc = [];
+
 
             //Taladro
             var ContTalAp = 0;
@@ -341,18 +462,30 @@ function refresh() {
             var fechasTalRe = [0, 0, 0, 0, 0];
             var fechasTalT = [0, 0, 0, 0, 0];
             var iTal = 0;
-            var previousObj;
             var ArrayTalAp = {};
             var ArrayTalRe = {};
+            var ArrayTalDef = new Array();
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+            for (var i = 0; i < 5; i++) {
+                ArrayTalAp[FechasSemana[i]] = 0;
+                ArrayTalRe[FechasSemana[i]] = 0;
+            }
+
+
+            for (var key in responseJSON.talad) {
+                var obj = responseJSON.talad[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayTalAp)) {
                     ArrayTalAp[keyNew] = 0;
                     ArrayTalRe[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayTalDef.push(obj.def1);
+                if (obj.def2.length > 0)
+                    ArrayTalDef.push(obj.def2);
+                if (obj.def3.length > 0)
+                    ArrayTalDef.push(obj.def3);
 
                 if (obj.ins1 == "Aceptado")
                     ContTalAp++;
@@ -381,9 +514,21 @@ function refresh() {
 
             }
 
-            fechasTal[5] = ContTalAT;
-            fechasTalRe[5] = ContTalRT;
+
+            var mergedTal = [].concat.apply([], ArrayTalDef);
+            mergedTal.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayTalT = count_duplicate(mergedTal);
+            for (var key in ArrayTalT) {
+                Arr_defTal.push(key);
+                var temp = parseInt(ArrayTalT[key])
+                Arr_numTal.push(temp);
+            }
+
             fechasTalT[5] = ContTalAT + ContTalRT;
+            fechasTal[5] = ContTalAT + "  (" + Math.round((ContTalAT / fechasTalT[5] * 100)) + "%)";
+            fechasTalRe[5] = ContTalRT + "  (" + Math.round((ContTalRT / fechasTalT[5] * 100)) + "%)";
 
             var TalAp = ["TalAp", "TalAp1", "TalAp2", "TalAp3", "TalAp4", "TalAp5"];
             var TalRe = ["TalRe", "TalRe1", "TalRe2", "TalRe3", "TalRe4", "TalRe5"];
@@ -409,6 +554,11 @@ function refresh() {
                 x++;
             }
 
+            updateTable(chartTal, Arr_defTal, Arr_numTal);
+
+            Arr_defTal = [];
+            Arr_numTal = [];
+
 
             //Sacabocados
 
@@ -420,18 +570,30 @@ function refresh() {
             var fechasSacRe = [0, 0, 0, 0, 0];
             var fechasSacT = [0, 0, 0, 0, 0];
             var iSac = 0;
-            var previousObj;
             var ArraySacAp = {};
             var ArraySacRe = {};
+            var ArraySacDef = new Array();
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+            for (var i = 0; i < 5; i++) {
+                ArraySacAp[FechasSemana[i]] = 0;
+                ArraySacRe[FechasSemana[i]] = 0;
+            }
+
+
+            for (var key in responseJSON.sacab) {
+                var obj = responseJSON.sacab[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArraySacAp)) {
                     ArraySacAp[keyNew] = 0;
                     ArraySacRe[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArraySacDef.push(obj.def1);
+                if (obj.def2.length > 0)
+                    ArraySacDef.push(obj.def2);
+                if (obj.def3.length > 0)
+                    ArraySacDef.push(obj.def3);
 
                 if (obj.ins1 == "Aceptado")
                     ContSacAp++;
@@ -460,9 +622,20 @@ function refresh() {
 
             }
 
-            fechasSac[5] = ContSacAT;
-            fechasSacRe[5] = ContSacRT;
+            var mergedSac = [].concat.apply([], ArraySacDef);
+            mergedSac.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArraySacT = count_duplicate(mergedSac);
+            for (var key in ArraySacT) {
+                Arr_defSac.push(key);
+                var temp = parseInt(ArraySacT[key])
+                Arr_numSac.push(temp);
+            }
+
             fechasSacT[5] = ContSacAT + ContSacRT;
+            fechasSac[5] = ContSacAT + "  (" + Math.round((ContSacAT / fechasSacT[5] * 100)) + "%)";
+            fechasSacRe[5] = ContSacRT + "  (" + Math.round((ContSacRT / fechasSacT[5] * 100)) + "%)";
 
             var SacAp = ["SacAp", "SacAp1", "SacAp2", "SacAp3", "SacAp4", "SacAp5"];
             var SacRe = ["SacRe", "SacRe1", "SacRe2", "SacRe3", "SacRe4", "SacRe5"];
@@ -488,6 +661,11 @@ function refresh() {
                 x++;
             }
 
+            updateTable(chartSac, Arr_defSac, Arr_numSac);
+
+            Arr_defSac = [];
+            Arr_numSac = [];
+
 
             //Armado1
 
@@ -499,31 +677,33 @@ function refresh() {
             var fechasAr1Re = [0, 0, 0, 0, 0];
             var fechasAr1T = [0, 0, 0, 0, 0];
             var iAr1 = 0;
-            var previousObj;
             var ArrayAr1Ap = {};
             var ArrayAr1Re = {};
+            var ArrayAr1Def = new Array();
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+            for (var i = 0; i < 5; i++) {
+                ArrayAr1Ap[FechasSemana[i]] = 0;
+                ArrayAr1Re[FechasSemana[i]] = 0;
+            }
+
+
+            for (var key in responseJSON.arm1) {
+                var obj = responseJSON.arm1[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayAr1Ap)) {
                     ArrayAr1Ap[keyNew] = 0;
                     ArrayAr1Re[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayAr1Def.push(obj.def1);
+
 
                 if (obj.ins1 == "Aceptado")
                     ContAr1Ap++;
                 else
                     ContAr1Re++;
-                if (obj.ins2 == "Aceptado")
-                    ContAr1Ap++;
-                else
-                    ContAr1Re++;
-                if (obj.ins3 == "Aceptado")
-                    ContAr1Ap++;
-                else
-                    ContAr1Re++;
+
 
                 fechasAr1[iAr1] = ContAr1Ap;
                 fechasAr1Re[iAr1] = ContAr1Re;
@@ -539,9 +719,20 @@ function refresh() {
 
             }
 
-            fechasAr1[5] = ContAr1AT;
-            fechasAr1Re[5] = ContAr1RT;
+            var mergedAr1 = [].concat.apply([], ArrayAr1Def);
+            mergedAr1.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayAr1T = count_duplicate(mergedAr1);
+            for (var key in ArrayAr1T) {
+                Arr_defAr1.push(key);
+                var temp = parseInt(ArrayAr1T[key])
+                Arr_numAr1.push(temp);
+            }
+
             fechasAr1T[5] = ContAr1AT + ContAr1RT;
+            fechasAr1[5] = ContAr1AT + "  (" + Math.round((ContAr1AT / fechasAr1T[5] * 100)) + "%)";
+            fechasAr1Re[5] = ContAr1RT + "  (" + Math.round((ContAr1RT / fechasAr1T[5] * 100)) + "%)";
 
             var Ar1Ap = ["Ar1Ap", "Ar1Ap1", "Ar1Ap2", "Ar1Ap3", "Ar1Ap4", "Ar1Ap5"];
             var Ar1Re = ["Ar1Re", "Ar1Re1", "Ar1Re2", "Ar1Re3", "Ar1Re4", "Ar1Re5"];
@@ -566,6 +757,10 @@ function refresh() {
                 document.getElementById(Ar1T[x]).innerHTML = obj + obj2;
                 x++;
             }
+            updateTable(chartAr1, Arr_defAr1, Arr_numAr1);
+
+            Arr_defAr1 = [];
+            Arr_numAr1 = [];
 
 
             //Armado2
@@ -578,31 +773,32 @@ function refresh() {
             var fechasAr2Re = [0, 0, 0, 0, 0];
             var fechasAr2T = [0, 0, 0, 0, 0];
             var iAr2 = 0;
-            var previousObj;
             var ArrayAr2Ap = {};
             var ArrayAr2Re = {};
+            var ArrayAr2Def = new Array();
+            for (var i = 0; i < 5; i++) {
+                ArrayAr2Ap[FechasSemana[i]] = 0;
+                ArrayAr2Re[FechasSemana[i]] = 0;
+            }
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+
+            for (var key in responseJSON.arm2) {
+                var obj = responseJSON.arm2[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayAr2Ap)) {
                     ArrayAr2Ap[keyNew] = 0;
                     ArrayAr2Re[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayAr2Def.push(obj.def1);
+
 
                 if (obj.ins1 == "Aceptado")
                     ContAr2Ap++;
                 else
                     ContAr2Re++;
-                if (obj.ins2 == "Aceptado")
-                    ContAr2Ap++;
-                else
-                    ContAr2Re++;
-                if (obj.ins3 == "Aceptado")
-                    ContAr2Ap++;
-                else
-                    ContAr2Re++;
+
 
                 fechasAr2[iAr2] = ContAr2Ap;
                 fechasAr2Re[iAr2] = ContAr2Re;
@@ -618,9 +814,20 @@ function refresh() {
 
             }
 
-            fechasAr2[5] = ContAr2AT;
-            fechasAr2Re[5] = ContAr2RT;
+            var mergedAr2 = [].concat.apply([], ArrayAr2Def);
+            mergedAr2.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayAr2T = count_duplicate(mergedAr2);
+            for (var key in ArrayAr2T) {
+                Arr_defAr2.push(key);
+                var temp = parseInt(ArrayAr2T[key])
+                Arr_numAr2.push(temp);
+            }
+
             fechasAr2T[5] = ContAr2AT + ContAr2RT;
+            fechasAr2[5] = ContAr2AT + "  (" + Math.round((ContAr2AT / fechasAr2T[5] * 100)) + "%)";
+            fechasAr2Re[5] = ContAr2RT + "  (" + Math.round((ContAr2RT / fechasAr2T[5] * 100)) + "%)";
 
             var Ar2Ap = ["Ar2Ap", "Ar2Ap1", "Ar2Ap2", "Ar2Ap3", "Ar2Ap4", "Ar2Ap5"];
             var Ar2Re = ["Ar2Re", "Ar2Re1", "Ar2Re2", "Ar2Re3", "Ar2Re4", "Ar2Re5"];
@@ -647,8 +854,12 @@ function refresh() {
             }
 
 
-            //Armado3
+            updateTable(chartAr2, Arr_defAr2, Arr_numAr2);
 
+            Arr_defAr2 = [];
+            Arr_numAr2 = [];
+
+            //Armado3
             var ContAr3Ap = 0;
             var ContAr3Re = 0;
             var ContAr3AT = 0;
@@ -657,31 +868,32 @@ function refresh() {
             var fechasAr3Re = [0, 0, 0, 0, 0];
             var fechasAr3T = [0, 0, 0, 0, 0];
             var iAr3 = 0;
-            var previousObj;
             var ArrayAr3Ap = {};
             var ArrayAr3Re = {};
+            var ArrayAr3Def = new Array();
+            for (var i = 0; i < 5; i++) {
+                ArrayAr3Ap[FechasSemana[i]] = 0;
+                ArrayAr3Re[FechasSemana[i]] = 0;
+            }
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+
+            for (var key in responseJSON.arm3) {
+                var obj = responseJSON.arm3[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayAr3Ap)) {
                     ArrayAr3Ap[keyNew] = 0;
                     ArrayAr3Re[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayAr3Def.push(obj.def1);
+
 
                 if (obj.ins1 == "Aceptado")
                     ContAr3Ap++;
                 else
                     ContAr3Re++;
-                if (obj.ins2 == "Aceptado")
-                    ContAr3Ap++;
-                else
-                    ContAr3Re++;
-                if (obj.ins3 == "Aceptado")
-                    ContAr3Ap++;
-                else
-                    ContAr3Re++;
+
 
                 fechasAr3[iAr3] = ContAr3Ap;
                 fechasAr3Re[iAr3] = ContAr3Re;
@@ -697,9 +909,20 @@ function refresh() {
 
             }
 
-            fechasAr3[5] = ContAr3AT;
-            fechasAr3Re[5] = ContAr3RT;
+            var mergedAr3 = [].concat.apply([], ArrayAr3Def);
+            mergedAr3.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayAr3T = count_duplicate(mergedAr3);
+            for (var key in ArrayAr3T) {
+                Arr_defAr3.push(key);
+                var temp = parseInt(ArrayAr3T[key])
+                Arr_numAr3.push(temp);
+            }
+
             fechasAr3T[5] = ContAr3AT + ContAr3RT;
+            fechasAr3[5] = ContAr3AT + "  (" + Math.round((ContAr3AT / fechasAr3T[5] * 100)) + "%)";
+            fechasAr3Re[5] = ContAr3RT + "  (" + Math.round((ContAr3RT / fechasAr3T[5] * 100)) + "%)";
 
             var Ar3Ap = ["Ar3Ap", "Ar3Ap1", "Ar3Ap2", "Ar3Ap3", "Ar3Ap4", "Ar3Ap5"];
             var Ar3Re = ["Ar3Re", "Ar3Re1", "Ar3Re2", "Ar3Re3", "Ar3Re4", "Ar3Re5"];
@@ -724,6 +947,11 @@ function refresh() {
                 document.getElementById(Ar3T[x]).innerHTML = obj + obj2;
                 x++;
             }
+            updateTable(chartAr3, Arr_defAr3, Arr_numAr3);
+
+
+            Arr_defAr3 = [];
+            Arr_numAr3 = [];
 
 
             //Acabados
@@ -736,31 +964,32 @@ function refresh() {
             var fechasAcaRe = [0, 0, 0, 0, 0];
             var fechasAcaT = [0, 0, 0, 0, 0];
             var iAca = 0;
-            var previousObj;
             var ArrayAcaAp = {};
             var ArrayAcaRe = {};
+            var ArrayAcaDef = new Array();
+            for (var i = 0; i < 5; i++) {
+                ArrayAcaAp[FechasSemana[i]] = 0;
+                ArrayAcaRe[FechasSemana[i]] = 0;
+            }
 
-            for (var key in responseJSON.escuad) {
-                var obj = responseJSON.escuad[key];
+
+            for (var key in responseJSON.acab) {
+                var obj = responseJSON.acab[key];
                 var keyNew = obj.fecha;
                 if (!(keyNew in ArrayAcaAp)) {
                     ArrayAcaAp[keyNew] = 0;
                     ArrayAcaRe[keyNew] = 0;
                 }
 
+                if (obj.def1.length > 0)
+                    ArrayAcaDef.push(obj.def1);
+
 
                 if (obj.ins1 == "Aceptado")
                     ContAcaAp++;
                 else
                     ContAcaRe++;
-                if (obj.ins2 == "Aceptado")
-                    ContAcaAp++;
-                else
-                    ContAcaRe++;
-                if (obj.ins3 == "Aceptado")
-                    ContAcaAp++;
-                else
-                    ContAcaRe++;
+
 
                 fechasAca[iAca] = ContAcaAp;
                 fechasAcaRe[iAca] = ContAcaRe;
@@ -776,9 +1005,20 @@ function refresh() {
 
             }
 
-            fechasAca[5] = ContAcaAT;
-            fechasAcaRe[5] = ContAcaRT;
+            var mergedAca = [].concat.apply([], ArrayAcaDef);
+            mergedAca.sort(function(a, b) {
+                return a.length - b.length;
+            });
+            var ArrayAcaT = count_duplicate(mergedAca);
+            for (var key in ArrayAcaT) {
+                Arr_defAca.push(key);
+                var temp = parseInt(ArrayAcaT[key])
+                Arr_numAca.push(temp);
+            }
+
             fechasAcaT[5] = ContAcaAT + ContAcaRT;
+            fechasAca[5] = ContAcaAT + "   (" + Math.round(ContAcaAT / fechasAcaT[5] * 100) + "%)";
+            fechasAcaRe[5] = ContAcaRT + "  (" + Math.round(ContAcaRT / fechasAcaT[5] * 100) + "%)";
 
             var AcaAp = ["AcaAp", "AcaAp1", "AcaAp2", "AcaAp3", "AcaAp4", "AcaAp5"];
             var AcaRe = ["AcaRe", "AcaRe1", "AcaRe2", "AcaRe3", "AcaRe4", "AcaRe5"];
@@ -804,8 +1044,9 @@ function refresh() {
                 x++;
             }
 
-
-
+            updateTable(chartAca, Arr_defAca, Arr_numAca);
+            Arr_defAca = [];
+            Arr_numAca = [];
 
         })
         .catch(err => {
@@ -817,7 +1058,7 @@ function refresh() {
 
 function init() {
 
-    refresh();
+
 
     var Arr_defEsc = new Array();
     var Arr_numEsc = new Array();
@@ -1071,6 +1312,8 @@ function init() {
         }
     });
 
+    refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca);
+
     //Filtro Fecha Ajustes
     var date = new Date();
     date.setHours(0, 0, 0, 0);
@@ -1106,12 +1349,44 @@ function init() {
         var year = (res.getFullYear());
         var fechaFiltro = String(year + "-" + month + "-" + day + "T00:00:00.000+00:00");
 
+        var day1 = (parseInt(day))
+        if (day1 < 10) {
+            day1 = "0" + day1;
+        }
+        var fechaFiltro1 = String(year + "-" + month + "-" + day1 + "T00:00:00.000Z");
+
+        var day6 = (parseInt(day))
+        if (day6 < 10) {
+            day6 = "0" + day6;
+        }
+        var fechaFiltro6 = String(year + "-" + month + "-" + day6 + "T00:00:00.000Z");
+
+        var day2 = (parseInt(day) + 1)
+        if (day2 < 10) {
+            day2 = "0" + day2;
+        }
+        var fechaFiltro2 = String(year + "-" + month + "-" + day2 + "T00:00:00.000Z");
+
+
+        var day3 = (parseInt(day) + 2)
+        if (day3 < 10) {
+            day3 = "0" + day3;
+        }
+        var fechaFiltro3 = String(year + "-" + month + "-" + day3 + "T00:00:00.000Z");
+
+
+        var day4 = (parseInt(day) + 3)
+        if (day4 < 10) {
+            day4 = "0" + day4;
+        }
+        var fechaFiltro4 = String(year + "-" + month + "-" + day4 + "T00:00:00.000Z");
+
         var day5 = (parseInt(day) + 4)
         if (day5 < 10) {
             day5 = "0" + day5;
         }
         var fechaFiltro5 = String(year + "-" + month + "-" + day5 + "T00:00:00.000+00:00");
-
+        var FechasSemana = [String(fechaFiltro1), String(fechaFiltro2), String(fechaFiltro3), String(fechaFiltro4), String(fechaFiltro6)];
 
         var FechaEsc = document.getElementsByClassName("FechaEsc");
         var FechaEsc1 = document.getElementsByClassName("FechaEsc1");
@@ -1131,8 +1406,6 @@ function init() {
             FechaEsc3[i].style = "background: orangered;border: 1px black; font-size: small;"
             FechaEsc4[i].style = "background: orangered;border: 1px black; font-size: small;"
         }
-
-
 
 
         let url = `/GraficasByDate/${fechaFiltro}/${fechaFiltro5}/`;
@@ -1161,6 +1434,11 @@ function init() {
                 var previousObj;
                 var ArrayInsFAp = {};
                 var ArrayInsFRe = {};
+
+                for (var i = 0; i < 5; i++) {
+                    ArrayInsFAp[FechasSemana[i]] = 0;
+                    ArrayInsFRe[FechasSemana[i]] = 0;
+                }
 
                 for (var key in responseJSON.inspF) {
                     var obj = responseJSON.inspF[key];
@@ -1232,6 +1510,13 @@ function init() {
                 var ArrayEscAp = {};
                 var ArrayEscRe = {};
                 var ArrayEscDef = new Array();
+
+                //Loop para meter indices de fecha
+                for (var i = 0; i < 5; i++) {
+                    ArrayEscAp[FechasSemana[i]] = 0;
+                    ArrayEscRe[FechasSemana[i]] = 0;
+                }
+
 
                 //Loop para contar rechazados, aceptados, y guardar todos los defectos en un arreglo
                 for (var key in responseJSON.escuad) {
@@ -1344,6 +1629,10 @@ function init() {
                 var ArrayEncAp = {};
                 var ArrayEncRe = {};
                 var ArrayEncDef = new Array();
+                for (var i = 0; i < 5; i++) {
+                    ArrayEncAp[FechasSemana[i]] = 0;
+                    ArrayEncRe[FechasSemana[i]] = 0;
+                }
 
                 for (var key in responseJSON.enchap) {
                     var obj = responseJSON.enchap[key];
@@ -1386,6 +1675,7 @@ function init() {
                     iEnc++;
 
                 }
+
 
                 var mergedEnc = [].concat.apply([], ArrayEncDef);
 
@@ -1444,6 +1734,12 @@ function init() {
                 var ArrayTalAp = {};
                 var ArrayTalRe = {};
                 var ArrayTalDef = new Array();
+
+                for (var i = 0; i < 5; i++) {
+                    ArrayTalAp[FechasSemana[i]] = 0;
+                    ArrayTalRe[FechasSemana[i]] = 0;
+                }
+
 
                 for (var key in responseJSON.talad) {
                     var obj = responseJSON.talad[key];
@@ -1547,6 +1843,12 @@ function init() {
                 var ArraySacRe = {};
                 var ArraySacDef = new Array();
 
+                for (var i = 0; i < 5; i++) {
+                    ArraySacAp[FechasSemana[i]] = 0;
+                    ArraySacRe[FechasSemana[i]] = 0;
+                }
+
+
                 for (var key in responseJSON.sacab) {
                     var obj = responseJSON.sacab[key];
                     var keyNew = obj.fecha;
@@ -1648,6 +1950,12 @@ function init() {
                 var ArrayAr1Re = {};
                 var ArrayAr1Def = new Array();
 
+                for (var i = 0; i < 5; i++) {
+                    ArrayAr1Ap[FechasSemana[i]] = 0;
+                    ArrayAr1Re[FechasSemana[i]] = 0;
+                }
+
+
                 for (var key in responseJSON.arm1) {
                     var obj = responseJSON.arm1[key];
                     var keyNew = obj.fecha;
@@ -1737,6 +2045,11 @@ function init() {
                 var ArrayAr2Ap = {};
                 var ArrayAr2Re = {};
                 var ArrayAr2Def = new Array();
+                for (var i = 0; i < 5; i++) {
+                    ArrayAr2Ap[FechasSemana[i]] = 0;
+                    ArrayAr2Re[FechasSemana[i]] = 0;
+                }
+
 
                 for (var key in responseJSON.arm2) {
                     var obj = responseJSON.arm2[key];
@@ -1827,6 +2140,11 @@ function init() {
                 var ArrayAr3Ap = {};
                 var ArrayAr3Re = {};
                 var ArrayAr3Def = new Array();
+                for (var i = 0; i < 5; i++) {
+                    ArrayAr3Ap[FechasSemana[i]] = 0;
+                    ArrayAr3Re[FechasSemana[i]] = 0;
+                }
+
 
                 for (var key in responseJSON.arm3) {
                     var obj = responseJSON.arm3[key];
@@ -1918,6 +2236,11 @@ function init() {
                 var ArrayAcaAp = {};
                 var ArrayAcaRe = {};
                 var ArrayAcaDef = new Array();
+                for (var i = 0; i < 5; i++) {
+                    ArrayAcaAp[FechasSemana[i]] = 0;
+                    ArrayAcaRe[FechasSemana[i]] = 0;
+                }
+
 
                 for (var key in responseJSON.acab) {
                     var obj = responseJSON.acab[key];
