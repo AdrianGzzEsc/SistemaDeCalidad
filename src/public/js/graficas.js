@@ -77,6 +77,9 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
     if (day < 10) {
         day = "0" + day;
     }
+    if (month < 10) {
+        month = "0" + month;
+    }
     var year = (res.getFullYear());
     var fechaFiltro = String(year + "-" + month + "-" + day + "T00:00:00.000+00:00");
 
@@ -1058,8 +1061,6 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
 
 function init() {
 
-
-
     var Arr_defEsc = new Array();
     var Arr_numEsc = new Array();
     var Arr_defEnc = new Array();
@@ -1346,6 +1347,10 @@ function init() {
         if (day < 10) {
             day = "0" + day;
         }
+        if (month < 10) {
+            month = "0" + month;
+        }
+
         var year = (res.getFullYear());
         var fechaFiltro = String(year + "-" + month + "-" + day + "T00:00:00.000+00:00");
 
