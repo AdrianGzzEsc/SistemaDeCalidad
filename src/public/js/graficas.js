@@ -23,6 +23,14 @@ function count_duplicate(a) {
     return counts;
 }
 
+function updateTable(chart, label, data) {
+    chart.data.datasets[0].data = data;
+    chart.data.labels = label;
+    chart.update();
+}
+
+
+
 function refresh() {
 
     var date = new Date();
@@ -827,10 +835,243 @@ function init() {
     var Arr_numAr3 = new Array();
     var Arr_defAca = new Array();
     var Arr_numAca = new Array();
-    //var EscCanvas = document.getElementId('tablaEsc').getContext('2d');
-    //66EscCanvas.clearRect(0, 0, canvas.width, canvas.height);
+
+    //Inicializacion de graficas ------------------------------------------//
+    //Grafica Acabados
+    var chtAca = document.getElementById('tablaAca').getContext('2d');
+    var chartAca = new Chart(chtAca, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+    //Grafica Armado3
+    var chtAr3 = document.getElementById('tablaAr3').getContext('2d');
+    var chartAr3 = new Chart(chtAr3, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+    //Grafica Armado2
+    var chtAr2 = document.getElementById('tablaAr2').getContext('2d');
+    var chartAr2 = new Chart(chtAr2, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
 
 
+    //Grafica Armado1
+    var chtAr1 = document.getElementById('tablaAr1').getContext('2d');
+    var chartAr1 = new Chart(chtAr1, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+
+    //Grafica Sacabocados
+    var chtSac = document.getElementById('tablaSac').getContext('2d');
+    var chartSac = new Chart(chtSac, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+
+    //Grafica Taladro
+    var chtTal = document.getElementById('tablaTal').getContext('2d');
+    var chartTal = new Chart(chtTal, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+
+    //Grafica Enchapadora
+    var chtEnc = document.getElementById('tablaEnc').getContext('2d');
+    var chartEnc = new Chart(chtEnc, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+    //Grafica Escuadradora
+    var chtEsc = document.getElementById('tablaEsc').getContext('2d');
+    var chartEsc = new Chart(chtEsc, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+    //Filtro Fecha Ajustes
     var date = new Date();
     date.setHours(0, 0, 0, 0);
     date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
@@ -844,23 +1085,13 @@ function init() {
     // primer dia de la semana en formato fecha
     dateFDW = new Date();
 
-
-    var monthArray = new Array();
-    monthArray[0] = "Ene";
-    monthArray[1] = "Feb";
-    monthArray[2] = "Mar";
-    monthArray[3] = "Abr";
-    monthArray[4] = "May";
-    monthArray[5] = "Jun";
-    monthArray[6] = "Jul";
-    monthArray[7] = "Ago";
-    monthArray[8] = "Sep";
-    monthArray[9] = "Oct";
-    monthArray[10] = "Nov";
-    monthArray[11] = "Dic";
-
+    var monthArray = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
     semana = document.getElementById("filtro-semana");
+
+
+
+
 
     semana.addEventListener("change", event => {
         event.preventDefault()
@@ -887,12 +1118,18 @@ function init() {
         var FechaEsc2 = document.getElementsByClassName("FechaEsc2");
         var FechaEsc3 = document.getElementsByClassName("FechaEsc3");
         var FechaEsc4 = document.getElementsByClassName("FechaEsc4");
+
         for (var i = 0; i < FechaEsc1.length; i++) {
             FechaEsc[i].innerHTML = String(parseInt(day)) + "-" + monthArray[month - 1];
             FechaEsc1[i].innerHTML = String(parseInt(day) + 1) + "-" + monthArray[month - 1];
             FechaEsc2[i].innerHTML = String(parseInt(day) + 2) + "-" + monthArray[month - 1];
             FechaEsc3[i].innerHTML = String(parseInt(day) + 3) + "-" + monthArray[month - 1];
             FechaEsc4[i].innerHTML = String(parseInt(day) + 4) + "-" + monthArray[month - 1];
+            FechaEsc[i].style = "background: orangered;border: 1px black; font-size: small;"
+            FechaEsc1[i].style = "background: orangered;border: 1px black; font-size: small;"
+            FechaEsc2[i].style = "background: orangered;border: 1px black; font-size: small;"
+            FechaEsc3[i].style = "background: orangered;border: 1px black; font-size: small;"
+            FechaEsc4[i].style = "background: orangered;border: 1px black; font-size: small;"
         }
 
 
@@ -982,6 +1219,8 @@ function init() {
 
 
                 //Escuadradora
+
+                //Declaracion de variables
                 var ContEscAp = 0;
                 var ContEscRe = 0;
                 var ContEscAT = 0;
@@ -994,6 +1233,7 @@ function init() {
                 var ArrayEscRe = {};
                 var ArrayEscDef = new Array();
 
+                //Loop para contar rechazados, aceptados, y guardar todos los defectos en un arreglo
                 for (var key in responseJSON.escuad) {
                     var obj = responseJSON.escuad[key];
                     var keyNew = obj.fecha;
@@ -1033,38 +1273,46 @@ function init() {
                     ContEscAp = 0;
                     ContEscRe = 0;
                     iEsc++;
-
                 }
 
+                //Arreglo de Arreglos lo convierte en solo uno
                 var mergedEsc = [].concat.apply([], ArrayEscDef);
+
+                //Ordenamos de palabra mas grande a mayor
                 mergedEsc.sort(function(a, b) {
                     return a.length - b.length;
                 });
+                //Contamos duplicados y regresa un objeto
                 var ArrayEscT = count_duplicate(mergedEsc);
+
+                //Loop para acomodar nombre de defectos en un arreglo y cantidades en otro
                 for (var key in ArrayEscT) {
                     Arr_defEsc.push(key);
                     var temp = parseInt(ArrayEscT[key])
                     Arr_numEsc.push(temp);
                 }
 
-                fechasEsc[5] = ContEscAT;
-                fechasEscRe[5] = ContEscRT;
+                //Se saca el total y los promedios
                 fechasEscT[5] = ContEscAT + ContEscRT;
+                fechasEsc[5] = ContEscAT + "  (" + Math.round((ContEscAT / fechasEscT[5] * 100)) + "%)";
+                fechasEscRe[5] = ContEscRT + "  (" + Math.round((ContEscRT / fechasEscT[5] * 100)) + "%)";
 
+                //Arreglos con IDs de html
                 var EscAp = ["EscAp", "EscAp1", "EscAp2", "EscAp3", "EscAp4", "EscAp5"];
                 var EscRe = ["EscRe", "EscRe1", "EscRe2", "EscRe3", "EscRe4", "EscRe5"];
                 var EscT = ["EscT", "EscT1", "EscT2", "EscT3", "EscT4", "EscT5"];
-
+                //Loop para inicilizar toda la tabla en 0s
                 for (var i = 0; i < EscAp.length; i++) {
                     document.getElementById(EscAp[i]).innerHTML = 0;
                     document.getElementById(EscRe[i]).innerHTML = 0;
                     document.getElementById(EscT[i]).innerHTML = 0;
                 }
-
+                //Pone el valor de columna "Total"
                 document.getElementById(EscAp[5]).innerHTML = fechasEsc[5];
                 document.getElementById(EscRe[5]).innerHTML = fechasEscRe[5];
                 document.getElementById(EscT[5]).innerHTML = fechasEscT[5];
 
+                //Loop para llenar datos de tabla
                 var x = 0;
                 for (var key in ArrayEscAp) {
                     var obj = ArrayEscAp[key];
@@ -1074,37 +1322,11 @@ function init() {
                     document.getElementById(EscT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartEsc.render();
-                //chartEsc.clear();
-                //chartEsc = null;
-                var chtEsc = document.getElementById('tablaEsc').getContext('2d');
 
-                var chartEsc = new Chart(chtEsc, {
-                    // The type of chart we want to create
-                    type: 'bar',
 
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defEsc),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numEsc
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
+                //Update de tabla
+                updateTable(chartEsc, Arr_defEsc, Arr_numEsc);
+                //Arreglos se vacian
                 Arr_defEsc = [];
                 Arr_numEsc = [];
 
@@ -1177,9 +1399,9 @@ function init() {
                     Arr_numEnc.push(temp);
                 }
 
-                fechasEnc[5] = ContEncAT;
-                fechasEncRe[5] = ContEncRT;
                 fechasEncT[5] = ContEncAT + ContEncRT;
+                fechasEnc[5] = ContEncAT + "  (" + Math.round((ContEncAT / fechasEncT[5] * 100)) + "%)";
+                fechasEncRe[5] = ContEncRT + "  (" + Math.round((ContEncRT / fechasEncT[5] * 100)) + "%)";
 
                 var EncAp = ["EncAp", "EncAp1", "EncAp2", "EncAp3", "EncAp4", "EncAp5"];
                 var EncRe = ["EncRe", "EncRe1", "EncRe2", "EncRe3", "EncRe4", "EncRe5"];
@@ -1204,40 +1426,10 @@ function init() {
                     document.getElementById(EncT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartEnc.render();
-                //chartEnc.clear();
-                //chartEnc = null;
-                var chtEnc = document.getElementById('tablaEnc').getContext('2d');
 
-                var chartEnc = new Chart(chtEnc, {
-                    // The type of chart we want to create
-                    type: 'bar',
-
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defEnc),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numEnc
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
+                updateTable(chartEnc, Arr_defEnc, Arr_numEnc);
                 Arr_defEnc = [];
                 Arr_numEnc = [];
-
 
 
                 //Taladro
@@ -1296,11 +1488,8 @@ function init() {
                 }
 
 
-
                 var mergedTal = [].concat.apply([], ArrayTalDef);
                 mergedTal.sort(function(a, b) {
-                    // ASC  -> a.length - b.length
-                    // DESC -> b.length - a.length
                     return a.length - b.length;
                 });
                 var ArrayTalT = count_duplicate(mergedTal);
@@ -1310,9 +1499,9 @@ function init() {
                     Arr_numTal.push(temp);
                 }
 
-                fechasTal[5] = ContTalAT;
-                fechasTalRe[5] = ContTalRT;
                 fechasTalT[5] = ContTalAT + ContTalRT;
+                fechasTal[5] = ContTalAT + "  (" + Math.round((ContTalAT / fechasTalT[5] * 100)) + "%)";
+                fechasTalRe[5] = ContTalRT + "  (" + Math.round((ContTalRT / fechasTalT[5] * 100)) + "%)";
 
                 var TalAp = ["TalAp", "TalAp1", "TalAp2", "TalAp3", "TalAp4", "TalAp5"];
                 var TalRe = ["TalRe", "TalRe1", "TalRe2", "TalRe3", "TalRe4", "TalRe5"];
@@ -1337,37 +1526,9 @@ function init() {
                     document.getElementById(TalT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartTal.render();
-                //chartTal.clear();
-                //chartTal = null;
-                var chtTal = document.getElementById('tablaTal').getContext('2d');
 
-                var chartTal = new Chart(chtTal, {
-                    // The type of chart we want to create
-                    type: 'bar',
+                updateTable(chartTal, Arr_defTal, Arr_numTal);
 
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defTal),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numTal
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
                 Arr_defTal = [];
                 Arr_numTal = [];
 
@@ -1439,9 +1600,9 @@ function init() {
                     Arr_numSac.push(temp);
                 }
 
-                fechasSac[5] = ContSacAT;
-                fechasSacRe[5] = ContSacRT;
                 fechasSacT[5] = ContSacAT + ContSacRT;
+                fechasSac[5] = ContSacAT + "  (" + Math.round((ContSacAT / fechasSacT[5] * 100)) + "%)";
+                fechasSacRe[5] = ContSacRT + "  (" + Math.round((ContSacRT / fechasSacT[5] * 100)) + "%)";
 
                 var SacAp = ["SacAp", "SacAp1", "SacAp2", "SacAp3", "SacAp4", "SacAp5"];
                 var SacRe = ["SacRe", "SacRe1", "SacRe2", "SacRe3", "SacRe4", "SacRe5"];
@@ -1466,37 +1627,9 @@ function init() {
                     document.getElementById(SacT[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartSac.render();
-                //chartSac.clear();
-                //chartSac = null;
-                var chtSac = document.getElementById('tablaSac').getContext('2d');
 
-                var chartSac = new Chart(chtSac, {
-                    // The type of chart we want to create
-                    type: 'bar',
+                updateTable(chartSac, Arr_defSac, Arr_numSac);
 
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defSac),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numSac
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
                 Arr_defSac = [];
                 Arr_numSac = [];
 
@@ -1531,14 +1664,7 @@ function init() {
                         ContAr1Ap++;
                     else
                         ContAr1Re++;
-                    if (obj.ins2 == "Aceptado")
-                        ContAr1Ap++;
-                    else
-                        ContAr1Re++;
-                    if (obj.ins3 == "Aceptado")
-                        ContAr1Ap++;
-                    else
-                        ContAr1Re++;
+
 
                     fechasAr1[iAr1] = ContAr1Ap;
                     fechasAr1Re[iAr1] = ContAr1Re;
@@ -1565,9 +1691,9 @@ function init() {
                     Arr_numAr1.push(temp);
                 }
 
-                fechasAr1[5] = ContAr1AT;
-                fechasAr1Re[5] = ContAr1RT;
                 fechasAr1T[5] = ContAr1AT + ContAr1RT;
+                fechasAr1[5] = ContAr1AT + "  (" + Math.round((ContAr1AT / fechasAr1T[5] * 100)) + "%)";
+                fechasAr1Re[5] = ContAr1RT + "  (" + Math.round((ContAr1RT / fechasAr1T[5] * 100)) + "%)";
 
                 var Ar1Ap = ["Ar1Ap", "Ar1Ap1", "Ar1Ap2", "Ar1Ap3", "Ar1Ap4", "Ar1Ap5"];
                 var Ar1Re = ["Ar1Re", "Ar1Re1", "Ar1Re2", "Ar1Re3", "Ar1Re4", "Ar1Re5"];
@@ -1592,37 +1718,8 @@ function init() {
                     document.getElementById(Ar1T[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartAr1.render();
-                //chartAr1.clear();
-                //chartAr1 = null;
-                var chtAr1 = document.getElementById('tablaAr1').getContext('2d');
+                updateTable(chartAr1, Arr_defAr1, Arr_numAr1);
 
-                var chartAr1 = new Chart(chtAr1, {
-                    // The type of chart we want to create
-                    type: 'bar',
-
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defAr1),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numAr1
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
                 Arr_defAr1 = [];
                 Arr_numAr1 = [];
 
@@ -1657,14 +1754,7 @@ function init() {
                         ContAr2Ap++;
                     else
                         ContAr2Re++;
-                    if (obj.ins2 == "Aceptado")
-                        ContAr2Ap++;
-                    else
-                        ContAr2Re++;
-                    if (obj.ins3 == "Aceptado")
-                        ContAr2Ap++;
-                    else
-                        ContAr2Re++;
+
 
                     fechasAr2[iAr2] = ContAr2Ap;
                     fechasAr2Re[iAr2] = ContAr2Re;
@@ -1691,9 +1781,9 @@ function init() {
                     Arr_numAr2.push(temp);
                 }
 
-                fechasAr2[5] = ContAr2AT;
-                fechasAr2Re[5] = ContAr2RT;
                 fechasAr2T[5] = ContAr2AT + ContAr2RT;
+                fechasAr2[5] = ContAr2AT + "  (" + Math.round((ContAr2AT / fechasAr2T[5] * 100)) + "%)";
+                fechasAr2Re[5] = ContAr2RT + "  (" + Math.round((ContAr2RT / fechasAr2T[5] * 100)) + "%)";
 
                 var Ar2Ap = ["Ar2Ap", "Ar2Ap1", "Ar2Ap2", "Ar2Ap3", "Ar2Ap4", "Ar2Ap5"];
                 var Ar2Re = ["Ar2Re", "Ar2Re1", "Ar2Re2", "Ar2Re3", "Ar2Re4", "Ar2Re5"];
@@ -1718,37 +1808,10 @@ function init() {
                     document.getElementById(Ar2T[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartAr2.render();
-                //chartAr2.clear();
-                //chartAr2 = null;
-                var chtAr2 = document.getElementById('tablaAr2').getContext('2d');
 
-                var chartAr2 = new Chart(chtAr2, {
-                    // The type of chart we want to create
-                    type: 'bar',
 
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defAr2),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numAr2
-                        }]
-                    },
+                updateTable(chartAr2, Arr_defAr2, Arr_numAr2);
 
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
                 Arr_defAr2 = [];
                 Arr_numAr2 = [];
 
@@ -1781,14 +1844,7 @@ function init() {
                         ContAr3Ap++;
                     else
                         ContAr3Re++;
-                    if (obj.ins2 == "Aceptado")
-                        ContAr3Ap++;
-                    else
-                        ContAr3Re++;
-                    if (obj.ins3 == "Aceptado")
-                        ContAr3Ap++;
-                    else
-                        ContAr3Re++;
+
 
                     fechasAr3[iAr3] = ContAr3Ap;
                     fechasAr3Re[iAr3] = ContAr3Re;
@@ -1815,9 +1871,9 @@ function init() {
                     Arr_numAr3.push(temp);
                 }
 
-                fechasAr3[5] = ContAr3AT;
-                fechasAr3Re[5] = ContAr3RT;
                 fechasAr3T[5] = ContAr3AT + ContAr3RT;
+                fechasAr3[5] = ContAr3AT + "  (" + Math.round((ContAr3AT / fechasAr3T[5] * 100)) + "%)";
+                fechasAr3Re[5] = ContAr3RT + "  (" + Math.round((ContAr3RT / fechasAr3T[5] * 100)) + "%)";
 
                 var Ar3Ap = ["Ar3Ap", "Ar3Ap1", "Ar3Ap2", "Ar3Ap3", "Ar3Ap4", "Ar3Ap5"];
                 var Ar3Re = ["Ar3Re", "Ar3Re1", "Ar3Re2", "Ar3Re3", "Ar3Re4", "Ar3Re5"];
@@ -1842,37 +1898,9 @@ function init() {
                     document.getElementById(Ar3T[x]).innerHTML = obj + obj2;
                     x++;
                 }
-                // chartAr3.render();
-                //chartAr3.clear();
-                //chartAr3 = null;
-                var chtAr3 = document.getElementById('tablaAr3').getContext('2d');
+                updateTable(chartAr3, Arr_defAr3, Arr_numAr3);
 
-                var chartAr3 = new Chart(chtAr3, {
-                    // The type of chart we want to create
-                    type: 'bar',
 
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defAr3),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numAr3
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
                 Arr_defAr3 = [];
                 Arr_numAr3 = [];
 
@@ -1907,14 +1935,7 @@ function init() {
                         ContAcaAp++;
                     else
                         ContAcaRe++;
-                    if (obj.ins2 == "Aceptado")
-                        ContAcaAp++;
-                    else
-                        ContAcaRe++;
-                    if (obj.ins3 == "Aceptado")
-                        ContAcaAp++;
-                    else
-                        ContAcaRe++;
+
 
                     fechasAca[iAca] = ContAcaAp;
                     fechasAcaRe[iAca] = ContAcaRe;
@@ -1941,9 +1962,9 @@ function init() {
                     Arr_numAca.push(temp);
                 }
 
-                fechasAca[5] = ContAcaAT;
-                fechasAcaRe[5] = ContAcaRT;
                 fechasAcaT[5] = ContAcaAT + ContAcaRT;
+                fechasAca[5] = ContAcaAT + "   (" + Math.round(ContAcaAT / fechasAcaT[5] * 100) + "%)";
+                fechasAcaRe[5] = ContAcaRT + "  (" + Math.round(ContAcaRT / fechasAcaT[5] * 100) + "%)";
 
                 var AcaAp = ["AcaAp", "AcaAp1", "AcaAp2", "AcaAp3", "AcaAp4", "AcaAp5"];
                 var AcaRe = ["AcaRe", "AcaRe1", "AcaRe2", "AcaRe3", "AcaRe4", "AcaRe5"];
@@ -1969,43 +1990,9 @@ function init() {
                     x++;
                 }
 
-                var chtAca = document.getElementById('tablaAca').getContext('2d');
-                //chtAca.render();
-                // chtAca.clear();
-                //chtAca = null;
-                var chartAca = new Chart(chtAca, {
-                    // The type of chart we want to create
-                    type: 'bar',
-
-                    // The data for our dataset
-                    data: {
-                        labels: Array.from(Arr_defAca),
-                        datasets: [{
-                            label: 'Defectos',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: Arr_numAca
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
-                            }]
-                        }
-                    }
-                });
+                updateTable(chartAca, Arr_defAca, Arr_numAca);
                 Arr_defAca = [];
                 Arr_numAca = [];
-
-
-
-
-
 
             })
             .catch(err => {
@@ -2045,6 +2032,7 @@ function init() {
             }]
         }
     });
+
 
 
 };
