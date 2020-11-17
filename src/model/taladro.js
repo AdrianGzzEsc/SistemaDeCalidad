@@ -18,4 +18,22 @@ const TaladroSchema = Schema({
 
 });
 
-module.exports = mongoose.model('taladro', TaladroSchema);
+const taladro = mongoose.model('taladro', TaladroSchema);
+
+const taladro_collection = {
+    createTaladro : function ( newTal ) {
+        return taladro
+            .create( newTal )
+            .then( tal => {
+                return tal;
+            })
+            .catch( err => {
+                throw new Error( err.message );
+            })
+    }
+}
+
+module.exports = {
+    taladro,
+    taladro_collection
+}

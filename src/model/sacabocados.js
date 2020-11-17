@@ -18,4 +18,22 @@ const SacabocadosSchema = Schema({
 
 });
 
-module.exports = mongoose.model('sacabocados', SacabocadosSchema);
+const sacabocados = mongoose.model('sacabocados', SacabocadosSchema);
+
+const sacabocados_collection = {
+    createSacabocados : function ( newSac ) {
+        return taladro
+            .create( newSac )
+            .then( sac => {
+                return sac;
+            })
+            .catch( err => {
+                throw new Error( err.message );
+            })
+    }
+}
+
+module.exports = {
+    sacabocados,
+    sacabocados_collection
+}

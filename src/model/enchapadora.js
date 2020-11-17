@@ -18,4 +18,22 @@ const EnchapadoraSchema = Schema({
 
 });
 
-module.exports = mongoose.model('enchapadora', EnchapadoraSchema);
+const enchapadora = mongoose.model('enchapadora', EnchapadoraSchema);
+
+const enchapadora_collection = {
+    createEnchapadora : function ( newEnc ) {
+        return enchapadora
+            .create( newEnc )
+            .then( esc => {
+                return esc;
+            })
+            .catch( err => {
+                throw new Error( err.message );
+            })
+    }
+}
+
+module.exports = {
+    enchapadora,
+    enchapadora_collection
+}

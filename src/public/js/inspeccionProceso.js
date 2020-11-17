@@ -1,17 +1,11 @@
-function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector) {
-    let url = '/addAltaPnc/';
+function addInspeccionProc(folio, fecha, inspector, hora) {
+    let url = '/addInspeccionProceso/';
 
     let data = {
         folio: folio,
-        Fecha: Fecha,
-        Orden: Orden,
-        Proceso: Proceso,
-        Modelo: Modelo,
-        Defectos: Defectos,
-        Cantidad: Cantidad,
-        Comentarios: Comentarios,
-        Retrabajo: Retrabajo,
-        inspector: inspector
+        fecha: fecha,
+        inspector: inspector,
+        hora : hora
     }
 
     let settings = {
@@ -29,8 +23,10 @@ function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Co
             throw new Error(response.statusText);
         })
         .then(responseJSON => {
-            var mensaje = "Se ha regitrado alta con éxito.";
-
+            localStorage.setItem( 'folio', responseJSON.folio);
+            localStorage.setItem( 'fecha', responseJSON.fecha);
+            localStorage.setItem( 'hora', responseJSON.hora);
+            var mensaje = "Se ha regitrado con éxito.";
             $('#agregar-error').html(`
                 <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
                     ${mensaje}
@@ -43,7 +39,6 @@ function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Co
             displayPost(responseJSON);
         })
         .catch(err => {
-            //     alert( err );
             var mensaje = err.message;
             $('#agregar-error').html(`
                 <div class="alert alert-danger alert-dismissible fade show msg-error" role="alert">
@@ -65,11 +60,10 @@ function borraAlerta() {
 
 function displayPost(data) {
     console.log(data);
-    //alert("Se dio de alta con exito.");
-    window.location.href = "/inicio/"
+    window.location.href = "/escuadradora/";
 }
 
-function validate() {
+function validateInsp() {
     let url = "/user/validate-user";
     let settings = {
         method: 'GET',
@@ -86,7 +80,7 @@ function validate() {
             throw new Error(response.statusText);
         })
         .then(responseJSON => {
-            userEmail(responseJSON);
+            userEmailInsp(responseJSON);
         })
         .catch(err => {
             console.log(err.message);
@@ -94,11 +88,11 @@ function validate() {
         });
 }
 
-function userEmail(data) {
-    submit(data);
+function userEmailInsp(data) {
+    submitInsp(data);
 }
 
-function submit(data) {
+function submitInsp(data) {
     let fName = String(data.fName);
     let lName = String(data.lName);
     let inspector = fName + ' ' + lName;
@@ -106,24 +100,18 @@ function submit(data) {
     btn.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
-        let Proceso = document.getElementById('proceso');
-        let Fecha = document.getElementById('fechaform');
+        let fecha = document.getElementById('fecha');
         let folio = document.getElementById('folio');
-        let Modelo = document.getElementById('modelo');
-        let Defectos = document.getElementById('seleccion');
-        let Cantidad = document.getElementById('cantidad');
-        let Comentarios = document.getElementById('comentarios');
-        let Retrabajo = document.getElementById('seleccionRet');
-        let Orden = document.getElementById('orden');
-        var selected = [...Defectos.options]
-            .filter(option => option.selected)
-            .map(option => option.value);
-        addAltaPNC(folio.value, Fecha.value, Orden.value, Proceso.value, Modelo.value, selected, Number(Cantidad.value), Comentarios.value, Retrabajo.value, String(inspector));
+        let hora = document.getElementById('hora');
+        addInspeccionProc(folio.value, fecha.value, String(inspector), hora.value);
     })
 }
 
-function init() {
-    validate();
+function initInsp() {
+    localStorage.setItem( 'folio', null );
+    localStorage.setItem( 'fecha', null );
+    localStorage.setItem( 'hora', null );
+    validateInsp();
 }
 
-init();
+initInsp();

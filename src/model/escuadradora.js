@@ -18,4 +18,22 @@ const EscuadradoraSchema = Schema({
 
 });
 
-module.exports = mongoose.model('escuadradora', EscuadradoraSchema);
+const escuadradora = mongoose.model('escuadradora', EscuadradoraSchema);
+
+const escuadradora_collection = {
+    createEscuadradora : function ( newEsc ) {
+        return escuadradora
+            .create( newEsc )
+            .then( esc => {
+                return esc;
+            })
+            .catch( err => {
+                throw new Error( err.message );
+            })
+    }
+}
+
+module.exports = {
+    escuadradora,
+    escuadradora_collection
+}
