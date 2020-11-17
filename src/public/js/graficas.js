@@ -31,7 +31,7 @@ function updateTable(chart, label, data) {
 
 
 
-function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca) {
+function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca, chartInsF) {
 
     var Arr_defEsc = new Array();
     var Arr_numEsc = new Array();
@@ -165,9 +165,42 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
             var fechasInsFRe = [0, 0, 0, 0, 0];
             var fechasInsFT = [0, 0, 0, 0, 0];
             var iInsF = 0;
-            var previousObj;
             var ArrayInsFAp = {};
             var ArrayInsFRe = {};
+            var ArrayInsF_Def = ["Dimensiones Finales", "Limpieza del Producto", "Función de puertas y cajones", "Color de Melamina", "Orientación de Vetas", "Color de Cintilla", "Espesor de Cintilla", "Colocación de Cintilla",
+                "Descuadre", "Marcas de Pegamento", "Despostilles", "Rayaduras", "Retoques", "Pruebas de Resistencia", "Herrajes instalados correctos", "Etiquetas de producto", "Prueba de colgado", "Resane de perforación interna",
+                "Cubierta correcta", "Caja", "Etiquetas de caja", "Herrajes en bolsa y componentes sueltos correctos", "Manual de instrucciones y garantía", "Color de Marmol", "Ovalin"
+            ]
+            ArrayInsF_Def.sort(function(a, b) {
+                return a.length - b.length;
+            });
+
+
+            var InsDimF = 0,
+                InsLimP = 0,
+                InsFun = 0,
+                InsColM = 0,
+                InsOriV = 0,
+                InsColC = 0,
+                InsEspC = 0,
+                InsColCin = 0,
+                InsDes = 0,
+                InsMarP = 0,
+                InsDesp = 0,
+                InsRay = 0,
+                InsRet = 0,
+                InsPruR = 0,
+                InsHer = 0,
+                InsEti = 0,
+                InsPru = 0,
+                InsRes = 0,
+                InsCub = 0,
+                InsCaja = 0,
+                InsEtiC = 0,
+                InsHerC = 0,
+                InsMan = 0,
+                InsColMar = 0,
+                InsOva = 0;
 
             for (var i = 0; i < 5; i++) {
                 ArrayInsFAp[FechasSemana[i]] = 0;
@@ -186,13 +219,86 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 else
                     ContInsFRe++;
 
-
+                if (obj.dimensiones_Finales != "OK") {
+                    InsDimF++
+                }
+                if (obj.limpieza != "OK") {
+                    InsLimP++
+                }
+                if (obj.funcion != "OK") {
+                    InsFun++
+                }
+                if (obj.color_Melamina != "OK") {
+                    InsColM++
+                }
+                if (obj.orientacion != "OK") {
+                    InsOriV++
+                }
+                if (obj.color_Cintilla != "OK") {
+                    InsColC++
+                }
+                if (obj.espesor != "OK") {
+                    InsEspC++
+                }
+                if (obj.colocacion != "OK") {
+                    InsColCin++
+                }
+                if (obj.descuadre != "OK") {
+                    InsDes++
+                }
+                if (obj.marcas != "OK") {
+                    InsMarP++
+                }
+                if (obj.despostilles != "OK") {
+                    InsDesp++
+                }
+                if (obj.rayaduras != "OK") {
+                    InsRay++
+                }
+                if (obj.retoques != "OK") {
+                    InsRet++
+                }
+                if (obj.pruebas_Resistencia != "OK") {
+                    InsPruR++
+                }
+                if (obj.herrajes_instalados != "OK") {
+                    InsHer++
+                }
+                if (obj.etiquetas_producto != "OK") {
+                    InsEti++
+                }
+                if (obj.prueba != "OK") {
+                    InsPru++
+                }
+                if (obj.resane != "OK") {
+                    InsRes++
+                }
+                if (obj.cubierta != "OK") {
+                    InsCub++
+                }
+                if (obj.caja != "OK") {
+                    InsCaja++
+                }
+                if (obj.etiquetas_caja != "OK") {
+                    InsEtiC++
+                }
+                if (obj.herrajes_bolsa != "OK") {
+                    InsHerC++
+                }
+                if (obj.manual_instrucciones != "OK") {
+                    InsMan++
+                }
+                if (obj.color_Marmol != "OK") {
+                    InsColMar++
+                }
+                if (obj.ovalin != "OK") {
+                    InsOva++
+                }
                 fechasInsF[iInsF] = ContInsFAp;
                 fechasInsFRe[iInsF] = ContInsFRe;
                 fechasInsFT[iInsF] = ContInsFRe + ContInsFAp;
                 ContInsFRT += ContInsFRe;
                 ContInsFAT += ContInsFAp;
-                previousObj = obj;
                 ArrayInsFAp[keyNew] += ContInsFAp;
                 ArrayInsFRe[keyNew] += ContInsFRe;
                 ContInsFAp = 0;
@@ -201,9 +307,32 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
 
             }
 
-            fechasInsF[5] = ContInsFAT;
-            fechasInsFRe[5] = ContInsFRT;
+            var ArrayInsF_DefCont = [InsCaja, InsOva, InsRet, InsDes, InsRay, InsDesp, InsColMar, InsColM, InsColC, InsPru, InsCub, InsEtiC, InsDimF, InsEspC, InsMarP, InsOriV, InsLimP, InsEti, InsColCin, InsPruR, InsFun, InsHer, InsRes, InsMan, InsHerC];
+            var InsDef = [];
+            var InsDefCont = [];
+            for (var i = 0; i < ArrayInsF_DefCont.length; i++) {
+                if (ArrayInsF_DefCont[i] != 0) {
+                    InsDefCont.push(ArrayInsF_DefCont[i]);
+                    InsDef.push(ArrayInsF_Def[i]);
+                }
+            }
+            var list = [];
+            for (var j = 0; j < InsDef.length; j++)
+                list.push({ 'def': InsDef[j], 'cont': InsDefCont[j] });
+
+            list.sort(function(a, b) {
+                return ((b.cont - a.cont));
+            });
+
+            for (var k = 0; k < list.length; k++) {
+                InsDef[k] = list[k].def;
+                InsDefCont[k] = list[k].cont;
+            }
+
+
             fechasInsFT[5] = ContInsFAT + ContInsFRT;
+            fechasInsF[5] = ContInsFAT + "  (" + Math.round((ContInsFAT / fechasInsFT[5] * 100)) + "%)";
+            fechasInsFRe[5] = ContInsFRT + "  (" + Math.round((ContInsFRT / fechasInsFT[5] * 100)) + "%)";
 
             var InsFAp = ["InsFAp", "InsFAp1", "InsFAp2", "InsFAp3", "InsFAp4", "InsFAp5"];
             var InsFRe = ["InsFRe", "InsFRe1", "InsFRe2", "InsFRe3", "InsFRe4", "InsFRe5"];
@@ -228,6 +357,12 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 document.getElementById(InsFT[x]).innerHTML = obj + obj2;
                 x++;
             }
+
+            updateTable(chartInsF, InsDef, InsDefCont);
+            InsDef = [];
+            InsDefCont = [];
+            ArrayInsF_DefCont = [];
+            ArrayInsF_Def = [];
 
 
             //Escuadradora
@@ -423,6 +558,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 Arr_numEnc.push(temp);
             }
 
+
             fechasEncT[5] = ContEncAT + ContEncRT;
             fechasEnc[5] = ContEncAT + "  (" + Math.round((ContEncAT / fechasEncT[5] * 100)) + "%)";
             fechasEncRe[5] = ContEncRT + "  (" + Math.round((ContEncRT / fechasEncT[5] * 100)) + "%)";
@@ -528,6 +664,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 var temp = parseInt(ArrayTalT[key])
                 Arr_numTal.push(temp);
             }
+
 
             fechasTalT[5] = ContTalAT + ContTalRT;
             fechasTal[5] = ContTalAT + "  (" + Math.round((ContTalAT / fechasTalT[5] * 100)) + "%)";
@@ -636,6 +773,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 Arr_numSac.push(temp);
             }
 
+
             fechasSacT[5] = ContSacAT + ContSacRT;
             fechasSac[5] = ContSacAT + "  (" + Math.round((ContSacAT / fechasSacT[5] * 100)) + "%)";
             fechasSacRe[5] = ContSacRT + "  (" + Math.round((ContSacRT / fechasSacT[5] * 100)) + "%)";
@@ -733,6 +871,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 Arr_numAr1.push(temp);
             }
 
+
             fechasAr1T[5] = ContAr1AT + ContAr1RT;
             fechasAr1[5] = ContAr1AT + "  (" + Math.round((ContAr1AT / fechasAr1T[5] * 100)) + "%)";
             fechasAr1Re[5] = ContAr1RT + "  (" + Math.round((ContAr1RT / fechasAr1T[5] * 100)) + "%)";
@@ -828,6 +967,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 Arr_numAr2.push(temp);
             }
 
+
             fechasAr2T[5] = ContAr2AT + ContAr2RT;
             fechasAr2[5] = ContAr2AT + "  (" + Math.round((ContAr2AT / fechasAr2T[5] * 100)) + "%)";
             fechasAr2Re[5] = ContAr2RT + "  (" + Math.round((ContAr2RT / fechasAr2T[5] * 100)) + "%)";
@@ -922,6 +1062,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 var temp = parseInt(ArrayAr3T[key])
                 Arr_numAr3.push(temp);
             }
+
 
             fechasAr3T[5] = ContAr3AT + ContAr3RT;
             fechasAr3[5] = ContAr3AT + "  (" + Math.round((ContAr3AT / fechasAr3T[5] * 100)) + "%)";
@@ -1019,6 +1160,7 @@ function refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, cha
                 Arr_numAca.push(temp);
             }
 
+
             fechasAcaT[5] = ContAcaAT + ContAcaRT;
             fechasAca[5] = ContAcaAT + "   (" + Math.round(ContAcaAT / fechasAcaT[5] * 100) + "%)";
             fechasAcaRe[5] = ContAcaRT + "  (" + Math.round(ContAcaRT / fechasAcaT[5] * 100) + "%)";
@@ -1079,6 +1221,37 @@ function init() {
     var Arr_numAca = new Array();
 
     //Inicializacion de graficas ------------------------------------------//
+    //Grafica InspeccionFinal
+    var chtInsF = document.getElementById('tablaInsF').getContext('2d');
+    var chartInsF = new Chart(chtInsF, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Defectos',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+
+
     //Grafica Acabados
     var chtAca = document.getElementById('tablaAca').getContext('2d');
     var chartAca = new Chart(chtAca, {
@@ -1101,7 +1274,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1129,7 +1303,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1157,7 +1332,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1187,7 +1363,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1217,7 +1394,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1247,7 +1425,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1277,7 +1456,8 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
@@ -1306,14 +1486,15 @@ function init() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
         }
     });
 
-    refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca);
+    refresh(chartEsc, chartEnc, chartSac, chartTal, chartAr1, chartAr2, chartAr3, chartAca, chartInsF);
 
     //Filtro Fecha Ajustes
     var date = new Date();
@@ -1436,9 +1617,42 @@ function init() {
                 var fechasInsFRe = [0, 0, 0, 0, 0];
                 var fechasInsFT = [0, 0, 0, 0, 0];
                 var iInsF = 0;
-                var previousObj;
                 var ArrayInsFAp = {};
                 var ArrayInsFRe = {};
+                var ArrayInsF_Def = ["Dimensiones Finales", "Limpieza del Producto", "Función de puertas y cajones", "Color de Melamina", "Orientación de Vetas", "Color de Cintilla", "Espesor de Cintilla", "Colocación de Cintilla",
+                    "Descuadre", "Marcas de Pegamento", "Despostilles", "Rayaduras", "Retoques", "Pruebas de Resistencia", "Herrajes instalados correctos", "Etiquetas de producto", "Prueba de colgado", "Resane de perforación interna",
+                    "Cubierta correcta", "Caja", "Etiquetas de caja", "Herrajes en bolsa y componentes sueltos correctos", "Manual de instrucciones y garantía", "Color de Marmol", "Ovalin"
+                ]
+                ArrayInsF_Def.sort(function(a, b) {
+                    return a.length - b.length;
+                });
+
+
+                var InsDimF = 0,
+                    InsLimP = 0,
+                    InsFun = 0,
+                    InsColM = 0,
+                    InsOriV = 0,
+                    InsColC = 0,
+                    InsEspC = 0,
+                    InsColCin = 0,
+                    InsDes = 0,
+                    InsMarP = 0,
+                    InsDesp = 0,
+                    InsRay = 0,
+                    InsRet = 0,
+                    InsPruR = 0,
+                    InsHer = 0,
+                    InsEti = 0,
+                    InsPru = 0,
+                    InsRes = 0,
+                    InsCub = 0,
+                    InsCaja = 0,
+                    InsEtiC = 0,
+                    InsHerC = 0,
+                    InsMan = 0,
+                    InsColMar = 0,
+                    InsOva = 0;
 
                 for (var i = 0; i < 5; i++) {
                     ArrayInsFAp[FechasSemana[i]] = 0;
@@ -1457,13 +1671,86 @@ function init() {
                     else
                         ContInsFRe++;
 
-
+                    if (obj.dimensiones_Finales != "OK") {
+                        InsDimF++
+                    }
+                    if (obj.limpieza != "OK") {
+                        InsLimP++
+                    }
+                    if (obj.funcion != "OK") {
+                        InsFun++
+                    }
+                    if (obj.color_Melamina != "OK") {
+                        InsColM++
+                    }
+                    if (obj.orientacion != "OK") {
+                        InsOriV++
+                    }
+                    if (obj.color_Cintilla != "OK") {
+                        InsColC++
+                    }
+                    if (obj.espesor != "OK") {
+                        InsEspC++
+                    }
+                    if (obj.colocacion != "OK") {
+                        InsColCin++
+                    }
+                    if (obj.descuadre != "OK") {
+                        InsDes++
+                    }
+                    if (obj.marcas != "OK") {
+                        InsMarP++
+                    }
+                    if (obj.despostilles != "OK") {
+                        InsDesp++
+                    }
+                    if (obj.rayaduras != "OK") {
+                        InsRay++
+                    }
+                    if (obj.retoques != "OK") {
+                        InsRet++
+                    }
+                    if (obj.pruebas_Resistencia != "OK") {
+                        InsPruR++
+                    }
+                    if (obj.herrajes_instalados != "OK") {
+                        InsHer++
+                    }
+                    if (obj.etiquetas_producto != "OK") {
+                        InsEti++
+                    }
+                    if (obj.prueba != "OK") {
+                        InsPru++
+                    }
+                    if (obj.resane != "OK") {
+                        InsRes++
+                    }
+                    if (obj.cubierta != "OK") {
+                        InsCub++
+                    }
+                    if (obj.caja != "OK") {
+                        InsCaja++
+                    }
+                    if (obj.etiquetas_caja != "OK") {
+                        InsEtiC++
+                    }
+                    if (obj.herrajes_bolsa != "OK") {
+                        InsHerC++
+                    }
+                    if (obj.manual_instrucciones != "OK") {
+                        InsMan++
+                    }
+                    if (obj.color_Marmol != "OK") {
+                        InsColMar++
+                    }
+                    if (obj.ovalin != "OK") {
+                        InsOva++
+                    }
                     fechasInsF[iInsF] = ContInsFAp;
                     fechasInsFRe[iInsF] = ContInsFRe;
                     fechasInsFT[iInsF] = ContInsFRe + ContInsFAp;
                     ContInsFRT += ContInsFRe;
                     ContInsFAT += ContInsFAp;
-                    previousObj = obj;
                     ArrayInsFAp[keyNew] += ContInsFAp;
                     ArrayInsFRe[keyNew] += ContInsFRe;
                     ContInsFAp = 0;
@@ -1472,9 +1759,33 @@ function init() {
 
                 }
 
-                fechasInsF[5] = ContInsFAT;
-                fechasInsFRe[5] = ContInsFRT;
+                var ArrayInsF_DefCont = [InsCaja, InsOva, InsRet, InsDes, InsRay, InsDesp, InsColMar, InsColM, InsColC, InsPru, InsCub, InsEtiC, InsDimF, InsEspC, InsMarP, InsOriV, InsLimP, InsEti, InsColCin, InsPruR, InsFun, InsHer, InsRes, InsMan, InsHerC];
+                var InsDef = [];
+                var InsDefCont = [];
+                for (var i = 0; i < ArrayInsF_DefCont.length; i++) {
+                    if (ArrayInsF_DefCont[i] != 0) {
+                        InsDefCont.push(ArrayInsF_DefCont[i]);
+                        InsDef.push(ArrayInsF_Def[i]);
+                    }
+                }
+                /*
+                var list = [];
+                for (var j = 0; j < InsDef.length; j++)
+                    list.push({ 'def': InsDef[j], 'cont': InsDefCont[j] });
+
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    InsDef[k] = list[k].def;
+                    InsDefCont[k] = list[k].cont;
+                }
+
+*/
                 fechasInsFT[5] = ContInsFAT + ContInsFRT;
+                fechasInsF[5] = ContInsFAT + "  (" + Math.round((ContInsFAT / fechasInsFT[5] * 100)) + "%)";
+                fechasInsFRe[5] = ContInsFRT + "  (" + Math.round((ContInsFRT / fechasInsFT[5] * 100)) + "%)";
 
                 var InsFAp = ["InsFAp", "InsFAp1", "InsFAp2", "InsFAp3", "InsFAp4", "InsFAp5"];
                 var InsFRe = ["InsFRe", "InsFRe1", "InsFRe2", "InsFRe3", "InsFRe4", "InsFRe5"];
@@ -1499,6 +1810,12 @@ function init() {
                     document.getElementById(InsFT[x]).innerHTML = obj + obj2;
                     x++;
                 }
+
+                updateTable(chartInsF, InsDef, InsDefCont);
+                InsDef = [];
+                InsDefCont = [];
+                ArrayInsF_DefCont = [];
+                ArrayInsF_Def = [];
 
 
                 //Escuadradora
@@ -1581,6 +1898,20 @@ function init() {
                     var temp = parseInt(ArrayEscT[key])
                     Arr_numEsc.push(temp);
                 }
+                /*
+                var list = [];
+                for (var j = 0; j < Arr_defEsc.length; j++)
+                    list.push({ 'def': Arr_defEsc[j], 'cont': Arr_numEsc[j] });
+
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    Arr_defEsc[k] = list[k].def;
+                    Arr_numEsc[k] = list[k].cont;
+                }
+*/
 
                 //Se saca el total y los promedios
                 fechasEscT[5] = ContEscAT + ContEscRT;
@@ -1693,7 +2024,20 @@ function init() {
                     var temp = parseInt(ArrayEncT[key])
                     Arr_numEnc.push(temp);
                 }
+                /*
+                                var list = [];
+                                for (var j = 0; j < Arr_defEnc.length; j++)
+                                    list.push({ 'def': Arr_defEnc[j], 'cont': Arr_numEnc[j] });
 
+                                list.sort(function(a, b) {
+                                    return ((b.cont - a.cont));
+                                });
+
+                                for (var k = 0; k < list.length; k++) {
+                                    Arr_defEnc[k] = list[k].def;
+                                    Arr_numEnc[k] = list[k].cont;
+                                }
+                */
                 fechasEncT[5] = ContEncAT + ContEncRT;
                 fechasEnc[5] = ContEncAT + "  (" + Math.round((ContEncAT / fechasEncT[5] * 100)) + "%)";
                 fechasEncRe[5] = ContEncRT + "  (" + Math.round((ContEncRT / fechasEncT[5] * 100)) + "%)";
@@ -1799,7 +2143,20 @@ function init() {
                     var temp = parseInt(ArrayTalT[key])
                     Arr_numTal.push(temp);
                 }
+                /*
+                                var list = [];
+                                for (var j = 0; j < Arr_defTal.length; j++)
+                                    list.push({ 'def': Arr_defTal[j], 'cont': Arr_numTal[j] });
 
+                                list.sort(function(a, b) {
+                                    return ((b.cont - a.cont));
+                                });
+
+                                for (var k = 0; k < list.length; k++) {
+                                    Arr_defTal[k] = list[k].def;
+                                    Arr_numTal[k] = list[k].cont;
+                                }
+                */
                 fechasTalT[5] = ContTalAT + ContTalRT;
                 fechasTal[5] = ContTalAT + "  (" + Math.round((ContTalAT / fechasTalT[5] * 100)) + "%)";
                 fechasTalRe[5] = ContTalRT + "  (" + Math.round((ContTalRT / fechasTalT[5] * 100)) + "%)";
@@ -1906,7 +2263,20 @@ function init() {
                     var temp = parseInt(ArraySacT[key])
                     Arr_numSac.push(temp);
                 }
+                /*
+                var list = [];
+                for (var j = 0; j < Arr_defSac.length; j++)
+                    list.push({ 'def': Arr_defSac[j], 'cont': Arr_numSac[j] });
 
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    Arr_defSac[k] = list[k].def;
+                    Arr_numSac[k] = list[k].cont;
+                }
+*/
                 fechasSacT[5] = ContSacAT + ContSacRT;
                 fechasSac[5] = ContSacAT + "  (" + Math.round((ContSacAT / fechasSacT[5] * 100)) + "%)";
                 fechasSacRe[5] = ContSacRT + "  (" + Math.round((ContSacRT / fechasSacT[5] * 100)) + "%)";
@@ -2003,7 +2373,20 @@ function init() {
                     var temp = parseInt(ArrayAr1T[key])
                     Arr_numAr1.push(temp);
                 }
+                /*
+                var list = [];
+                for (var j = 0; j < Arr_defAr1.length; j++)
+                    list.push({ 'def': Arr_defAr1[j], 'cont': Arr_numAr1[j] });
 
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    Arr_defAr1[k] = list[k].def;
+                    Arr_numAr1[k] = list[k].cont;
+                }
+*/
                 fechasAr1T[5] = ContAr1AT + ContAr1RT;
                 fechasAr1[5] = ContAr1AT + "  (" + Math.round((ContAr1AT / fechasAr1T[5] * 100)) + "%)";
                 fechasAr1Re[5] = ContAr1RT + "  (" + Math.round((ContAr1RT / fechasAr1T[5] * 100)) + "%)";
@@ -2098,7 +2481,20 @@ function init() {
                     var temp = parseInt(ArrayAr2T[key])
                     Arr_numAr2.push(temp);
                 }
+                /*
+                var list = [];
+                for (var j = 0; j < Arr_defAr2.length; j++)
+                    list.push({ 'def': Arr_defAr2[j], 'cont': Arr_numAr2[j] });
 
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    Arr_defAr2[k] = list[k].def;
+                    Arr_numAr2[k] = list[k].cont;
+                }
+*/
                 fechasAr2T[5] = ContAr2AT + ContAr2RT;
                 fechasAr2[5] = ContAr2AT + "  (" + Math.round((ContAr2AT / fechasAr2T[5] * 100)) + "%)";
                 fechasAr2Re[5] = ContAr2RT + "  (" + Math.round((ContAr2RT / fechasAr2T[5] * 100)) + "%)";
@@ -2193,7 +2589,20 @@ function init() {
                     var temp = parseInt(ArrayAr3T[key])
                     Arr_numAr3.push(temp);
                 }
+                /*
+                var list = [];
+                for (var j = 0; j < Arr_defAr3.length; j++)
+                    list.push({ 'def': Arr_defAr3[j], 'cont': Arr_numAr3[j] });
 
+                list.sort(function(a, b) {
+                    return ((b.cont - a.cont));
+                });
+
+                for (var k = 0; k < list.length; k++) {
+                    Arr_defAr3[k] = list[k].def;
+                    Arr_numAr3[k] = list[k].cont;
+                }
+*/
                 fechasAr3T[5] = ContAr3AT + ContAr3RT;
                 fechasAr3[5] = ContAr3AT + "  (" + Math.round((ContAr3AT / fechasAr3T[5] * 100)) + "%)";
                 fechasAr3Re[5] = ContAr3RT + "  (" + Math.round((ContAr3RT / fechasAr3T[5] * 100)) + "%)";
@@ -2289,7 +2698,20 @@ function init() {
                     var temp = parseInt(ArrayAcaT[key])
                     Arr_numAca.push(temp);
                 }
+                /*
+                                var list = [];
+                                for (var j = 0; j < Arr_defAca.length; j++)
+                                    list.push({ 'def': Arr_defAca[j], 'cont': Arr_numAca[j] });
 
+                                list.sort(function(a, b) {
+                                    return ((b.cont - a.cont));
+                                });
+
+                                for (var k = 0; k < list.length; k++) {
+                                    Arr_defAca[k] = list[k].def;
+                                    Arr_numAca[k] = list[k].cont;
+                                }
+                */
                 fechasAcaT[5] = ContAcaAT + ContAcaRT;
                 fechasAca[5] = ContAcaAT + "   (" + Math.round(ContAcaAT / fechasAcaT[5] * 100) + "%)";
                 fechasAcaRe[5] = ContAcaRT + "  (" + Math.round(ContAcaRT / fechasAcaT[5] * 100) + "%)";
@@ -2327,39 +2749,6 @@ function init() {
                 console.log(err);
             })
     })
-
-
-
-
-    var data = [1, 2, 3, 4, 5, 6, 7];
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: data
-            }]
-        },
-
-        // Configuration options go here
-        options: {
-
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    });
 
 
 
