@@ -164,9 +164,9 @@ html, body {
     max-width: none;
 }
 
-.myButton.logout {
+/* .myButton.logout {
     margin-top: 2em;
-}
+} */
 
 .myButton.logout, .myButton.btn-red {
     background: linear-gradient(to bottom, #822323 5%, #ba3333 100%);
