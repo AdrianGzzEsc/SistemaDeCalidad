@@ -14,4 +14,22 @@ const Armado1Schema = Schema({
 
 });
 
-module.exports = mongoose.model('armado1', Armado1Schema);
+const armado1 = mongoose.model('armado1', Armado1Schema);
+
+const armado1_collection = {
+    createArmado1 : function ( newAr1 ) {
+        return armado1
+            .create( newAr1 )
+            .then( arm1 => {
+                return arm1;
+            })
+            .catch( err => {
+                throw new Error( err.message );
+            })
+    }
+}
+
+module.exports = {
+    armado1,
+    armado1_collection
+}

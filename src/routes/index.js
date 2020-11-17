@@ -14,18 +14,18 @@ const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
 const piezaModelos = require('../model/piezaModelos');
 const { altaPNC, altaPNC_collection } = require('../model/AltaPnc');
-const escuadradora = require('../model/escuadradora');
-const enchapadora = require('../model/enchapadora');
-const taladro = require('../model/taladro');
-const sacabocados = require('../model/sacabocados');
-const armado1 = require('../model/armado1');
-const armado2 = require('../model/armado2');
-const armado3 = require('../model/armado3');
-const acabados = require('../model/acabados');
+const { escuadradora, escuadradora_collection } = require('../model/escuadradora');
+const { enchapadora, enchapadora_collection } = require('../model/enchapadora');
+const { taladro, taladro_collection } = require('../model/taladro');
+const { sacabocados, sacabocados_collection } = require('../model/sacabocados');
+const { armado1, armado1_collection } = require('../model/armado1');
+const { armado2, armado2_collection } = require('../model/armado2');
+const { armado3, armado3_collection } = require('../model/armado3');
+const { acabados, acabados_collection } = require('../model/acabados');
 const inspeccion = require('../model/inspeccion_final');
 const bajaPNC = require('../model/BajaPnc');
 const def_proceso = require('../model/defecto_proceso');
-const inspeccionProceso = require('../model/inspeccionProceso');
+const { inspeccionProceso, inspeccionProc_collection } = require('../model/inspeccionProceso');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bcrypt = require('bcryptjs');
@@ -669,28 +669,32 @@ router.post('/addAltaPnc/', async(req, res) => {
         })
 });
 
-router.post('/addInspeccionProceso', async(req, res) => {
-    const defecto = new inspeccionProceso(req.body);
-    const escuad = new escuadradora(req.body);
-    const enchap = new enchapadora(req.body);
-    const tal = new taladro(req.body);
-    const sac = new sacabocados(req.body);
-    const ar1 = new armado1(req.body);
-    const ar2 = new armado2(req.body);
-    const ar3 = new armado3(req.body);
-    const aca = new acabados(req.body);
+router.post('/addInspeccionProceso/', async(req, res) => {
+    let { folio, fecha, inspector, hora } = req.body;
 
-    await defecto.save();
-    await escuad.save();
-    await enchap.save();
-    await tal.save();
-    await sac.save();
-    await ar1.save();
-    await ar2.save();
-    await ar3.save();
-    await aca.save();
+    if( !folio || !fecha || !inspector || !hora ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
 
-    res.redirect('/escuadradora/');
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora
+    }
+
+    inspeccionProc_collection
+        .createInspeccion( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
 router.post('/addBajaPnc/:id', async(req, res) => {
@@ -707,53 +711,276 @@ router.post('/addFinal', async(req, res) => {
     res.redirect('/inicio/');
 });
 
-router.post('/addEscuadradora/:id', async(req, res) => {
-    console.log("HOLA");
-    var id = req.params.id
-    await escuadradora.update({ folio: id }, req.body);
-    res.redirect('/enchapadora/');
+router.post('/addEscuadradora/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        ins2,
+        ins3,
+        def1,
+        def2,
+        def3
+    }
+
+    escuadradora_collection
+        .createEscuadradora( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addTaladro/:id', async(req, res) => {
-    var id = req.params.id
-    await taladro.update({ folio: id }, req.body);
-    res.redirect('/sacabocados/');
+router.post('/addTaladro/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        ins2,
+        ins3,
+        def1,
+        def2,
+        def3
+    }
+
+    taladro_collection
+        .createTaladro( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addSacabocados/:id', async(req, res) => {
-    var id = req.params.id
-    await sacabocados.update({ folio: id }, req.body);
-    res.redirect('/armado1/');
+router.post('/addSacabocados/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        ins2,
+        ins3,
+        def1,
+        def2,
+        def3
+    }
+
+    sacabocados_collection
+        .createSacabocados( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addEnchapadora/:id', async(req, res) => {
-    var id = req.params.id
-    await enchapadora.update({ folio: id }, req.body);
-    res.redirect('/taladro/');
+router.post('/addEnchapadora/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        ins2,
+        ins3,
+        def1,
+        def2,
+        def3
+    }
+
+    enchapadora_collection
+        .createEnchapadora( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addArmado1/:id', async(req, res) => {
-    var id = req.params.id
-    await armado1.update({ folio: id }, req.body);
-    res.redirect('/armado2/');
+router.post('/addArmado1/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        def1,
+    }
+
+    armado1_collection
+        .createArmado1( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addArmado2/:id', async(req, res) => {
-    var id = req.params.id
-    await armado2.update({ folio: id }, req.body);
-    res.redirect('/armado3/');
+router.post('/addArmado2/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        def1,
+    }
+
+    armado2_collection
+        .createArmado2( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addArmado3/:id', async(req, res) => {
-    var id = req.params.id
-    await armado3.update({ folio: id }, req.body);
-    res.redirect('/acabados/');
+router.post('/addArmado3/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        def1,
+    }
+
+    armado3_collection
+        .createArmado3( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
-router.post('/addAcabados/:id', async(req, res) => {
-    var id = req.params.id
-    await acabados.update({ folio: id }, req.body);
-    res.redirect('/inicio/');
+router.post('/addAcabados/', async(req, res) => {
+    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
+
+    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
+        res.statusMessage = "Falta de llenar uno o más campos.";
+        return res.status(406).end();
+    }
+
+    let newInsp = {
+        folio,
+        fecha,
+        inspector,
+        hora,
+        modelo,
+        pieza,
+        ins1,
+        def1,
+    }
+
+    acabados_collection
+        .createAcabados( newInsp )
+        .then( result => {
+            if( result.errmsg )
+                return res.status(400).end();
+            return res.status(201).json(result);
+        })
+        .catch( err => {
+            res.statusMessage = "Something went wrong with the Database.";
+            return res.status(500).end();
+        })
 });
 
 router.post('/addPiezaModelo', async(req, res) => {

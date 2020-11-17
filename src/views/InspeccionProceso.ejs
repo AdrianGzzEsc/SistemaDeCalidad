@@ -3,7 +3,8 @@
     <div class="subtitle3">Reporte de Inspección en Proceso</div>
 
     <div class="container">
-        <form action="/addInspeccionProceso" method="POST">
+        <div id="agregar-error"></div>
+        <form>
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
@@ -40,20 +41,20 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <input class="form-control" type="text" name="folio" placeholder="Folio" required />
+                            <input id="folio" class="form-control" type="text" name="folio" placeholder="Folio" required />
                         </div>
                         <div class="col-md-4" id="inspproceso">
-                            <input class="form-control" type="date" name="fecha" placeholder="Fecha" required/>
+                            <input id="fecha" class="form-control" type="date" name="fecha" placeholder="Fecha" required/>
                         </div>
                         <div class="col-md-4">
-                            <select class="form-control" name="hora" style="height: 42px;" id="inspproceso" required>
-                        <option value="" disabled selected hidden>Hora</option>
-                        <option value="8:00 AM">8:00 AM</option>
-                        <option value="10:00 AM">10:00 AM</option>
-                        <option value="12:00 AM">12:00 AM</option>
-                        <option value="2:00 PM">2:00 PM</option>
-                        <option value="4:00 PM">4:00 PM</option>
-                      </select>
+                            <select id="hora" class="form-control" name="hora" style="height: 42px;" required>
+                                <option value="" disabled selected hidden>Hora</option>
+                                <option value="8:00 AM">8:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="12:00 AM">12:00 AM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="4:00 PM">4:00 PM</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
                     <a class="myButton btn-red" href="/inicio">Salir</a>
                 </div>
                 <div class="col p-0 px-3">
-                    <button class="myButton" type="submit" onclick="this.parentNode.submit()">Iniciar Reporte</button>
+                    <button id="btnSubmit" class="myButton" type="submit">Iniciar Reporte</button>
                 </div>
 
             </div>
@@ -71,4 +72,8 @@
 
     </div>
 
-    <%- include ("./partials/_footer") %>
+</body>
+<script src="../../js/home.js"></script>
+<script src="../../js/inspeccionProceso.js"></script>
+
+</html>

@@ -1,17 +1,19 @@
-function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Comentarios, Retrabajo, inspector) {
-    let url = '/addAltaPnc/';
+function addInspSacabocados(folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3) {
+    let url = '/addTaladro/';
 
     let data = {
         folio: folio,
-        Fecha: Fecha,
-        Orden: Orden,
-        Proceso: Proceso,
-        Modelo: Modelo,
-        Defectos: Defectos,
-        Cantidad: Cantidad,
-        Comentarios: Comentarios,
-        Retrabajo: Retrabajo,
-        inspector: inspector
+        fecha: fecha,
+        inspector: inspector,
+        hora : hora,
+        modelo : modelo,
+        pieza : pieza,
+        ins1 : ins1,
+        ins2 : ins2,
+        ins3 : ins3,
+        def1 : def1,
+        def2 : def2,
+        def3 : def3
     }
 
     let settings = {
@@ -29,8 +31,7 @@ function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Co
             throw new Error(response.statusText);
         })
         .then(responseJSON => {
-            var mensaje = "Se ha regitrado alta con éxito.";
-
+            var mensaje = "Se ha regitrado con éxito.";
             $('#agregar-error').html(`
                 <div class="alert alert-success alert-dismissible fade show msg-error" role="alert">
                     ${mensaje}
@@ -43,7 +44,6 @@ function addAltaPNC(folio, Fecha, Orden, Proceso, Modelo, Defectos, Cantidad, Co
             displayPost(responseJSON);
         })
         .catch(err => {
-            //     alert( err );
             var mensaje = err.message;
             $('#agregar-error').html(`
                 <div class="alert alert-danger alert-dismissible fade show msg-error" role="alert">
@@ -65,11 +65,10 @@ function borraAlerta() {
 
 function displayPost(data) {
     console.log(data);
-    //alert("Se dio de alta con exito.");
-    window.location.href = "/inicio/"
+    window.location.href = "/armado1/";
 }
 
-function validate() {
+function validateSac() {
     let url = "/user/validate-user";
     let settings = {
         method: 'GET',
@@ -86,7 +85,7 @@ function validate() {
             throw new Error(response.statusText);
         })
         .then(responseJSON => {
-            userEmail(responseJSON);
+            userEmailSac(responseJSON);
         })
         .catch(err => {
             console.log(err.message);
@@ -94,11 +93,14 @@ function validate() {
         });
 }
 
-function userEmail(data) {
-    submit(data);
+function userEmailSac(data) {
+    const folio = localStorage.getItem( 'folio' );
+    const fecha = localStorage.getItem( 'fecha' );
+    const hora = localStorage.getItem( 'hora' );
+    submitSac( data, folio, fecha, hora );
 }
 
-function submit(data) {
+function submitSac(data, folio, fecha, hora) {
     let fName = String(data.fName);
     let lName = String(data.lName);
     let inspector = fName + ' ' + lName;
@@ -106,24 +108,29 @@ function submit(data) {
     btn.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
-        let Proceso = document.getElementById('proceso');
-        let Fecha = document.getElementById('fechaform');
-        let folio = document.getElementById('folio');
-        let Modelo = document.getElementById('modelo');
-        let Defectos = document.getElementById('seleccion');
-        let Cantidad = document.getElementById('cantidad');
-        let Comentarios = document.getElementById('comentarios');
-        let Retrabajo = document.getElementById('seleccionRet');
-        let Orden = document.getElementById('orden');
-        var selected = [...Defectos.options]
+        let modelo = document.getElementById('modelo');
+        let pieza = document.getElementById('pieza');
+        let ins1 = document.getElementById('ins1');
+        let ins2 = document.getElementById('ins2');
+        let ins3 = document.getElementById('ins3');
+        let def1 = document.getElementById('def1');
+        var def1Selected = [...def1.options]
             .filter(option => option.selected)
             .map(option => option.value);
-        addAltaPNC(folio.value, Fecha.value, Orden.value, Proceso.value, Modelo.value, selected, Number(Cantidad.value), Comentarios.value, Retrabajo.value, String(inspector));
+        let def2 = document.getElementById('def2');
+        var def2Selected = [...def2.options]
+            .filter(option => option.selected)
+            .map(option => option.value);
+        let def3 = document.getElementById('def3');
+        var def3Selected = [...def3.options]
+            .filter(option => option.selected)
+            .map(option => option.value);
+        addInspSacabocados(folio, fecha, String(inspector), hora, modelo.value, pieza.value, ins1.value, ins2.value, ins3.value, def1Selected, def2Selected, def3Selected);
     })
 }
 
-function init() {
-    validate();
+function initSac() {
+    validateSac();
 }
 
-init();
+initSac();

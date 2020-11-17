@@ -32,24 +32,25 @@
                     </li>
                 </ul>
             </div>
+            <div id="agregar-error"></div>
             <div class="card-body">
-                <form action="/addTaladro/<%= ins[ins.length-1].folio %>" method="post">
+                <form>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <select id="modelo" class="form-control" name="modelo" placeholder="Modelo" onchange="change()" required>
-                            <option value="" disabled selected hidden>Modelo</option>
-                            <% for (var i =0; i < mod.length; i++)  {     %>
+                                <option value="" disabled selected hidden>Modelo</option>
+                                <% for (var i =0; i < mod.length; i++)  {     %>
 
-                            <option value="<%=mod[i].nombre%>"><%= mod[i].nombre %></option>
+                                <option value="<%=mod[i].nombre%>"><%= mod[i].nombre %></option>
 
-                            <%  }  %>
-                        </select>
+                                <%  }  %>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <div id="divPiezas">
                                 <select id="pieza" class="form-control" name="pieza" placeholder="Pieza" required>
-                                <option value="" disabled selected hidden>Pieza</option>
-                            </select>
+                                    <option value="" disabled selected hidden>Pieza</option>
+                                </select>
                             </div>
                         </div>
 
@@ -57,52 +58,52 @@
                     <div class="form-group row">
                         <div class="col-md-4">
                             <label for="name"> Pieza 1:</label>
-                            <select class="form-control" name="ins1" required>
-                            <option value="" disabled selected hidden>Inspección</option>
-                            <option value="Aceptado">Aceptado</option>
-                            <option value="Rechazado">Rechazado</option>
-                        </select>
+                            <select id="ins1" class="form-control" name="ins1" required>
+                                <option value="" disabled selected hidden>Inspección</option>
+                                <option value="Aceptado">Aceptado</option>
+                                <option value="Rechazado">Rechazado</option>
+                            </select>
                             <label for="name"> Selecciona los Defectos:</label>
-                            <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def1">
-                            <% for (var i =0; i < defOp.length; i++)  {     %>
+                            <select id="def1" class="selectpicker" multiple data-live-search="true" class="form-control" name="def1">
+                                <% for (var i =0; i < defOp.length; i++)  {     %>
 
-                            <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
+                                <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
 
-                            <%  }  %>
-                        </select>
+                                <%  }  %>
+                            </select>
                         </div>
 
                         <div class="col-md-4">
                             <label for="name"> Pieza 2:</label>
-                            <select class="form-control" name="ins2" required>
-                            <option value="" disabled selected hidden>Inspección</option>
-                            <option value="Aceptado">Aceptado</option>
-                            <option value="Rechazado">Rechazado</option>
-                        </select>
+                            <select id="ins2" class="form-control" name="ins2" required>
+                                <option value="" disabled selected hidden>Inspección</option>
+                                <option value="Aceptado">Aceptado</option>
+                                <option value="Rechazado">Rechazado</option>
+                            </select>
                             <label for="name"> Selecciona los Defectos:</label>
-                            <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def2">
-                            <% for (var i =0; i < defOp.length; i++)  {     %>
+                            <select id="def2" class="selectpicker" multiple data-live-search="true" class="form-control" name="def2">
+                                <% for (var i =0; i < defOp.length; i++)  {     %>
 
-                            <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
+                                <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
 
-                            <%  }  %>
-                        </select>
+                                <%  }  %>
+                            </select>
                         </div>
                         <div class="col-md-4">
                             <label for="name"> Pieza 3:</label>
-                            <select class="form-control" name="ins3" required>
-                            <option value="" disabled selected hidden>Inspección</option>
-                            <option value="Aceptado">Aceptado</option>
-                            <option value="Rechazado">Rechazado</option>
-                        </select>
+                            <select id="ins3" class="form-control" name="ins3" required>
+                                <option value="" disabled selected hidden>Inspección</option>
+                                <option value="Aceptado">Aceptado</option>
+                                <option value="Rechazado">Rechazado</option>
+                            </select>
                             <label for="name"> Selecciona los Defectos:</label>
-                            <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def3">
-                            <% for (var i =0; i < defOp.length; i++)  {     %>
+                            <select id="def3" class="selectpicker" multiple data-live-search="true" class="form-control" name="def3">
+                                <% for (var i =0; i < defOp.length; i++)  {     %>
 
-                            <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
+                                <option value="<%=defOp[i].defecto%>"> <%= defOp[i].defecto %> </option>
 
-                            <%  }  %>
-                        </select>
+                                <%  }  %>
+                            </select>
                         </div>
                     </div>
             </div>
@@ -112,7 +113,7 @@
                 <a class="myButton btn-red" href="/inicio">Salir</a>
             </div>
             <div class="col p-0 px-3">
-                <button class="myButton" type="submit" onclick="this.parentNode.submit()">Siguiente</button>
+                <button id="btnSubmit" class="myButton" type="submit">Siguiente</button>
             </div>
 
         </div>
@@ -169,7 +170,8 @@
         }
     </script>
 
-    <!-- FORMULARIO-->
+</body>
+<script src="../../js/home.js"></script>
+<script src="../../js/taladro.js"></script>
 
-
-    <%- include ("./partials/_footer") %>
+</html>
