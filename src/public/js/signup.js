@@ -98,7 +98,7 @@ function validateFromAdd() {
 
 function userEmailFromAdd(data) {
     if (!data.superuser) {
-        window.location.href = "/inicio/";
+        window.location.href = "/inspeccionProceso/" + data.id;
     } else {
         console.log('si es superusuario');
     }

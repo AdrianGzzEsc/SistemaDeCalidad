@@ -55,11 +55,12 @@
                     <li class="nav-item">
                         <a class="nav-link" style="font-size: 20px; text-align: center;" href="/inspeccionProceso/<%=usu[0]._id%>">Inspección En Proceso</a>
                     </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 20px; text-align: center;" href="/graficas/<%=usu[0]._id%>">Reportes</a>
+                    </li>
                     <% if (usu[0].superuser) {%>
-                        <div class="dropdown-divider"></div>
-                        <li class="nav-item">
-                            <a class="nav-link" style="font-size: 20px; text-align: center;" href="/graficas/<%=usu[0]._id%>">Reportes</a>
-                        </li>
+
                         <div class="dropdown-divider"></div>
 
                         <li class="nav-item dropdown">
