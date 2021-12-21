@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const operacionesSchema = Schema({
 
-    nombre: String
+    nombre: String,
+    defectos: [String],
+    planta: String
 
 });
 

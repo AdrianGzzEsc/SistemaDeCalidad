@@ -3,23 +3,26 @@ const Schema = mongoose.Schema;
 
 const inspeccionProcesoSchema = Schema({
     folio: String,
-    fecha: Date,
-    inspector: String,
-    hora: String
-
+    nombre: String,
+    fecha: String,
+    fechaHora: String,
+    planta: String,
+    hora: String,
+    folio: String,
+    reporte: [Object]
 });
 
 const inspeccionProceso = mongoose.model('InspeccionProceso', inspeccionProcesoSchema);
 
 const inspeccionProc_collection = {
-    createInspeccion : function ( newInsp ) {
+    createInspeccion: function(newInsp) {
         return inspeccionProceso
-            .create( newInsp )
-            .then( insp => {
+            .create(newInsp)
+            .then(insp => {
                 return insp;
             })
-            .catch( err => {
-                throw new Error( err.message );
+            .catch(err => {
+                throw new Error(err.message);
             })
     }
 }

@@ -1,4 +1,4 @@
-function userLoginFetch( email, password ){
+function userLoginFetch(email, password) {
     let url = '/SignIn';
 
     let data = {
@@ -7,26 +7,26 @@ function userLoginFetch( email, password ){
     }
 
     let settings = {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body : JSON.stringify( data )
+        body: JSON.stringify(data)
     }
 
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ){
+    fetch(url, settings)
+        .then(response => {
+            if (response.ok) {
                 return response.json();
             }
-            throw new Error( response.statusText );
+            throw new Error(response.statusText);
         })
-        .then( responseJSON => {
-            localStorage.setItem( 'token', responseJSON.token );
-            console.log( responseJSON );
-            userByEmail( email );
+        .then(responseJSON => {
+            localStorage.setItem('token', responseJSON.token);
+            console.log(responseJSON);
+            userByEmail(email);
         })
-        .catch( err => {
+        .catch(err => {
             // alert(err.message);
             var mensaje = err.message;
             $('#msg-error').html(`
@@ -40,50 +40,49 @@ function userLoginFetch( email, password ){
         });
 }
 
-function userByEmail( email ) {
+function userByEmail(email) {
     let url = `/user/get-user-byemail/${email}`;
 
     let settings = {
-        method : 'GET'
+        method: 'GET'
     }
 
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ) {
+    fetch(url, settings)
+        .then(response => {
+            if (response.ok) {
                 return response.json();
             }
-            throw new Error( response.statusText );
+            throw new Error(response.statusText);
         })
-        .then( responseJSON => {
-            userEmailLogin( responseJSON );
+        .then(responseJSON => {
+            userEmailLogin(responseJSON);
         })
-        .catch( err => {
-            console.log( err );
+        .catch(err => {
+            console.log(err);
         })
-    
+
 }
 
-function userEmailLogin( data ) {
-    console.log( data );
-    if( data.superuser ) {
+function userEmailLogin(data) {
+    console.log(data);
+    if (data.superuser) {
         console.log('es un super usuario');
-        window.location.href = "/super/";
-    }
-    else {
-        window.location.href = "/inicio/";
+        window.location.href = "/graficas/" + data._id;
+    } else {
+        window.location.href = "/inspeccionProceso/" + data._id;
     }
 }
 
-function init(){
-    let loginBtn = document.getElementById( 'loginBtn' );
+function init() {
+    let loginBtn = document.getElementById('loginBtn');
 
-    loginBtn.addEventListener( 'click', ( event ) => {
+    loginBtn.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
-        let email = document.getElementById( 'email' ).value;
-        let password = document.getElementById( 'password' ).value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
 
-        userLoginFetch( email, password );
+        userLoginFetch(email, password);
     })
 }
 

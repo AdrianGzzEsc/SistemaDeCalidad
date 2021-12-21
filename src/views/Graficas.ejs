@@ -5,721 +5,187 @@
                 <div class="col mb-2 mt-4 border-light ">
                     <div class="card rounded-0 border-0 mt-2">
                         <!-- <h3 class="card-title pl-1" style="background-color: gray; color: white;">Inspección Final</h3> -->
-                        <h3 class="subtitle3">Inspección Final</h3>
+                        <h3 class="subtitle3">Reporte</h3>
                     </div>
-                    <div class="row form-group row mb-5">
-                        <h4 for="example-week-input" class="col-1-sm
-                         col-form-label-m " style="padding: 10px; margin-top: 6px;">Filtro: </h4>
-                        <div class="col-5-sm" style="padding: 10px;">
-                            <input class="form-control" type="week" id="filtro-semana">
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="radio" id="semanal" name="tipo" value="Semanal" checked>
+                            <label>Semanal</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="radio" id="personalizado" name="tipo" value="Personalizado">
+                            <label>Personalizado</label>
                         </div>
                     </div>
-                    <hr style="margin: 0px; background-color: black;">
-                    <div class="card rounded-0 border-0">
-                        <h5 class="card-text pl-1" style="font-style: italic;"><b>Resultados de Inspecciones Finales</b></h5>
+                    <div id="fechaTabla">
+                        <div class="row d-flex justify-content-center" id="fechaT">
+                            <div class="col" id="fechaTipo">
+                                <label style="text-align: center;" for="cantidad">Fecha:</label>
+                                <input class="form-control" type="week" id="fechaInicio" style="width: min-content;">
+                            </div>
+
+
+                        </div>
                     </div>
-                    <hr style="margin: 0px; background-color: black;">
+                    <br>
                 </div>
             </div>
-        </div>
     </section>
+
     <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="InsFT"></td>
-                                    <td id="InsFT1"></td>
-                                    <td id="InsFT2"></td>
-                                    <td id="InsFT3"></td>
-                                    <td id="InsFT4"></td>
-                                    <td id="InsFT5"></td>
+        <div class="container" id="reportes">
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="InsFAp" style="border-color: black;"></td>
-                                    <td id="InsFAp1" style="border-color: black;"></td>
-                                    <td id="InsFAp2" style="border-color: black;"></td>
-                                    <td id="InsFAp3" style="border-color: black;"></td>
-                                    <td id="InsFAp4" style="border-color: black;"></td>
-                                    <td id="InsFAp5" style="border-color: black;">
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="InsFRe" style="border: 0px;"></td>
-                                    <td id="InsFRe1" style="border: 0px;"></td>
-                                    <td id="InsFRe2" style="border: 0px;"></td>
-                                    <td id="InsFRe3" style="border: 0px;"></td>
-                                    <td id="InsFRe4" style="border: 0px;"></td>
-                                    <td id="InsFRe5" style="border: 0px;">
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaInsF"></canvas>
-                </div>
-            </div>
         </div>
     </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <hr style="margin: 0px; background-color: black;">
-                    <div class="card rounded-0 border-0 mb-1">
-                        <h5 class="card-text pl-1" style="font-style: italic;"><b>Análisis de Pareto Semanal</b></h5>
-                    </div>
-                    <hr style="margin: 0px; background-color: black;">
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md align-self-center">
+    <br>
+    <br>
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Escuadradora</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <input id="esc" hidden>
-    <section>
+    <script>
+        var fechaInicio
+        var fechaFin
+        var tipo = document.querySelector('input[name="tipo"]:checked').value;
 
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
 
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">
+        Date.prototype.getWeek = function() {
+            var target = new Date(this.valueOf());
+            var dayNr = (this.getDay() + 6) % 7;
+            target.setDate(target.getDate() - dayNr + 3);
+            var firstThursday = target.valueOf();
+            target.setMonth(0, 1);
+            if (target.getDay() != 4) {
+                target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+            }
+            return 1 + Math.ceil((firstThursday - target) / 604800000);
+        }
 
-                                    </th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;"></th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th class="FechaT" scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EscT"></td>
-                                    <td id="EscT1"></td>
-                                    <td id="EscT2"></td>
-                                    <td id="EscT3"></td>
-                                    <td id="EscT4"></td>
-                                    <td id="EscT5"></td>
+        function getDateRangeOfWeek(weekNo, year) {
+            var d1 = new Date(year, 12, 0);
+            console.log(d1)
+            numOfdaysPastSinceLastMonday = eval(d1.getDay() - 1);
+            d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
+            var weekNoToday = d1.getWeek();
+            var weeksInTheFuture = eval(weekNo - weekNoToday);
+            d1.setDate(d1.getDate() + eval(7 * weeksInTheFuture));
+            fechaInicio = d1.getFullYear() + "-" + (("0" + (d1.getMonth() + 1)).slice(-2)) + "-" + ("0" + d1.getDate()).slice(-2);
+            d1.setDate(d1.getDate() + 6);
+            fechaFin = d1.getFullYear() + "-" + (("0" + (d1.getMonth() + 1)).slice(-2)) + "-" + ("0" + d1.getDate()).slice(-2);
+            return fechaInicio + " to " + fechaFin;
+        };
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EscAp" style="border-color: black;"></td>
-                                    <td id="EscAp1" style="border-color: black;"></td>
-                                    <td id="EscAp2" style="border-color: black;"></td>
-                                    <td id="EscAp3" style="border-color: black;"></td>
-                                    <td id="EscAp4" style="border-color: black;"></td>
-                                    <td id="EscAp5" style="border-color: black;"></td>
+        $(document).on('change', 'input[name="tipo"]', function() {
+            if (document.contains(document.getElementById("tablaReporte"))) {
+                document.getElementById("tablaReporte").remove();
+            }
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EscRe" style="border: 0px;"></td>
-                                    <td id="EscRe1" style="border: 0px;"></td>
-                                    <td id="EscRe2" style="border: 0px;"></td>
-                                    <td id="EscRe3" style="border: 0px;"></td>
-                                    <td id="EscRe4" style="border: 0px;"></td>
-                                    <td id="EscRe5" style="border: 0px;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+            if (document.contains(document.getElementById("fechaT"))) {
+                document.getElementById("fechaT").remove();
+            }
+            append = document.getElementById("fechaTabla")
+            tipo = document.querySelector('input[name="tipo"]:checked').value;
+            console.log(tipo)
+            if (tipo == "Semanal")
+                var html2 = '<div class="row d-flex justify-content-center" id="fechaT"><div class="col"><label style="text-align: center;" for="cantidad">Fecha:</label><input class="form-control" type="week" id="fechaInicio" style="width: min-content;"></div></div>'
+            else
+                var html2 = '<div class="row d-flex justify-content-center" id="fechaT"><div class="col" id="fechaTipo"><label style="text-align: center;" for="cantidad">Fecha de Inicio:</label><input class="form-control" type="date" id="fechaInicio" style="width: min-content;"></div><div class="col"><label for="unidad">Fecha de Fin:</label><input class="form-control" type="date" id="fechaFin" style="width: min-content;"></div></div>'
 
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaEsc"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Enchapadora</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EncT">Dato1.0 Porcentaje</td>
-                                    <td id="EncT1">Dato1.1 Porcentaje</td>
-                                    <td id="EncT2">Dato1.2 Porcentaje</td>
-                                    <td id="EncT3">Dato1.3 Porcentaje</td>
-                                    <td id="EncT4">Dato1.4 Porcentaje</td>
-                                    <td id="EncT5">Dato1.5 Porcentaje</td>
+            append.innerHTML += html2
+            reporte = document.getElementById("fechaInicio")
+        });
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EncAp" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td id="EncAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td id="EncAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td id="EncAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td id="EncAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td id="EncAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
+        $(document).on('change', '#fechaInicio, #fechaFin', function() {
+            var fechaElegida = document.getElementById("fechaInicio").value
+            if (tipo == "Semanal") {
+                var año = fechaElegida.substr(0, fechaElegida.indexOf('-'));
+                var semana = fechaElegida.substr(fechaElegida.indexOf('W') + 1, fechaElegida.length - 1);
+                getDateRangeOfWeek(semana, año)
+            } else {
+                fechaInicio = document.getElementById('fechaInicio').value
+                fechaFin = document.getElementById('fechaFin').value
+            }
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="EncRe" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td id="EncRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td id="EncRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td id="EncRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td id="EncRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td id="EncRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaEnc"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Taladro</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <thead>
-                                    <th style="border: 0px;">
-                                        <th scope="col" style="border: 0px;"></th>
-                                        <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                        <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                        <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                        <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                        <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                        <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="TalT">Dato1.0 Porcentaje</td>
-                                        <td id="TalT1">Dato1.1 Porcentaje</td>
-                                        <td id="TalT2">Dato1.2 Porcentaje</td>
-                                        <td id="TalT3">Dato1.3 Porcentaje</td>
-                                        <td id="TalT4">Dato1.4 Porcentaje</td>
-                                        <td id="TalT5">Dato1.5 Porcentaje</td>
 
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Aprobado</th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="TalAp" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                        <td id="TalAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                        <td id="TalAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                        <td id="TalAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                        <td id="TalAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                        <td id="TalAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
+            let url = `/reporteOperaciones/${fechaInicio}/${fechaFin}/<%=usu[0].planta%>/`;
 
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="border: 0px;">Rechazado</th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="TalRe" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                        <td id="TalRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                        <td id="TalRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                        <td id="TalRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                        <td id="TalRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                        <td id="TalRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaTal"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Sacabocados</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <thead>
-                                    <th style="border: 0px;">
-                                        <th scope="col" style="border: 0px;"></th>
-                                        <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                        <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                        <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                        <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                        <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                        <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="SacT">Dato1.0 Porcentaje</td>
-                                        <td id="SacT1">Dato1.1 Porcentaje</td>
-                                        <td id="SacT2">Dato1.2 Porcentaje</td>
-                                        <td id="SacT3">Dato1.3 Porcentaje</td>
-                                        <td id="SacT4">Dato1.4 Porcentaje</td>
-                                        <td id="SacT5">Dato1.5 Porcentaje</td>
+            let settings = {
+                method: 'GET'
+            };
+            fetch(url, settings)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error(response.statusText);
+                })
+                .then(responseJSON => {
+                    var operaciones = responseJSON.operaciones
+                    var reportes = responseJSON.reportes
+                    var defectos = responseJSON.groupedDef
+                    var rechazados = []
+                    var aceptados = []
+                    append = document.getElementById("reportes")
+                    append.innerHTML = "";
 
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Aprobado</th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="SacAp" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                        <td id="SacAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                        <td id="SacAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                        <td id="SacAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                        <td id="SacAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                        <td id="SacAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
+                    if (operaciones.length > 0) {
+                        for (var i = 0; i < operaciones.length; i++) {
+                            var cantA = 0
+                            var cantR = 0
+                            var html = '<h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - ' + operaciones[i] + '</h3><div class="row"><div class="col-lg-6 my-3 pb-0"><div class="table-responsive-md"><table class="table"><thead><th style="border: 0px;"><th scope="col" style="border: 0px;"></th><th scope="col"  style="background: orangered;border: 1px black;">Aprobado</th><th scope="col"  style="background: orangered;border: 1px black;">Rechazado</th><th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th></th></thead><tbody>'
+                            for (var x = 0; x < reportes[operaciones[i]].length; x++) {
+                                html = html + '<tr><th scope="row"><b>' + reportes[operaciones[i]][x].fecha + '</b></th><td style="border: 0px;"></td><td >' + reportes[operaciones[i]][x].inspeccion.Aceptado + '</td><td >' + reportes[operaciones[i]][x].inspeccion.Rechazado + '</td><td >' + (reportes[operaciones[i]][x].inspeccion.Aceptado + reportes[operaciones[i]][x].inspeccion.Rechazado) + '</td></tr>'
+                                cantR += reportes[operaciones[i]][x].inspeccion.Rechazado
+                                cantA += reportes[operaciones[i]][x].inspeccion.Aceptado
+                            }
+                            aceptados.push(cantA)
+                            rechazados.push(cantR)
+                            var total = aceptados[i] + rechazados[i]
+                            append.innerHTML += html + '</tbody></table><br><table class="table"><thead><th>Aprobado</th><th>Rechazado</th><th>Total</th></thead><tbody><tr><td>' + aceptados[i] + ' (' + (aceptados[i] / total * 100) + '%)</td><td>' + rechazados[i] + ' (' + (aceptados[i] / total * 100) + '%)</td><td>' + total + '</td></tr></tbody></table></div></div><div class="col-lg-6"><canvas id="' + operaciones[i] + '"></canvas></div></div><br>';
 
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="border: 0px;">Rechazado</th>
-                                        <td style="border: 0px;"></td>
-                                        <td id="SacRe" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                        <td id="SacRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                        <td id="SacRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                        <td id="SacRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                        <td id="SacRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                        <td id="SacRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaSac"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Armado1</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar1T">Dato1.0 Porcentaje</td>
-                                    <td id="Ar1T1">Dato1.1 Porcentaje</td>
-                                    <td id="Ar1T2">Dato1.2 Porcentaje</td>
-                                    <td id="Ar1T3">Dato1.3 Porcentaje</td>
-                                    <td id="Ar1T4">Dato1.4 Porcentaje</td>
-                                    <td id="Ar1T5">Dato1.5 Porcentaje</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar1Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td id="Ar1Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td id="Ar1Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td id="Ar1Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td id="Ar1Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td id="Ar1Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
+                        }
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar1Re" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td id="Ar1Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td id="Ar1Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td id="Ar1Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td id="Ar1Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td id="Ar1Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaAr1"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Armado2</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar2T">Dato1.0 Porcentaje</td>
-                                    <td id="Ar2T1">Dato1.1 Porcentaje</td>
-                                    <td id="Ar2T2">Dato1.2 Porcentaje</td>
-                                    <td id="Ar2T3">Dato1.3 Porcentaje</td>
-                                    <td id="Ar2T4">Dato1.4 Porcentaje</td>
-                                    <td id="Ar2T5">Dato1.5 Porcentaje</td>
+                        for (var i = 0; i < operaciones.length; i++) {
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar2Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td id="Ar2Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td id="Ar2Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td id="Ar2Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td id="Ar2Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td id="Ar2Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
+                            var chart = document.getElementById(operaciones[i]).getContext('2d');
+                            var chartDef = new Chart(chart, {
+                                // The type of chart we want to create
+                                type: 'bar',
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar2Re" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td id="Ar2Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td id="Ar2Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td id="Ar2Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td id="Ar2Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td id="Ar2Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaAr2"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Armado3</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar3T">Dato1.0 Porcentaje</td>
-                                    <td id="Ar3T1">Dato1.1 Porcentaje</td>
-                                    <td id="Ar3T2">Dato1.2 Porcentaje</td>
-                                    <td id="Ar3T3">Dato1.3 Porcentaje</td>
-                                    <td id="Ar3T4">Dato1.4 Porcentaje</td>
-                                    <td id="Ar3T5">Dato1.5 Porcentaje</td>
+                                // The data for our dataset
+                                data: {
+                                    labels: defectos[operaciones[i]][0].defectos,
+                                    datasets: [{
+                                        label: 'Defectos',
+                                        backgroundColor: 'rgb(255, 99, 132)',
+                                        borderColor: 'rgb(255, 99, 132)',
+                                        data: defectos[operaciones[i]][0].cantidad,
+                                    }]
+                                },
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar3Ap" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td id="Ar3Ap1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td id="Ar3Ap2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td id="Ar3Ap3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td id="Ar3Ap4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td id="Ar3Ap5" style="border-color: black;">Dato2.5 Porcentaje</td>
+                                // Configuration options go here
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                min: 0,
+                                                precision: 0
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+                        }
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="Ar3Re" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td id="Ar3Re1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td id="Ar3Re2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td id="Ar3Re3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td id="Ar3Re4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td id="Ar3Re5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaAr3"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col mb-2 mt-4 border-light ">
-                    <div class="card rounded-0 border-0 mt-2">
-                        <h3 class="card-title pl-1" style="background-color: gray; color: white;">Defectos en Proceso - Acabados</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 my-3 pb-0">
-                    <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                                <th style="border: 0px;">
-                                    <th scope="col" style="border: 0px;"></th>
-                                    <th scope="col" class="FechaEsc" style="background: orangered;border: 1px black;">Fecha-1</th>
-                                    <th scope="col" class="FechaEsc1" style="background: orangered;border: 1px black;">Fecha-2</th>
-                                    <th scope="col" class="FechaEsc2" style="background: orangered;border: 1px black;">Fecha-3</th>
-                                    <th scope="col" class="FechaEsc3" style="background: orangered;border: 1px black;">Fecha-4</th>
-                                    <th scope="col" class="FechaEsc4" style="background: orangered;border: 1px black;">Fecha-5</th>
-                                    <th scope="col" style="background: orangered;border: 1px black;font-size: small;">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style="border: 0px;"><b>Total</b></th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="AcaT">Dato1.0 Porcentaje</td>
-                                    <td id="AcaT1">Dato1.1 Porcentaje</td>
-                                    <td id="AcaT2">Dato1.2 Porcentaje</td>
-                                    <td id="AcaT3">Dato1.3 Porcentaje</td>
-                                    <td id="AcaT4">Dato1.4 Porcentaje</td>
-                                    <td id="AcaT5">Dato1.5 Porcentaje</td>
+                    } else {
+                        alert("No existen datos en la fecha seleccionada")
+                    }
+                })
+                .catch(err => {
+                    console.log(err.message);
+                });
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">Aprobado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="AcaAp" style="border-color: black;">Dato2.0 Porcentaje</td>
-                                    <td id="AcaAp1" style="border-color: black;">Dato2.1 Porcentaje</td>
-                                    <td id="AcaAp2" style="border-color: black;">Dato2.2 Porcentaje</td>
-                                    <td id="AcaAp3" style="border-color: black;">Dato2.3 Porcentaje</td>
-                                    <td id="AcaAp4" style="border-color: black;">Dato2.4 Porcentaje</td>
-                                    <td id="AcaAp5" style="border-color: black;">Dato2.5 Porcentaje</td>
+        });
+    </script>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="border: 0px;">Rechazado</th>
-                                    <td style="border: 0px;"></td>
-                                    <td id="AcaRe" style="border: 0px;">Dato3.0 Porcentaje</td>
-                                    <td id="AcaRe1" style="border: 0px;">Dato3.1 Porcentaje</td>
-                                    <td id="AcaRe2" style="border: 0px;">Dato3.2 Porcentaje</td>
-                                    <td id="AcaRe3" style="border: 0px;">Dato3.3 Porcentaje</td>
-                                    <td id="AcaRe4" style="border: 0px;">Dato3.4 Porcentaje</td>
-                                    <td id="AcaRe5" style="border: 0px;">Dato3.5 Porcentaje</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Comentarios</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="tablaAca"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="row justify-content-center py-5">
-        <div class="col-6 align-self-end order-last" style="max-width: 475px;">
-            <a id="btnSalir" class="myButton btn-red" href="#">Salir</a>
-        </div>
-
-    </div>
-    <script src="/js/graficas.js"></script>
-    <script src="/js/validategraficas.js"></script>
-
+    <script src="/js/validate.js"></script>
 
     <%- include ("./partials/_footer") %>

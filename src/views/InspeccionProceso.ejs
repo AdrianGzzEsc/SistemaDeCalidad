@@ -1,53 +1,39 @@
 <%- include ("./partials/_header") %>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Terminar Reporte</h5>
+                    <button type="button" class="close cancelarAlerta" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                     </button>
+                </div>
+                <div class="modal-body" id="textoAlerta">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary cancelarAlerta" id="cancelarAlerta">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="enviarAlerta">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="subtitle3">Reporte de Inspección en Proceso</div>
-
     <div class="container">
-        <div id="agregar-error"></div>
-        <form>
-            <div class="card text-center">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/inspeccionProceso">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/escuadradora/">Escuadradora</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/enchapadora/">Enchapadora</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/taladro/">Taladro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/sacabocados/">Sacabocados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/armado1/">Armado1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/armado2/">Armado2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/armado3/">Armado3</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/acabados/">Acabados</a>
-                        </li>
-                    </ul>
+        <div class="card-body">
+            <input id="fechaHora" style="display: none;" class="form-control" type="datetime-local" name="fechaHora" placeholder="Fecha" required/>
+
+            <div class="row">
+                <div class="col-md-4 mt-2">
+                    <input id="folio" class="form-control" type="text" name="folio" placeholder="Folio" required />
                 </div>
 
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <input id="folio" class="form-control" type="text" name="folio" placeholder="Folio" required />
-                        </div>
-                        <div class="col-md-4" id="inspproceso">
-                            <input id="fecha" class="form-control" type="date" name="fecha" placeholder="Fecha" required/>
-                        </div>
-                        <div class="col-md-4">
-                            <select id="hora" class="form-control" name="hora" style="height: 42px;" required>
+                <div class="col-md-4 mt-2">
+                    <input id="fecha" class="form-control" type="date" name="fecha" placeholder="Fecha" required/>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <select id="hora" class="form-control" name="hora" required>
                                 <option value="" disabled selected hidden>Hora</option>
                                 <option value="8:00 AM">8:00 AM</option>
                                 <option value="10:00 AM">10:00 AM</option>
@@ -55,25 +41,268 @@
                                 <option value="2:00 PM">2:00 PM</option>
                                 <option value="4:00 PM">4:00 PM</option>
                             </select>
+                </div>
+
+
+            </div>
+        </div>
+        <br>
+        <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
+            <% for(var i = 0; i < operacion.length; i++) { %>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-<%=operacion[i].nombre%>-tab" data-bs-toggle="pill" data-bs-target="#pills-<%=operacion[i].nombre%>" type="button" role="tab" aria-controls="pills-<%=operacion[i].nombre%>" aria-selected="active"><%=operacion[i].nombre%> </button>
+
+                </li>
+                <% } %>
+        </ul>
+        <div class="card mt-5">
+            <div class="card-body">
+
+                <div class="tab-content" id="pills-tabContent">
+                    <% for(var i = 0; i < operacion.length; i++) { %>
+                        <div class="tab-pane fade show" id="pills-<%=operacion[i].nombre%>" role="tabpanel" aria-labelledby="pills-<%=operacion[i].nombre%>-tab">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label> Modelo:</label>
+                                    <select id="modelo<%=operacion[i].nombre%>" class="form-control" name="modelo">
+                        <option value="" disabled selected hidden>Modelo</option>
+                        <% for (var x =0; x < mod.length; x++)  {     %>
+                            <option value="<%=mod[x].nombre%>"><%= mod[x].nombre %></option>
+                            <%  }  %>
+                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label> Pieza:</label>
+                                        <select id="pieza<%=operacion[i].nombre%>" class="form-control" name="pieza" placeholder="Pieza" required>
+
+                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="inspeccion<%=operacion[i].nombre%>" class="card mt-5 <%=operacion[i].nombre%>">
+                                <div class="card-body">
+                                    <div class="row align-items-start">
+                                        <div class="col ">
+                                            <label> Pieza 1:</label>
+                                            <select class="form-control" required name="ins<%=operacion[i].nombre%>">
+                                        <option value="" disabled selected hidden>Inspección</option>
+                                        <option value="Aceptado">Aceptado</option>
+                                        <option value="Rechazado">Rechazado</option>
+                                    </select>
+                                        </div>
+                                        <div class="col" name="select<%=operacion[i].nombre%>">
+                                            <label> Selecciona los Defectos:</label>
+                                            <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def<%=operacion[i].nombre%>">
+                                        <% for (var j =0; j < operacion[i].defectos.length; j++)  {     %>
+                                        <option value="<%=operacion[i].defectos[j]%>"><%=operacion[i].defectos[j]%></option>
+                                        <%  }  %>
+                                    </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2" id="botones<%=operacion[i].nombre%>">
+                                <div class="d-flex flex-col ">
+                                    <button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <% } %>
+
                 </div>
             </div>
-            <div class="row justify-content-center pb-3">
-                <div class="col p-0 px-3">
-                    <a class="myButton btn-red" href="/inicio">Salir</a>
-                </div>
-                <div class="col p-0 px-3">
-                    <button id="btnSubmit" class="myButton" type="submit">Iniciar Reporte</button>
-                </div>
+        </div>
 
-            </div>
-        </form>
 
+        <br>
+        <div class="row justify-content-center pb-3">
+            <button id="btnSubmit" class="myButton">Enviar Reporte</button>
+        </div>
     </div>
 
-</body>
-<script src="../../js/home.js"></script>
-<script src="../../js/inspeccionProceso.js"></script>
 
-</html>
+    <script>
+        var test = `<%- JSON.stringify(operacion) %>`;
+        var obj = JSON.parse(test);
+        var cantOp = obj.length
+        var myField = document.getElementById("fechaHora");
+        var now = new Date();
+        var coeff = 1000 * 60;
+        var rounded = new Date(Math.round(now.getTime() / coeff) * coeff)
+        myField.valueAsNumber = rounded.getTime() - rounded.getTimezoneOffset() * 60000;
+
+        $(document).ready(function() {
+            $("select[name = 'modelo']").selectize({
+                sortField: 'text'
+            });
+        });
+
+        $(document).on('change', 'select[name = "modelo"]', function() {
+
+            var tab = $("ul#pills-tab button.active")[0].innerText
+            var modelo = document.getElementById("modelo" + tab).value
+            var jsonModelo = `<%- JSON.stringify(mod) %>`;
+            var piezas = JSON.parse(jsonModelo);
+            var index
+            for (var i = 0; i < piezas.length; i++) {
+                if (piezas[i].nombre == modelo) {
+                    index = i;
+                    break;
+                }
+            }
+
+            var $el = $("#pieza" + tab);
+            $el.empty();
+            $el.append($('<option value="" disabled selected hidden>Seleccionar</option>'))
+            for (var i = 0; i < piezas[index].piezas.length; i++) {
+                $el.append($("<option></option>")
+                    .attr("value", piezas[index].piezas[i]).text(piezas[index].piezas[i]));
+            }
+
+
+        });
+
+
+
+        $(document).on('click', '.mas', function() {
+            var tab = $("ul#pills-tab button.active")[0].innerText
+            console.log(tab)
+
+            check = $('.' + tab).length + 1
+            element = document.getElementById("botones" + tab)
+            var options = ""
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].nombre == tab) {
+                    for (var x = 0; x < obj[i].defectos.length; x++) {
+                        options = options + '<option value = "' + obj[i].defectos[x] + '">' + obj[i].defectos[x] + '</option>'
+                    }
+                    break
+                }
+            }
+            var html = '<div class="card mt-3 ' + tab + '"><div class="card-body"><div class="row align-items-start"><div class="col "><label> Pieza ' + check + ':</label><select class="form-control" name = "ins' + tab + '"required><option value="" disabled selected hidden>Inspección</option><option value="Aceptado">Aceptado</option><option value="Rechazado">Rechazado</option></select></div> <div class="col"><label> Selecciona los Defectos:</label><select class="selectpicker" multiple data-live-search="true" class="form-control" name="def' + tab + '">' + options + '</select></div></div></div></div><div class="d-flex justify-content-between mt-2" id="botones' + tab + '"><div class="d-flex flex-col"><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos' + tab + '" class="btn btn-danger btn-circle btn-sm"><i class="bi bi-x-lg"></i></button></div></div> </div>';
+            $(this).parent().parent().parent().append(html);
+            $('.selectpicker').selectpicker();
+            element.remove();
+        });
+        $(document).on('click', '.btn-danger', function() {
+            var tab = $("ul#pills-tab button.active")[0].innerText
+            element = document.getElementById("botones" + tab)
+            element2 = document.getElementById("menos" + tab)
+            quitar = document.getElementsByClassName(tab)
+            quitar[quitar.length - 1].remove();
+            check = $('.' + tab).length
+            if (check == 1)
+                element2.remove();
+        });
+
+        $(".cancelarAlerta").click(function() {
+            document.getElementById("textoAlerta").innerHTML = "";
+            $('#exampleModalCenter').modal('hide');
+        });
+
+        var operacion = []
+        $("#enviarAlerta").click(function() {
+            var reporte = []
+            var modelos = document.getElementsByName("modelo")
+
+            for (var i = 0; i < operacion.length; i++) {
+                var modelo = document.getElementById("modelo" + operacion[i]).value
+                var pieza = document.getElementById("pieza" + operacion[i]).value
+                var inspeccion = []
+                var defecto = []
+                for (var x = 0; x < $('.' + operacion[i]).length; x++) {
+                    console.log($('.' + operacion[i]).length)
+                    inspeccion.push(document.getElementsByName("ins" + operacion[i])[x].value)
+                    var def = [...document.getElementsByName("def" + operacion[i])[x].options]
+                        .filter(option => option.selected)
+                        .map(option => option.value);
+                    defecto.push(def)
+                }
+                var defectos = []
+                for (var y = 0; y < defecto.length; y++) {
+                    defectos = defectos.concat(defecto[y]);
+                }
+                var obj = {};
+                obj.operacion = operacion[i]
+                obj.modelo = modelo;
+                obj.pieza = pieza;
+                obj.inspeccion = inspeccion
+                obj.defectos = defectos
+                obj.fecha = document.getElementById("fecha").value
+                reporte.push(obj);
+            }
+            console.log(reporte)
+
+            let url = '/addInspeccionProceso/';
+            let data = {
+                nombre: "<%=usu[0].fName%> <%=usu[0].lName%>",
+                fecha: document.getElementById("fecha").value,
+                fechaHora: document.getElementById("fechaHora").value,
+                planta: "<%=usu[0].planta%>",
+                hora: document.getElementById("hora").value,
+                folio: document.getElementById("folio").value,
+                reporte: reporte
+            }
+            let settings = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            fetch(url, settings)
+                .then(response => {
+                    if (response.ok) {
+
+                        return response.text();
+                    }
+                    throw new Error(response.statusText);
+                })
+                .then(responseJSON => {
+                    var mensaje = "Se ha enviado el vale con éxito.";
+                    alert('Se ha enviado el reporte con éxito');
+                    location.href = "/inspeccionProceso/<%=usu[0]._id %>";
+                })
+                .catch(err => {
+                    alert(err.message)
+                })
+
+
+        });
+
+        $(document).on('click', '#btnSubmit', function() {
+            var append = document.getElementById("textoAlerta")
+            var modelos = document.getElementsByName("modelo")
+            operacion = []
+            for (var i = 0; i < cantOp; i++) {
+                if (modelos[i].value != "") {
+                    operacion.push(modelos[i].id.replace("modelo", ""))
+                }
+            }
+
+            if (operacion.length == 0) {
+                alert("No se ha inspeccionado ninguna pieza")
+            } else {
+                var html = "<p>Se enviara reporte de las siguientes operaciones:</p><ul>";
+                for (var i = 0; i < operacion.length; i++) {
+                    html += '<li><strong>' + operacion[i] + '</strong></li>';
+                    //   html += '<p> No se completo la cantidad requerida del producto: ' + arr[i].nombre + '<p>';
+
+                }
+                append.innerHTML += html + "</ul>";
+
+                $('#exampleModalCenter').modal('show');
+            }
+        });
+
+        function Reporte() {
+
+        }
+    </script>
+
+    </body>
+
+    </html>

@@ -10,18 +10,8 @@ const productos = require('../model/productos');
 const defectos = require('../model/defectos');
 const modelos = require('../model/modelos');
 const piezas = require('../model/piezas');
-const defectoOperaciones = require('../model/defectoOperaciones');
 const { inspeccion_de_rec } = require('../model/inspeccion_de_rec');
-const piezaModelos = require('../model/piezaModelos');
 const { altaPNC, altaPNC_collection } = require('../model/AltaPnc');
-const { escuadradora, escuadradora_collection } = require('../model/escuadradora');
-const { enchapadora, enchapadora_collection } = require('../model/enchapadora');
-const { taladro, taladro_collection } = require('../model/taladro');
-const { sacabocados, sacabocados_collection } = require('../model/sacabocados');
-const { armado1, armado1_collection } = require('../model/armado1');
-const { armado2, armado2_collection } = require('../model/armado2');
-const { armado3, armado3_collection } = require('../model/armado3');
-const { acabados, acabados_collection } = require('../model/acabados');
 const inspeccion = require('../model/inspeccion_final');
 const bajaPNC = require('../model/BajaPnc');
 const def_proceso = require('../model/defecto_proceso');
@@ -38,23 +28,138 @@ router.get('/', (req, res) => {
     res.render('SignIn');
 });
 
-router.get('/inicio/', (req, res) => {
-    res.render('Inicio');
+router.get('/inicio/:id', async(req, res) => {
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('Inicio', { usu });
 });
 
-router.get('/graficas/', async(req, res) => {
-    const escu = await escuadradora.find();
-    const escAp = await escuadradora.find({ "ins1": "Aceptado" }).count();
-    const escAp2 = await escuadradora.find({ "ins2": "Aceptado" }).count();
-    const escAp3 = await escuadradora.find({ "ins3": "Aceptado" }).count();
-    const escRe = await escuadradora.find({ "ins1": "Rechazado" }).count();
-    const escRe2 = await escuadradora.find({ "ins2": "Rechazado" }).count();
-    const escRe3 = await escuadradora.find({ "ins3": "Rechazado" }).count();
-    res.render('Graficas', { escu, escAp, escAp2, escAp3, escRe, escRe2, escRe3 });
+router.get('/reporteOperaciones/:fechaInicio/:fechaFin/:planta/', async(req, res) => {;
+    let fechaInicio = req.params.fechaInicio;
+    let fechaFin = req.params.fechaFin;
+    let planta = req.params.planta
+    var monthArray = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+    var reportes = await inspeccionProceso.find({
+        "fecha": {
+            $gte: fechaInicio,
+            $lte: fechaFin
+        },
+        planta: planta,
+    }).sort({ "fecha": 1 });
+
+
+    function groupBy(objectArray, property) {
+        return objectArray.reduce(function(acc, obj) {
+            let key = obj[property]
+            if (!acc[key]) {
+                acc[key] = []
+            }
+            acc[key].push(obj)
+            return acc
+        }, {})
+    }
+
+    var arr = []
+    for (var i = 0; i < reportes.length; i++) {
+        arr = arr.concat(reportes[i].reporte)
+    }
+    const output = arr.reduce((accumulator, cur) => {
+        let fecha = cur.fecha;
+        let operacion = cur.operacion
+        let found = accumulator.find(elem => elem.fecha == fecha && elem.operacion == operacion)
+        if (found) {
+            found.inspeccion = found.inspeccion.concat(cur.inspeccion);
+        } else accumulator.push(cur);
+        return accumulator;
+    }, []);
+
+    const output2 = arr.reduce((accumulator, cur) => {
+        let operacion = cur.operacion
+        let found = accumulator.find(elem => elem.operacion == operacion)
+        if (found) {
+            found.defectos = found.defectos.concat(cur.defectos);
+        } else accumulator.push(cur);
+        return accumulator;
+    }, []);
+
+    reportes = []
+    for (var i = 0; i < output.length; i++) {
+        var inspeccion = {}
+        var resultado = {}
+        resultado.operacion = output[i].operacion
+        var mes = output[i].fecha.substring(5, 7)
+        var dia = output[i].fecha.substring(8, 10)
+
+        resultado.fecha = monthArray[mes - 1] + " " + dia
+        output[i].inspeccion.forEach(function(x) { inspeccion[x] = (inspeccion[x] || 0) + 1; });
+        if (inspeccion.Rechazado == null)
+            inspeccion.Rechazado = 0
+        if (inspeccion.Aceptado == null)
+            inspeccion.Aceptado = 0
+        resultado.inspeccion = inspeccion
+        reportes.push(resultado)
+    }
+
+    reporteDef = []
+    for (var i = 0; i < output2.length; i++) {
+        var defectos = {}
+        var resultado = {}
+        output2[i].defectos.forEach(function(x) { defectos[x] = (defectos[x] || 0) + 1; });
+        resultado.defectos = defectos
+        resultado.operacion = output2[i].operacion
+        reporteDef.push(resultado)
+    }
+
+    var defectos = []
+    for (var i = 0; i < reporteDef.length; i++) {
+        var def = Object.getOwnPropertyNames(reporteDef[i].defectos);
+        var cantidad = []
+        var resultado = {}
+        for (var x = 0; x < def.length; x++) {
+            cantidad.push(reporteDef[i].defectos[def[x]])
+        }
+        resultado.operacion = reporteDef[i].operacion
+        resultado.defectos = def
+        resultado.cantidad = cantidad
+        defectos.push(resultado)
+    }
+    //Agrupamos objetos por operacion
+    let groupedPeople = groupBy(reportes, 'operacion')
+    let groupedDef = groupBy(defectos, 'operacion')
+
+    var operaciones = Object.getOwnPropertyNames(groupedPeople);
+    reportes = groupedPeople
+    var response = { reportes, operaciones, groupedDef };
+    return res.status(200).json(response);
 });
 
-router.get('/super/', (req, res) => {
-    res.render('Super');
+router.post('/editarModelo/:id', async(req, res) => {
+    var id = req.params.id
+    const usu = await userModel.find({ _id: id });
+    let { nombre, piezas, planta } = req.body
+    await modelos.updateOne({ nombre: nombre, planta: usu[0].planta }, { $set: { piezas: piezas } });
+    return res.status(200).json("Exito");
+});
+
+router.post('/editarOperacion/:id', async(req, res) => {
+    var id = req.params.id
+    const usu = await userModel.find({ _id: id });
+    let { nombre, defectos, planta } = req.body
+    await operaciones.updateOne({ nombre: nombre, planta: usu[0].planta }, { $set: { defectos: defectos } });
+    return res.status(200).json("Exito");
+});
+
+router.get('/graficas/:id', async(req, res) => {
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('Graficas', { usu });
+});
+
+router.get('/super/:id', async(req, res) => {
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('Super', { usu });
 });
 
 router.get('/prueba/', (req, res) => {
@@ -71,241 +176,99 @@ router.get('/recepcion/', async(req, res) => {;
     res.render('Recepcion', { prov, mat });
 });
 
-router.get('/GraficasByDate/:Fecha/:Fecha5/', async(req, res) => {;
-    let fecha = req.params.Fecha;
-    let fecha5 = req.params.Fecha5;
-
-    const escuad = await escuadradora.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const enchap = await enchapadora.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const talad = await taladro.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const sacab = await sacabocados.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const arm1 = await armado1.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const arm2 = await armado2.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const arm3 = await armado3.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const acab = await acabados.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    const inspF = await inspeccion.find({
-        "fecha": {
-            $gte: fecha,
-            $lte: fecha5
-        }
-    }).sort({ "fecha": 1 });
-
-    var response = { escuad, enchap, talad, sacab, arm1, arm2, arm3, acab, inspF };
-    return res.status(200).json(response);
-
-});
-
 
 router.get('/index/', async(req, res) => {
     const tasks = await Task.find();
     res.render('index', { tasks });
 });
 
-router.get('/agregarProveedor/', async(req, res) => {;
+router.get('/agregarProveedor/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
     const tasks = await provedor.find();
-    res.render('AgregarProveedors', { tasks });
+    res.render('AgregarProveedors', { tasks, usu });
 });
 
-router.get('/agregarUsuario/', async(req, res) => {;
+router.get('/agregarUsuario/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
     const tasks = await userModel.find();
-    res.render('AgregarUsuario', { tasks });
+    res.render('AgregarUsuario', { tasks, usu });
 });
 
 
-router.get('/agregarDefecto/', async(req, res) => {;
+router.get('/agregarDefecto/:id', async(req, res) => {;
     const tasks = await defectos.find();
-    res.render('AgregarDefecto', { tasks });
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('AgregarDefecto', { tasks, usu });
 });
 
-router.get('/agregarProducto/', async(req, res) => {;
+router.get('/agregarProducto/:id', async(req, res) => {;
     const tasks = await productos.find();
-    res.render('AgregarProducto', { tasks });
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('AgregarProducto', { tasks, usu });
 });
 
-router.get('/agregarDepartamento/', async(req, res) => {;
+router.get('/agregarDepartamento/:id', async(req, res) => {;
     const tasks = await departamentos.find();
-    res.render('AgregarDepartamento', { tasks });
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    res.render('AgregarDepartamento', { tasks, usu });
 });
 
-router.get('/agregarMaterial/', async(req, res) => {;
+router.get('/agregarMaterial/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
     const tasks = await materiales.find();
-    res.render('AgregarMaterial', { tasks });
+    res.render('AgregarMaterial', { tasks, usu });
 });
 
-router.get('/agregarModelo/', async(req, res) => {;
+router.get('/agregarModelo/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
     const tasks = await modelos.find();
-    res.render('AgregarModelo', { tasks });
+    const uni = await piezas.find()
+    res.render('AgregarModelo', { tasks, usu, uni });
 });
 
-router.get('/agregarPieza/', async(req, res) => {;
+router.get('/agregarOperacion/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    const tasks = await operaciones.find();
+    const uni = await defectos.find()
+    res.render('AgregarOperacion', { tasks, usu, uni });
+});
+
+router.get('/agregarPieza/:id', async(req, res) => {;
+    var idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
     const tasks = await piezas.find();
-    res.render('AgregarPieza', { tasks });
+    res.render('AgregarPieza', { tasks, usu });
 });
 
-router.get('/agregarDefectoOperacion/', async(req, res) => {;
-    const tasks = await defectoOperaciones.find();
-    const mod = await operaciones.find();
-    const def = await defectos.find();
-    res.render('AgregarDefectoOperacion', { tasks, mod, def });
-});
-
-router.get('/agregarPiezaModelo/', async(req, res) => {;
-    const tasks = await piezaModelos.find();
-    const mod = await modelos.find();
-    const def = await piezas.find();
-    res.render('AgregarPiezaModelo', { tasks, mod, def });
-});
-
-
-router.get('/defectosProceso/', async(req, res) => {
-    const dep = await departamentos.find();
-    const ope = await operaciones.find();
-    const prod = await productos.find();
-    const def = await defectos.find();
-    res.render('DefectosEnProceso', { dep, ope, prod, def });
-});
 
 router.get('/inspeccionFinal/', async(req, res) => {
     const prod = await productos.find();
     res.render('InspeccionFinal', { prod });
 });
 
-router.get('/inspeccionProceso/', async(req, res) => {
-    const ins = await inspeccionProceso.find();
-    res.render('InspeccionProceso', { ins });
+router.get('/inspeccionProceso/:id', async(req, res) => {
+    idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    const operacion = await operaciones.find({ planta: usu[0].planta });
+    const mod = await modelos.find({ planta: usu[0].planta });
+
+    res.render('InspeccionProceso', { usu, operacion, mod });
 });
 
-router.get('/escuadradora/', async(req, res) => {
-    const ins = await escuadradora.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Escuadradora" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-
-    res.render('Escuadradora', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/enchapadora/', async(req, res) => {
-    const ins = await enchapadora.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Enchapadora" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-
-    res.render('Enchapadora', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/taladro/', async(req, res) => {
-    const ins = await taladro.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Taladro" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-
-    res.render('Taladro', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/sacabocados/', async(req, res) => {
-    const ins = await sacabocados.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Sacabocados" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-
-    res.render('Sacabocados', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/armado1/', async(req, res) => {
-    const ins = await armado1.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Armado1" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado1', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/armado2/', async(req, res) => {
-    const ins = await armado1.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Armado2" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado2', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/armado3/', async(req, res) => {
-    const ins = await armado1.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Armado3" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Armado3', { ins, defOp, mod, pieza, pM });
-});
-
-router.get('/acabados/', async(req, res) => {
-    const ins = await armado1.find();
-    const defOp = await defectoOperaciones.find({ operacion: "Acabados" });
-    const mod = await modelos.find();
-    const pieza = await piezas.find();
-    const pM = await piezaModelos.find();
-    res.render('Acabados', { ins, defOp, mod, pieza, pM });
-});
 
 router.get('/altaPNC/', async(req, res) => {
     const mod = await modelos.find();
-    const def = await defectos.find();
     const oper = await operaciones.find();
-    const defOp = await defectoOperaciones.find();
 
-    res.render('AltaPNC', { mod, def, oper, defOp });
+    res.render('AltaPNC', { mod, oper });
 });
 
 router.get('/ajustes/', (req, res) => {
@@ -319,20 +282,21 @@ router.get('/bajaPNC/', async(req, res) => {
 
 //Ruta para registrar
 router.post('/registrar', jsonParser, function(req, res) {
-    let { fName, lName, email, password, superuser } = req.body;
+    let { fName, lName, email, password, superuser, planta } = req.body;
 
     if (!fName || !lName || !email || !password) {
         res.statusMessage = "Hay uno o más campos faltantes";
         return res.status(406).end();
     }
 
-    let flag = false;
+    var flag = false;
 
     Users.getUserByEmail(email)
         .then(user => {
             if (user) {
                 flag = true;
-                throw new Error("El usuario ya existe.");
+                res.statusMessage = "El usuario ya existe";
+                return res.status(406).end();
             } else {
                 console.log("Usuario nuevo.");
             }
@@ -350,7 +314,8 @@ router.post('/registrar', jsonParser, function(req, res) {
                     lName,
                     password: hashedPassword,
                     email,
-                    superuser
+                    superuser,
+                    planta
                 };
 
                 Users
@@ -392,7 +357,8 @@ router.post('/SignIn', jsonParser, function(req, res) {
                             let userData = {
                                 fName: user.fName,
                                 lName: user.lName,
-                                superuser: user.superuser
+                                superuser: user.superuser,
+                                id: user._id
                             };
 
                             jsonwebtoken.sign(userData, SECRET_TOKEN, { expiresIn: '120m' }, (err, token) => {
@@ -508,56 +474,58 @@ router.delete('/user/delete-user/:id', (req, res) => {
 router.post('/add', async(req, res) => {
     const task = new provedor(req.body);
     await task.save();
-    res.redirect('/agregarProveedor/');
+    res.redirect('back');
 });
 
 router.post('/addDefecto', async(req, res) => {
     const defecto = new defectos(req.body);
     await defecto.save();
-    res.redirect('/agregarDefecto/');
+    res.redirect('back');
 });
 
 router.post('/addMaterial', async(req, res) => {
     const material = new materiales(req.body);
     await material.save();
-    res.redirect('/agregarMaterial/');
+    res.redirect('back');
 });
 
 router.post('/addUsuario', async(req, res) => {
     const usuario = new usuarios(req.body);
     await usuario.save();
-    res.redirect('/agregarUsuario/');
+    res.redirect('back');
 });
 
-router.post('/addModelo', async(req, res) => {
+router.post('/addModelo/:id', async(req, res) => {
     const modelo = new modelos(req.body);
     await modelo.save();
-    res.redirect('/agregarModelo/');
+    res.redirect('back');
+});
+
+router.post('/addOperacion/:id', async(req, res) => {
+    const operacion = new operaciones(req.body);
+    await operacion.save();
+    res.redirect('back');
 });
 
 router.post('/addPieza', async(req, res) => {
     const pieza = new piezas(req.body);
     await pieza.save();
-    res.redirect('/agregarPieza/');
+    res.redirect('back');
 });
 
 router.post('/addProducto', async(req, res) => {
     const producto = new productos(req.body);
     await producto.save();
-    res.redirect('/agregarProducto/');
+    res.redirect('back');
 });
 
 router.post('/addDepartamento', async(req, res) => {
     const departamento = new departamentos(req.body);
     await departamento.save();
-    res.redirect('/agregarDepartamento/');
+    res.redirect('back');
 });
 
-router.post('/addDefectoOperacion', async(req, res) => {
-    const defectoOp = new defectoOperaciones(req.body);
-    await defectoOp.save();
-    res.redirect('/agregarDefectoOperacion/');
-});
+
 
 router.post('/addRecepcion/', jsonParser, function(req, res) {
     /*const recepcion = new inspeccion_de_rec(req.body);
@@ -669,29 +637,55 @@ router.post('/addAltaPnc/', async(req, res) => {
         })
 });
 
-router.post('/addInspeccionProceso/', async(req, res) => {
-    let { folio, fecha, inspector, hora } = req.body;
+function checkArray(my_arr) {
+    for (var i = 0; i < my_arr.length; i++) {
+        if (my_arr[i] === "")
+            return false;
+    }
+    return true;
+}
 
-    if( !folio || !fecha || !inspector || !hora ) {
+function checkArrayObj(my_arr) {
+    for (var i = 0; i < my_arr.length; i++) {
+        if (my_arr[i].pieza === "")
+            return false;
+        else {
+            for (var j = 0; j < my_arr[i].inspeccion.length; j++) {
+                if (my_arr[i].inspeccion[j] === "")
+                    return false;
+            }
+        }
+        return true;
+    }
+}
+
+router.post('/addInspeccionProceso/', async(req, res) => {
+    let { nombre, fecha, fechaHora, planta, hora, folio, reporte } = req.body;
+
+
+    if (!folio || !fecha || !checkArrayObj(reporte) || !hora) {
         res.statusMessage = "Falta de llenar uno o más campos.";
         return res.status(406).end();
     }
 
     let newInsp = {
-        folio,
+        nombre,
         fecha,
-        inspector,
-        hora
+        fechaHora,
+        planta,
+        hora,
+        folio,
+        reporte
     }
 
     inspeccionProc_collection
-        .createInspeccion( newInsp )
-        .then( result => {
-            if( result.errmsg )
+        .createInspeccion(newInsp)
+        .then(result => {
+            if (result.errmsg)
                 return res.status(400).end();
             return res.status(201).json(result);
         })
-        .catch( err => {
+        .catch(err => {
             res.statusMessage = "Something went wrong with the Database.";
             return res.status(500).end();
         })
@@ -711,283 +705,6 @@ router.post('/addFinal', async(req, res) => {
     res.redirect('/inicio/');
 });
 
-router.post('/addEscuadradora/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        ins2,
-        ins3,
-        def1,
-        def2,
-        def3
-    }
-
-    escuadradora_collection
-        .createEscuadradora( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addTaladro/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        ins2,
-        ins3,
-        def1,
-        def2,
-        def3
-    }
-
-    taladro_collection
-        .createTaladro( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addSacabocados/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        ins2,
-        ins3,
-        def1,
-        def2,
-        def3
-    }
-
-    sacabocados_collection
-        .createSacabocados( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addEnchapadora/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, ins2, ins3, def1, def2, def3 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !ins2 || !ins3 || !def1 || !def2 || !def3 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        ins2,
-        ins3,
-        def1,
-        def2,
-        def3
-    }
-
-    enchapadora_collection
-        .createEnchapadora( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addArmado1/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        def1,
-    }
-
-    armado1_collection
-        .createArmado1( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addArmado2/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        def1,
-    }
-
-    armado2_collection
-        .createArmado2( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addArmado3/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        def1,
-    }
-
-    armado3_collection
-        .createArmado3( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addAcabados/', async(req, res) => {
-    let { folio, fecha, inspector, hora, modelo, pieza, ins1, def1 } = req.body;
-
-    if( !folio || !fecha || !inspector || !hora || !modelo || !pieza || !ins1 || !def1 ) {
-        res.statusMessage = "Falta de llenar uno o más campos.";
-        return res.status(406).end();
-    }
-
-    let newInsp = {
-        folio,
-        fecha,
-        inspector,
-        hora,
-        modelo,
-        pieza,
-        ins1,
-        def1,
-    }
-
-    acabados_collection
-        .createAcabados( newInsp )
-        .then( result => {
-            if( result.errmsg )
-                return res.status(400).end();
-            return res.status(201).json(result);
-        })
-        .catch( err => {
-            res.statusMessage = "Something went wrong with the Database.";
-            return res.status(500).end();
-        })
-});
-
-router.post('/addPiezaModelo', async(req, res) => {
-    const defecto = new piezaModelos(req.body);
-    await defecto.save();
-    res.redirect('/agregarPiezaModelo/');
-});
 
 router.post('/insFinal/', async(req, res) => {
     const ins = new inspeccion(req.body);
@@ -1003,27 +720,6 @@ router.post('/defProceso/', async(req, res) => {
 
 });
 
-// Ruta para editar los datos
-router.get('/edit/:id', async(req, res) => {
-    const task = await Task.findById(req.params.id);
-    res.render('Ajustes', { task });
-});
-
-// Ruta para actualizar los datos
-router.post('/edit/:id', async(req, res) => {
-    var id = req.params.id;
-    await Task.update({ _id: id }, req.body);
-    res.redirect('/');
-});
-
-// Esta ruta permita modificar el estatus de una tarea por medio de su propiedad status.
-router.get('/turn/:id', async(req, res, next) => {
-    let { id } = req.params;
-    const task = await Task.findById(id);
-    task.status = !task.status;
-    await task.save();
-    res.redirect('/');
-});
 
 // Ruta que nos permita eliminar tareas
 
@@ -1033,64 +729,60 @@ router.get('/delete/:id', async(req, res) => {
     res.redirect('/agregarProveedor/');
 });
 
+
 router.get('/deleteUsuario/:id', async(req, res) => {
     var id = req.params.id;
     await userModel.remove({ _id: id });
-    res.redirect('/agregarUsuario/');
+    res.redirect('back');
 });
 
 router.get('/deleteDefecto/:id', async(req, res) => {
     var id = req.params.id;
     await defectos.remove({ _id: id });
-    res.redirect('/agregarDefecto/');
+    res.redirect('back');
 });
 
 router.get('/deleteMaterial/:id', async(req, res) => {
     var id = req.params.id;
     await materiales.remove({ _id: id });
-    res.redirect('/agregarMaterial/');
+    res.redirect('back');
 });
 
 router.get('/deleteModelo/:id', async(req, res) => {
     var id = req.params.id;
     await modelos.remove({ _id: id });
-    res.redirect('/agregarModelo/');
+    res.redirect('back');
+});
+
+router.get('/deleteOperacion/:id', async(req, res) => {
+    var id = req.params.id;
+    await operaciones.remove({ _id: id });
+    res.redirect('back');
 });
 
 router.get('/deletePieza/:id', async(req, res) => {
     var id = req.params.id;
     await piezas.remove({ _id: id });
-    res.redirect('/agregarPieza/');
+    res.redirect('back');
 });
 
-router.get('/deleteDefectoOperacion/:id', async(req, res) => {
-    var id = req.params.id;
-    await defectoOperaciones.remove({ _id: id });
-    res.redirect('/agregarDefectoOperacion/');
-});
-
-router.get('/deletePiezaModelo/:id', async(req, res) => {
-    var id = req.params.id;
-    await piezaModelos.remove({ _id: id });
-    res.redirect('/agregarPiezaModelo/');
-});
 
 router.get('/deleteProducto/:id', async(req, res) => {
     var id = req.params.id;
     await productos.remove({ _id: id });
-    res.redirect('/agregarProducto/');
+    res.redirect('back');
 });
 
 router.get('/deleteDepartamento/:id', async(req, res) => {
     var id = req.params.id;
     await departamentos.remove({ _id: id });
-    res.redirect('/agregarDepartamento/');
+    res.redirect('back');
 });
 
 router.get('/deleteAltaPnc/:id', async(req, res) => {
     var id = req.params.id;
     await altaPNC.remove({ folio: id });
-    res.redirect('/addBajaPnc');
+    res.redirect('back');
 });
 
 router.get('/enviarvariable/:id', async(req, res) => {
@@ -1098,21 +790,9 @@ router.get('/enviarvariable/:id', async(req, res) => {
     const mod = await modelos.find();
     const def = await defectos.find();
     const oper = await operaciones.find();
-    const acabados = await defectoOperaciones.find({ operacion: id });
-    res.render('AltaPNC copy', { acabados, mod, def, oper });
+    res.render('AltaPNC copy', { mod, def, oper });
 });
 
-/*
-router.get('/enviarvariable', async(req, res) => {
-    var id2 = req.header.
-    var id = req.params.id;
-    const mod = await modelos.find();
-    const def = await defectos.find();
-    const oper = await operaciones.find();
-    const acabados = await defectoOperaciones.find({ operacion: id });
-    res.render('AltaPNC copy', { acabados, mod, def, oper });
-})
-*/
 
 router.get('/enviarFolio/:id', async(req, res) => {
     var id = req.params.id;

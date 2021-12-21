@@ -3,21 +3,23 @@ const Schema = mongoose.Schema;
 
 const modelosSchema = Schema({
 
-    nombre: String
+    nombre: String,
+    piezas: [String],
+    planta: String
 
 });
 
-const modelosModel = mongoose.model( 'modelos', modelosSchema );
+const modelosModel = mongoose.model('modelos', modelosSchema);
 
 const Modelo = {
-    getModelo : function() {
+    getModelo: function() {
         return modelosModel
             .find()
-            .then( modelos => {
+            .then(modelos => {
                 return modelos;
             })
-            .catch( err => {
-                throw new Error( err.message );
+            .catch(err => {
+                throw new Error(err.message);
             })
     }
 }

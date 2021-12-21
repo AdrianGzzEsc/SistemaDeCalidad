@@ -6,18 +6,18 @@
             <!-- FORMULARIO-->
             <div class="col-md-5">
                 <div class="card">
-                    <p class="subtitle mb-0">Agregar Modelo</p>
+                    <p class="subtitle mb-0">Agregar Operación</p>
                     <div class="card-body">
-                        <form action="/addModelo/<%=usu[0]._id%>" method="post">
+                        <form action="/addOperacion/<%=usu[0]._id%>" method="post">
                             <input class="form-control" style="display: none;" type="text" name="planta" value="<%=usu[0].planta%>" required />
 
                             <div class="form-group">
-                                <label for="nombremodelo">Modelo:</label>
-                                <input id="nombremodelo" class="form-control" type="text" name="nombre" placeholder="Nombre de Modelo" required />
+                                <label for="nombremodelo">Operación:</label>
+                                <input id="nombremodelo" class="form-control" type="text" name="nombre" placeholder="Nombre de Operación" required />
                             </div>
                             <div class="form-group">
-                                <label for="unidad">Piezas:</label>
-                                <select class="form-control uni mb-3" name="piezas" style="height: 33px;" required>
+                                <label for="unidad">Defectos:</label>
+                                <select class="form-control uni mb-3" name="defectos" style="height: 33px;" required>
                                 <option value="" disabled selected hidden>--</option>
                                  <% for (var i =0; i < uni.length; i++)  {     %>
                                  <option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option>
@@ -39,10 +39,10 @@
                 </div>
                 <br>
                 <div class="card">
-                    <p class="subtitle mb-0">Editar Modelo</p>
+                    <p class="subtitle mb-0">Editar Operación</p>
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Modelo:</label>
+                            <label>Operación:</label>
                             <select id="select-state" class="desc form-control" name="descripcion">
                                     <option value="" disabled selected hidden>Seleccionar</option>
                                     <% for (var i =0; i < tasks.length; i++)  {     %>
@@ -72,7 +72,7 @@
                         <tr>
                             <th>#</th>
                             <th>Modelo</th>
-                            <th>Piezas</th>
+                            <th>Defectos</th>
                             <th>Opción</th>
                         </tr>
                     </thead>
@@ -84,9 +84,9 @@
                                         <%= cont+1 %>
                                     </td>
                                     <td class="align-middle"> <strong> <%= tasks[i].nombre %> </strong> </td>
-                                    <td class="align-middle"> <strong><%= tasks[i].piezas %></strong> </td>
+                                    <td class="align-middle"> <strong><%= tasks[i].defectos %></strong> </td>
                                     <td class="align-middle">
-                                        <a href=/deleteModelo/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
+                                        <a href=/deleteOperacion/<%=tasks[i]._id %> class="btn btn-danger" href="turn">Eliminar </a>
                                     </td>
                                 </tr>
                                 <%  cont++;}  %>
@@ -110,7 +110,7 @@
         $(document).on('click', '.mas', function() {
             element = document.getElementById("botones")
             check++;
-            var html = '<div class = "quitar mt-2"><div class="form-group"><select class="form-control uni" name="piezas" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botones"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos" class="btn btn-danger btn-circle btn-sm menos"><i class="bi bi-x-lg"></i></button></div></div>';
+            var html = '<div class = "quitar mt-2"><div class="form-group"><select class="form-control uni" name="defectos" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botones"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos" class="btn btn-danger btn-circle btn-sm menos"><i class="bi bi-x-lg"></i></button></div></div>';
             $(this).parent().parent().parent().append(html);
             element.remove();
             $('select').selectize({
@@ -128,9 +128,8 @@
             element = document.getElementById("botoness")
             check2++;
             element.remove();
-            var html = '<div class = "quit mt-2"><div class="form-group"><select class="form-control holi" name="editPieza" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menoss" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div>';
+            var html = '<div class = "quit mt-2"><div class="form-group"><select class="form-control uni" name="editPieza" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div>';
             document.getElementById('eliminar').innerHTML += html
-
         });
 
         $(document).on('click', '.menos', function() {
@@ -148,7 +147,6 @@
             element2 = document.getElementById("menoss")
             quitar = document.getElementsByClassName("quit")
             check2--;
-            console.log(check2)
             if (check2 == 0)
                 element2.remove();
             quitar[quitar.length - 1].remove();
@@ -175,16 +173,16 @@
             }
             var unidad = document.getElementById("unidades")
             check2 = -1
-            console.log(obj[0].piezas.length)
+            console.log(obj[0].defectos.length)
                 // unidad[index2].value = obj[index].unidadCosteo
-            var html = '<div id= "eliminar"><div class="form-group"><label for="unidad">Piezas:</label><br>'
-            for (var i = 0; i < obj[index].piezas.length; i++) {
-                html = html + '<div class = "quit"><div class="form-group"><select class="form-control holi" name="editPieza" style="height: 33px;" required><option value="' + obj[index].piezas[i] + '" selected hidden>' + obj[index].piezas[i] + '</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div>';
+            var html = '<div id= "eliminar"><div class="form-group"><label for="unidad">Defectos:</label><br>'
+            for (var i = 0; i < obj[index].defectos.length; i++) {
+                html = html + '<div class = "quit"><div class="form-group"><select class="form-control uni" name="editPieza" style="height: 33px;" required><option value="' + obj[index].defectos[i] + '" selected hidden>' + obj[index].defectos[i] + '</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div>';
                 check2++
             }
             unidad.innerHTML += html
 
-            if (Object.keys(obj[index].piezas).length < 2)
+            if (Object.keys(obj[index].defectos).length < 2)
                 unidad.innerHTML += '<div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button> </div></div></div>'
             else
                 unidad.innerHTML += '<div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menoss" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div></div>';
@@ -203,7 +201,7 @@
         }
 
         function editProducto() {
-            var url = '/editarModelo/<%=usu[0]._id%>/';
+            var url = '/editarOperacion/<%=usu[0]._id%>/';
 
             var producto = document.getElementById("select-state").value
             var piezas = document.getElementsByName("editPieza")
@@ -214,7 +212,7 @@
             console.log(arrPiezas)
             let data = {
                 nombre: producto,
-                piezas: arrPiezas,
+                defectos: arrPiezas,
                 planta: '<%=usu[0].planta%>'
             }
             let settings = {

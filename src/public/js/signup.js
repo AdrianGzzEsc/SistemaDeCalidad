@@ -1,4 +1,4 @@
-function userSignupFetch(email, fName, lName, password, superuser) {
+function userSignupFetch(email, fName, lName, password, superuser, planta) {
     let url = '/registrar';
 
     let data = {
@@ -6,7 +6,8 @@ function userSignupFetch(email, fName, lName, password, superuser) {
         lName,
         password,
         email,
-        superuser
+        superuser,
+        planta
     }
 
     let settings = {
@@ -73,34 +74,33 @@ function espera() {
 function validateFromAdd() {
     let url = "/user/validate-user";
     let settings = {
-        method : 'GET',
-        headers : {
-            sessiontoken : localStorage.getItem( 'token' )
+        method: 'GET',
+        headers: {
+            sessiontoken: localStorage.getItem('token')
         }
     };
 
-    fetch( url, settings )
-        .then( response => {
-            if( response.ok ) {
+    fetch(url, settings)
+        .then(response => {
+            if (response.ok) {
                 return response.json();
             }
-            throw new Error( response.statusText ); 
+            throw new Error(response.statusText);
         })
-        .then( responseJSON => {
-            userEmailFromAdd( responseJSON );
+        .then(responseJSON => {
+            userEmailFromAdd(responseJSON);
         })
-        .catch( err => {
-            console.log( err.message );
+        .catch(err => {
+            console.log(err.message);
             window.location.href = "/";
         });
 }
 
-function userEmailFromAdd( data ) {
-    if( !data.superuser ) {
+function userEmailFromAdd(data) {
+    if (!data.superuser) {
         window.location.href = "/inicio/";
-    }
-    else {
-        console.log( 'si es superusuario' );
+    } else {
+        console.log('si es superusuario');
     }
 }
 
@@ -117,13 +117,15 @@ function init() {
         let password = document.getElementById('password').value;
         let confirm = document.getElementById('confirm').value;
         let select = document.getElementById('superuser').value;
+        let planta = document.getElementById('planta').value;
+
         let superuser;
         if (select == 'true')
             superuser = true;
         else
             superuser = false;
         if (confirm == password) {
-            userSignupFetch(email, fName, lName, password, superuser);
+            userSignupFetch(email, fName, lName, password, superuser, planta);
 
         } else {
             alert("Las contraseñas no coinciden.");
