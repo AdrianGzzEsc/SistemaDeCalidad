@@ -108,11 +108,10 @@
             });
         });
         $(document).on('click', '.mas', function() {
-            element = document.getElementById("botones")
             check++;
             var html = '<div class = "quitar mt-2"><div class="form-group"><select class="form-control uni" name="defectos" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botones"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos" class="btn btn-danger btn-circle btn-sm menos"><i class="bi bi-x-lg"></i></button></div></div>';
             $(this).parent().parent().parent().append(html);
-            element.remove();
+            document.getElementById("botones").remove();
             $('select').selectize({
                 sortField: 'text'
             });
@@ -125,30 +124,30 @@
 
 
         $(document).on('click', '.mass', function() {
-            element = document.getElementById("botoness")
             check2++;
-            element.remove();
-            var html = '<div class = "quit mt-2"><div class="form-group"><select class="form-control uni" name="editPieza" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div>';
-            document.getElementById('eliminar').innerHTML += html
+            var html = '<div class = "quit mt-2"><div class="form-group"><select class="form-control uni" name="editPieza" style="height: 33px;" required><option value="" disabled selected hidden>--</option><% for (var i =0; i < uni.length; i++)  {     %><option value="<%=uni[i].nombre%>"><%= uni[i].nombre %></option><%  }  %></select></div></div> <div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menoss" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div>';
+            $(this).parent().parent().parent().append(html);
+            document.getElementById("botoness").remove()
+            $('select[name = editPieza]').selectize({
+                sortField: 'text'
+            });
         });
 
         $(document).on('click', '.menos', function() {
-            element = document.getElementById("botones")
-            element2 = document.getElementById("menos")
             quitar = document.getElementsByClassName("quitar")
             check--;
             if (check == 0)
-                element2.remove();
+                document.getElementById("menos").remove();
             quitar[quitar.length - 1].remove();
         });
 
         $(document).on('click', '.menoss', function() {
-            element = document.getElementById("botoness")
-            element2 = document.getElementById("menoss")
             quitar = document.getElementsByClassName("quit")
             check2--;
+            console.log(check2)
+
             if (check2 == 0)
-                element2.remove();
+                document.getElementById("menoss").remove();
             quitar[quitar.length - 1].remove();
         });
 
@@ -186,7 +185,7 @@
                 unidad.innerHTML += '<div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button> </div></div></div>'
             else
                 unidad.innerHTML += '<div class="d-flex justify-content-between" id="botoness"><div class="d-flex flex-col "><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mass"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menoss" class="btn btn-danger btn-circle btn-sm menoss"><i class="bi bi-x-lg"></i></button></div></div></div>';
-            $('select').selectize({
+            $('select[name = editPieza]').selectize({
                 sortField: 'text'
             });
         });
