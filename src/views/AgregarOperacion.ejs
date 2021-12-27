@@ -71,7 +71,7 @@
                     <thead class="text-white tabla">
                         <tr>
                             <th>#</th>
-                            <th>Modelo</th>
+                            <th>Operación</th>
                             <th>Defectos</th>
                             <th>Opción</th>
                         </tr>
@@ -230,7 +230,7 @@
                     throw new Error(response.statusText);
                 })
                 .then(responseJSON => {
-                    alert('Se ha editado el modelo con éxito');
+                    alert('Se ha editado la operacion con éxito');
                     location.reload()
                 })
                 .catch(err => {
