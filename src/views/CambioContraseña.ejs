@@ -1,0 +1,74 @@
+<%- include ("./partials/_headerr") %>
+
+    <div class="d-flex mt-5">
+        <div class="col mx-auto" style="max-width: 500px;">
+            <div id="msg-error"></div>
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <form class="form-signin">
+
+                        <p class="subtitle my-3">Ingresar</p>
+
+
+
+                        <label for="email" class="w-100 text-left">Contraseña:</label>
+                        <input type="password" id="email" class="form-control mb-4" placeholder="Nueva Contraseña" autofocus>
+                        <label for="password" class="w-100 text-left">Confirmar Contraseña:</label>
+                        <input type="password" id="password" class="form-control mb-4" placeholder="Confirmar Contraseña">
+                        <input type="text" style="display: none;" id="id" class="form-control mb-4" value="<%=idUsuario%>">
+
+                        <button id="loginBtn" class="myButton login" type="button">Restablecer Contraseña</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#loginBtn").click(function() {
+            id = document.getElementById("id").value
+            console.log(id)
+            password = document.getElementById("password").value
+            console.log(password)
+
+            restablecerContra(id, password);
+        });
+
+
+        function restablecerContra(id, password) {
+            let url = '/restablecerContra/';
+
+            let data = {
+                id: id,
+                password: password
+            }
+
+            let settings = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+
+            fetch(url, settings)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error(response.statusText);
+                })
+                .then(responseJSON => {
+                    alert("Contraseña restablecida con éxito")
+                    window.location.href = "https://fimsa-calidad.herokuapp.com/";
+
+                })
+                .catch(err => {
+                    alert(err.message);
+                });
+        }
+    </script>
+
+    </body>
+
+    </html>

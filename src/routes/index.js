@@ -470,6 +470,32 @@ router.delete('/user/delete-user/:id', (req, res) => {
             })
     })
 
+router.get('/restablecerContra/:id', async(req, res) => {;
+    idUsuario = req.params.id;
+    res.render('CambioContraseña', { idUsuario });
+});
+
+router.post('/restablecerContra/', async(req, res) => {
+    let { id, password, } = req.body;
+    if (!password) {
+        res.statusMessage = "Hay uno o más campos faltantes";
+        return res.status(406).end();
+    }
+    bcrypt.hash(password, 10)
+        .then(hashedPassword => {
+            hello(hashedPassword)
+        })
+        .catch(err => {
+            res.statusMessage = err.message;
+            return res.status(400).end();
+        });
+    async function hello(hashedPassword) {
+        await userModel.updateOne({ _id: id }, { $set: { password: hashedPassword } });
+    };
+    return res.status(200).json("Hola");
+
+});
+
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
     const task = new provedor(req.body);
