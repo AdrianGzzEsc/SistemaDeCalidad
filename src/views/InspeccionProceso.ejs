@@ -301,7 +301,7 @@
             } else {
                 var html = "<p>Se enviara reporte de las siguientes operaciones:</p><ul>";
                 for (var i = 0; i < operacion.length; i++) {
-                    html += '<li><strong>' + operacion[i] + '</strong></li>';
+                    html += '<li><strong>' + operacion[i].replace(/_/g, " ") + '</strong></li>';
                     //   html += '<p> No se completo la cantidad requerida del producto: ' + arr[i].nombre + '<p>';
                 }
                 append.innerHTML += html + "</ul>";
