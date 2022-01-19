@@ -53,68 +53,71 @@
         <br>
         <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
             <% for(var i = 0; i < operacion.length; i++) { %>
+                <% var nombre =operacion[i].nombre; nombre = nombre.replace(/ /g, "_")%>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-<%=nombre%>-tab" data-bs-toggle="pill" data-bs-target="#pills-<%=nombre%>" type="button" role="tab" aria-controls="pills-<%=nombre%>" aria-selected="active"><%=operacion[i].nombre%> </button>
 
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-<%=operacion[i].nombre%>-tab" data-bs-toggle="pill" data-bs-target="#pills-<%=operacion[i].nombre%>" type="button" role="tab" aria-controls="pills-<%=operacion[i].nombre%>" aria-selected="active"><%=operacion[i].nombre%> </button>
-
-                </li>
-                <% } %>
+                    </li>
+                    <% } %>
         </ul>
         <div class="card mt-5">
             <div class="card-body">
 
                 <div class="tab-content" id="pills-tabContent">
                     <% for(var i = 0; i < operacion.length; i++) { %>
-                        <div class="tab-pane fade show" id="pills-<%=operacion[i].nombre%>" role="tabpanel" aria-labelledby="pills-<%=operacion[i].nombre%>-tab">
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label> Modelo:</label>
-                                    <select id="modelo<%=operacion[i].nombre%>" class="form-control" name="modelo">
+                        <% var nombre =operacion[i].nombre; nombre = nombre.replace(/ /g, "_")%>
+                            <div class="tab-pane fade show" id="pills-<%=nombre%>" role="tabpanel" aria-labelledby="pills-<%=nombre%>-tab">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label> Modelo:</label>
+                                        <select id="modelo<%=nombre%>" class="form-control" name="modelo">
                         <option value="" disabled selected hidden>Modelo</option>
                         <% for (var x =0; x < mod.length; x++)  {     %>
                             <option value="<%=mod[x].nombre%>"><%= mod[x].nombre %></option>
                             <%  }  %>
                     </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <div>
-                                        <label> Pieza:</label>
-                                        <select id="pieza<%=operacion[i].nombre%>" class="form-control" name="pieza" placeholder="Pieza" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label> Pieza:</label>
+                                            <select id="pieza<%=nombre%>" class="form-control" name="pieza" placeholder="Pieza" required>
 
                         </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="inspeccion<%=operacion[i].nombre%>" class="card mt-5 <%=operacion[i].nombre%>">
-                                <div class="card-body">
-                                    <div class="row align-items-start">
-                                        <div class="col ">
-                                            <label> Pieza 1:</label>
-                                            <select class="form-control" required name="ins<%=operacion[i].nombre%>">
-                                        <option value="" disabled selected hidden>Inspección</option>
-                                        <option value="Aceptado">Aceptado</option>
-                                        <option value="Rechazado">Rechazado</option>
-                                    </select>
-                                        </div>
-                                        <div class="col" name="select<%=operacion[i].nombre%>">
-                                            <label> Selecciona los Defectos:</label>
-                                            <select class="selectpicker" multiple data-live-search="true" class="form-control" name="def<%=operacion[i].nombre%>">
-                                        <% for (var j =0; j < operacion[i].defectos.length; j++)  {     %>
-                                        <option value="<%=operacion[i].defectos[j]%>"><%=operacion[i].defectos[j]%></option>
-                                        <%  }  %>
-                                    </select>
-                                        </div>
-                                    </div>
+                                <div id="inspeccion<%=nombre%>" class="card mt-5 <%=nombre%>">
+                                    <div class="card-body">
+                                        <div class="row align-items-start">
+                                            <div class="col ">
+                                                <label>Cantidad de Inspecciones:</label>
+                                                <input type="number" min="1" class="form-control" id="cantidad<%=nombre%>">
+                                            </div>
+                                            <div class="col ">
+                                                <label>Aceptados:</label>
+                                                <input type="number" min="1" class="form-control" id="aceptados<%=nombre%>">
+                                            </div>
+                                            <div class="col ">
+                                                <label>Rechazados:</label>
+                                                <input type="number" min="1" value="0" class="form-control" id="rechazados<%=nombre%>">
+                                            </div>
 
+                                        </div>
+                                        <label> Selecciona los Defectos:</label>
+                                        <select class="selectpicker defectos" multiple data-live-search="true" class="form-control" name="def<%=nombre%>">
+                                    <% for (var j =0; j < operacion[i].defectos.length; j++)  {     %>
+                                    <option value="<%=operacion[i].defectos[j]%>"><%=operacion[i].defectos[j]%></option>
+                                    <%  }  %>
+                                </select>
+                                        <div id="def<%=nombre%>">
+                                            <br>
+                                        </div>
+
+                                    </div>
                                 </div>
+
                             </div>
-                            <div class="d-flex justify-content-between mt-2" id="botones<%=operacion[i].nombre%>">
-                                <div class="d-flex flex-col ">
-                                    <button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
+                            <% } %>
 
                 </div>
             </div>
@@ -137,7 +140,7 @@
         var coeff = 1000 * 60;
         var rounded = new Date(Math.round(now.getTime() / coeff) * coeff)
         myField.valueAsNumber = rounded.getTime() - rounded.getTimezoneOffset() * 60000;
-
+        var opCheck = {}
         $(document).ready(function() {
             $("select[name = 'modelo']").selectize({
                 sortField: 'text'
@@ -145,8 +148,7 @@
         });
 
         $(document).on('change', 'select[name = "modelo"]', function() {
-
-            var tab = $("ul#pills-tab button.active")[0].innerText
+            var tab = $("ul#pills-tab button.active")[0].innerText.replace(/ /g, "_")
             var modelo = document.getElementById("modelo" + tab).value
             var jsonModelo = `<%- JSON.stringify(mod) %>`;
             var piezas = JSON.parse(jsonModelo);
@@ -157,7 +159,6 @@
                     break;
                 }
             }
-
             var $el = $("#pieza" + tab);
             $el.empty();
             $el.append($('<option value="" disabled selected hidden>Seleccionar</option>'))
@@ -166,40 +167,27 @@
                     .attr("value", piezas[index].piezas[i]).text(piezas[index].piezas[i]));
             }
 
-
         });
 
+        $(document).on('change', '.defectos', function() {
+            var tab = $("ul#pills-tab button.active")[0].innerText.replace(/ /g, "_")
 
+            var def = [...document.getElementsByName("def" + tab)[0].options]
+                .filter(option => option.selected)
+                .map(option => option.value);
 
-        $(document).on('click', '.mas', function() {
-            var tab = $("ul#pills-tab button.active")[0].innerText
+            if ($("#defect" + tab).length)
+                $("#defect" + tab).remove()
 
-            check = $('.' + tab).length + 1
-            element = document.getElementById("botones" + tab)
-            var options = ""
-            for (var i = 0; i < obj.length; i++) {
-                if (obj[i].nombre == tab) {
-                    for (var x = 0; x < obj[i].defectos.length; x++) {
-                        options = options + '<option value = "' + obj[i].defectos[x] + '">' + obj[i].defectos[x] + '</option>'
-                    }
-                    break
-                }
+            html = '<div id = defect' + tab + '>'
+            for (var i = 0; i < def.length; i++) {
+                // html = html + '<div class="row"><div class="col"><label>' + def[i] + ':</label></div><div class="col"><input type="number" min="1" class="form-control" name="defectos' + tab + '"></div></div>'
+                html = html + '<div><label name="defectos' + tab + '">' + def[i] + ':</label><input type="number" min="1" value = "1"class="form-control" text="defectos' + tab + '" name="defectos' + tab + '"></div>'
             }
-            var html = '<div class="card mt-3 ' + tab + '"><div class="card-body"><div class="row align-items-start"><div class="col "><label> Pieza ' + check + ':</label><select class="form-control" name = "ins' + tab + '"required><option value="" disabled selected hidden>Inspección</option><option value="Aceptado">Aceptado</option><option value="Rechazado">Rechazado</option></select></div> <div class="col"><label> Selecciona los Defectos:</label><select class="selectpicker" multiple data-live-search="true" class="form-control" name="def' + tab + '">' + options + '</select></div></div></div></div><div class="d-flex justify-content-between mt-2" id="botones' + tab + '"><div class="d-flex flex-col"><button type="button" id="mas" class="btn btn-success btn-circle btn-sm mas"><i class="bi bi-plus-lg"></i></button></div><div class="d-flex flex-col-reverse "><button type="button" id="menos' + tab + '" class="btn btn-danger btn-circle btn-sm"><i class="bi bi-x-lg"></i></button></div></div> </div>';
-            $(this).parent().parent().parent().append(html);
-            $('.selectpicker').selectpicker();
-            element.remove();
+            html = html + "</div>"
+            $('#def' + tab).append(html)
         });
-        $(document).on('click', '.btn-danger', function() {
-            var tab = $("ul#pills-tab button.active")[0].innerText
-            element = document.getElementById("botones" + tab)
-            element2 = document.getElementById("menos" + tab)
-            quitar = document.getElementsByClassName(tab)
-            quitar[quitar.length - 1].remove();
-            check = $('.' + tab).length
-            if (check == 1)
-                element2.remove();
-        });
+
 
         $(".cancelarAlerta").click(function() {
             document.getElementById("textoAlerta").innerHTML = "";
@@ -207,73 +195,95 @@
         });
 
         var operacion = []
-        $("#enviarAlerta").click(function() {
-            var reporte = []
-            var modelos = document.getElementsByName("modelo")
+        $(document).ready(function() {
 
-            for (var i = 0; i < operacion.length; i++) {
-                var modelo = document.getElementById("modelo" + operacion[i]).value
-                var pieza = document.getElementById("pieza" + operacion[i]).value
-                var inspeccion = []
-                var defecto = []
-                for (var x = 0; x < $('.' + operacion[i]).length; x++) {
-                    console.log($('.' + operacion[i]).length)
-                    inspeccion.push(document.getElementsByName("ins" + operacion[i])[x].value)
-                    var def = [...document.getElementsByName("def" + operacion[i])[x].options]
-                        .filter(option => option.selected)
-                        .map(option => option.value);
-                    defecto.push(def)
+            $("#enviarAlerta").click(function() {
+                var reporte = []
+                var modelos = document.getElementsByName("modelo")
+                var errores = []
+
+                for (var i = 0; i < operacion.length; i++) {
+                    var modelo = document.getElementById("modelo" + operacion[i]).value
+                    var pieza = document.getElementById("pieza" + operacion[i]).value
+                    var defectos = $('input[name = "defectos' + operacion[i] + '"]')
+                    var defectosNombre = $('label[name = "defectos' + operacion[i] + '"]')
+                    var aceptados = parseInt($("#aceptados" + operacion[i]).val())
+                    var rechazados = parseInt($("#rechazados" + operacion[i]).val())
+                    var ins = []
+                    var def = []
+
+                    for (var j = 0; j < defectos.length; j++)
+                        for (var x = 0; x < defectos[j].value; x++)
+                            def.push(defectosNombre[j].innerText.replace(":", ""))
+
+                    for (var x = 0; x < aceptados; x++)
+                        ins.push("Aceptado")
+
+                    for (var x = 0; x < rechazados; x++)
+                        ins.push("Rechazado")
+
+                    var obj = {};
+                    obj.operacion = operacion[i].replace(/_/g, " ")
+                    obj.modelo = modelo;
+                    obj.pieza = pieza;
+                    obj.defectos = def
+                    obj.inspeccion = ins
+                    obj.aceptados = parseInt($("#aceptados" + operacion[i]).val())
+                    obj.rechazados = parseInt($("#rechazados" + operacion[i]).val())
+                    obj.cantidad = parseInt($("#cantidad" + operacion[i]).val())
+                        // obj.defectos = defectos
+                    obj.fecha = document.getElementById("fecha").value
+                    if ((obj.aceptados + obj.rechazados) != obj.cantidad)
+                        errores.push(obj.operacion);
+                    reporte.push(obj)
                 }
-                var defectos = []
-                for (var y = 0; y < defecto.length; y++) {
-                    defectos = defectos.concat(defecto[y]);
+                var mensajeError = ""
+                for (var i = 0; i < errores.length; i++) {
+                    mensajeError = mensajeError + "La cantidad de la operacion: " + errores[i] + " no coincide con el total de aceptados y rechazados\n\n"
                 }
-                var obj = {};
-                obj.operacion = operacion[i]
-                obj.modelo = modelo;
-                obj.pieza = pieza;
-                obj.inspeccion = inspeccion
-                obj.defectos = defectos
-                obj.fecha = document.getElementById("fecha").value
-                reporte.push(obj);
-            }
-            console.log(reporte)
+                if (errores.length > 0) {
+                    alert(mensajeError)
+                    document.getElementById("textoAlerta").innerHTML = "";
+                    $('#exampleModalCenter').modal('hide');
+                    return
+                }
 
-            let url = '/addInspeccionProceso/';
-            let data = {
-                nombre: "<%=usu[0].fName%> <%=usu[0].lName%>",
-                fecha: document.getElementById("fecha").value,
-                fechaHora: document.getElementById("fechaHora").value,
-                planta: "<%=usu[0].planta%>",
-                hora: document.getElementById("hora").value,
-                folio: document.getElementById("folio").value,
-                reporte: reporte
-            }
-            let settings = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }
-            fetch(url, settings)
-                .then(response => {
-                    if (response.ok) {
+                console.log(reporte)
 
-                        return response.text();
-                    }
-                    throw new Error(response.statusText);
-                })
-                .then(responseJSON => {
-                    var mensaje = "Se ha enviado el vale con éxito.";
-                    alert('Se ha enviado el reporte con éxito');
-                    location.href = "/inspeccionProceso/<%=usu[0]._id %>";
-                })
-                .catch(err => {
-                    alert(err.message)
-                })
+                let url = '/addInspeccionProceso/';
+                let data = {
+                    nombre: "<%=usu[0].fName%> <%=usu[0].lName%>",
+                    fecha: document.getElementById("fecha").value,
+                    fechaHora: document.getElementById("fechaHora").value,
+                    planta: "<%=usu[0].planta%>",
+                    hora: document.getElementById("hora").value,
+                    folio: document.getElementById("folio").value,
+                    reporte: reporte
+                }
+                let settings = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+                fetch(url, settings)
+                    .then(response => {
+                        if (response.ok) {
 
-
+                            return response.text();
+                        }
+                        throw new Error(response.statusText);
+                    })
+                    .then(responseJSON => {
+                        var mensaje = "Se ha enviado el vale con éxito.";
+                        alert('Se ha enviado el reporte con éxito');
+                        location.href = "/inspeccionProceso/<%=usu[0]._id %>";
+                    })
+                    .catch(err => {
+                        alert(err.message)
+                    })
+            });
         });
 
         $(document).on('click', '#btnSubmit', function() {
@@ -293,7 +303,6 @@
                 for (var i = 0; i < operacion.length; i++) {
                     html += '<li><strong>' + operacion[i] + '</strong></li>';
                     //   html += '<p> No se completo la cantidad requerida del producto: ' + arr[i].nombre + '<p>';
-
                 }
                 append.innerHTML += html + "</ul>";
 

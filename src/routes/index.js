@@ -128,6 +128,12 @@ router.get('/reporteOperaciones/:fechaInicio/:fechaFin/:planta/', async(req, res
     let groupedPeople = groupBy(reportes, 'operacion')
     let groupedDef = groupBy(defectos, 'operacion')
 
+    console.log(groupedDef)
+    console.log(groupedPeople)
+    console.log(reportes)
+
+
+
     var operaciones = Object.getOwnPropertyNames(groupedPeople);
     reportes = groupedPeople
     var response = { reportes, operaciones, groupedDef };
@@ -496,6 +502,19 @@ router.post('/restablecerContra/', async(req, res) => {
 
 });
 
+function fixString(words) {
+    var separateWord = words.toLowerCase().split(' ');
+    for (var i = 0; i < separateWord.length; i++) {
+        separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
+            separateWord[i].substring(1);
+    }
+    separateWord = separateWord.join(' ')
+    if (/\s+$/.test(separateWord))
+        return separateWord.slice(0, -1)
+
+    return separateWord;
+}
+
 // Ruta que nos permita agregar nuevas tareas que vienen desde un metodo post
 router.post('/add', async(req, res) => {
     const task = new provedor(req.body);
@@ -504,6 +523,7 @@ router.post('/add', async(req, res) => {
 });
 
 router.post('/addDefecto', async(req, res) => {
+    req.body.nombre = fixString(req.body.nombre)
     const defecto = new defectos(req.body);
     await defecto.save();
     res.redirect('back');
@@ -522,18 +542,21 @@ router.post('/addUsuario', async(req, res) => {
 });
 
 router.post('/addModelo/:id', async(req, res) => {
+    req.body.nombre = fixString(req.body.nombre)
     const modelo = new modelos(req.body);
     await modelo.save();
     res.redirect('back');
 });
 
 router.post('/addOperacion/:id', async(req, res) => {
+    req.body.nombre = fixString(req.body.nombre)
     const operacion = new operaciones(req.body);
     await operacion.save();
     res.redirect('back');
 });
 
 router.post('/addPieza', async(req, res) => {
+    req.body.nombre = fixString(req.body.nombre)
     const pieza = new piezas(req.body);
     await pieza.save();
     res.redirect('back');
@@ -675,14 +698,8 @@ function checkArrayObj(my_arr) {
     for (var i = 0; i < my_arr.length; i++) {
         if (my_arr[i].pieza === "")
             return false;
-        else {
-            for (var j = 0; j < my_arr[i].inspeccion.length; j++) {
-                if (my_arr[i].inspeccion[j] === "")
-                    return false;
-            }
-        }
-        return true;
     }
+    return true;
 }
 
 router.post('/addInspeccionProceso/', async(req, res) => {
