@@ -72,6 +72,8 @@
             return fechaInicio + " to " + fechaFin;
         };
 
+
+
         $(document).on('change', 'input[name="tipo"]', function() {
             if (document.contains(document.getElementById("tablaReporte"))) {
                 document.getElementById("tablaReporte").remove();
@@ -138,9 +140,7 @@
                             aceptados.push(cantA)
                             rechazados.push(cantR)
                             var total = aceptados[i] + rechazados[i]
-                            append.innerHTML += html + '</tbody></table><br><table class="table"><thead><th>Aprobado</th><th>Rechazado</th><th>Total</th></thead><tbody><tr><td>' + aceptados[i] + ' (' + (aceptados[i] / total * 100) + '%)</td><td>' + rechazados[i] + ' (' + (aceptados[i] / total * 100) + '%)</td><td>' + total + '</td></tr></tbody></table></div></div><div class="col-lg-6"><canvas id="' + operaciones[i] + '"></canvas></div></div><br>';
-
-
+                            append.innerHTML += html + '</tbody></table><br><table class="table"><thead><th>Aprobado</th><th>Rechazado</th><th>Total</th></thead><tbody><tr><td>' + aceptados[i] + ' (' + (aceptados[i] / total * 100).toFixed(2) + '%)</td><td>' + rechazados[i] + ' (' + (rechazados[i] / total * 100).toFixed(2) + '%)</td><td>' + total + '</td></tr></tbody></table></div></div><div class="col-lg-6"><canvas id="' + operaciones[i] + '"></canvas></div></div><br>';
                         }
 
                         for (var i = 0; i < operaciones.length; i++) {
@@ -184,6 +184,15 @@
                 });
 
         });
+        var today = new Date();
+        if (today.getWeek() < 10)
+            var semana = "0" + today.getWeek()
+        else
+            var semana = today.getWeek()
+
+        console.log(today.getFullYear() + "-W" + semana)
+
+        $('#fechaInicio').val("2022-W07").trigger('change')
     </script>
 
 
