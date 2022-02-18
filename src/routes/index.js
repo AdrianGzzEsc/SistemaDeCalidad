@@ -269,6 +269,15 @@ router.get('/inspeccionProceso/:id', async(req, res) => {
     res.render('InspeccionProceso', { usu, operacion, mod });
 });
 
+router.get('/inspeccionProceso2/:id', async(req, res) => {
+    idUsuario = req.params.id;
+    const usu = await userModel.find({ _id: idUsuario });
+    const operacion = await operaciones.find({ planta: usu[0].planta });
+    const mod = await modelos.find({ planta: usu[0].planta });
+
+    res.render('InspeccionProcesoV2', { usu, operacion, mod });
+});
+
 
 router.get('/altaPNC/', async(req, res) => {
     const mod = await modelos.find();
