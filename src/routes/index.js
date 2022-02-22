@@ -199,7 +199,7 @@ router.get('/agregarProveedor/:id', async(req, res) => {;
 router.get('/agregarUsuario/:id', async(req, res) => {;
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
-    const tasks = await userModel.find();
+    const tasks = await userModel.find({ planta: usu[0].planta });
     res.render('AgregarUsuario', { tasks, usu });
 });
 
