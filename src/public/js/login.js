@@ -84,6 +84,12 @@ function init() {
 
         userLoginFetch(email, password);
     })
+
+    $("#password").keyup(function(event) {
+        if (event.keyCode == 13) {
+            $("#loginBtn").trigger("click");
+        }
+    });
 }
 
 init();
