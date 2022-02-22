@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const defectosSchema = Schema({
 
-    nombre: String
+    nombre: String,
+    planta: String
 
 });
 

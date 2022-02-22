@@ -9,6 +9,7 @@
                     <p class="subtitle mb-0">Agregar Defecto</p>
                     <div class="card-body">
                         <form action="/addDefecto/" method="post">
+                            <input class="form-control" style="display: none;" type="text" name="planta" value="<%=usu[0].planta%>" required />
                             <div class="form-group">
                                 <label for="nombredefecto">Defecto:</label>
                                 <input id="nombredefecto" class="form-control" type="text" name="nombre" placeholder="Nombre de Defecto">

@@ -32,6 +32,7 @@ router.get('/inicio/:id', async(req, res) => {
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
     res.render('Inicio', { usu });
+
 });
 
 router.get('/reporteOperaciones/:fechaInicio/:fechaFin/:planta/', async(req, res) => {;
@@ -204,16 +205,17 @@ router.get('/agregarUsuario/:id', async(req, res) => {;
 
 
 router.get('/agregarDefecto/:id', async(req, res) => {;
-    const tasks = await defectos.find();
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
+    const tasks = await defectos.find({ planta: usu[0].planta });
+
     res.render('AgregarDefecto', { tasks, usu });
 });
 
 router.get('/agregarProducto/:id', async(req, res) => {;
-    const tasks = await productos.find();
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
+    const tasks = await productos.find({ planta: usu[0].planta });
     res.render('AgregarProducto', { tasks, usu });
 });
 
@@ -234,23 +236,23 @@ router.get('/agregarMaterial/:id', async(req, res) => {;
 router.get('/agregarModelo/:id', async(req, res) => {;
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
-    const tasks = await modelos.find();
-    const uni = await piezas.find()
+    const tasks = await modelos.find({ planta: usu[0].planta });
+    const uni = await piezas.find({ planta: usu[0].planta })
     res.render('AgregarModelo', { tasks, usu, uni });
 });
 
 router.get('/agregarOperacion/:id', async(req, res) => {;
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
-    const tasks = await operaciones.find();
-    const uni = await defectos.find()
+    const tasks = await operaciones.find({ planta: usu[0].planta });
+    const uni = await defectos.find({ planta: usu[0].planta })
     res.render('AgregarOperacion', { tasks, usu, uni });
 });
 
 router.get('/agregarPieza/:id', async(req, res) => {;
     var idUsuario = req.params.id;
     const usu = await userModel.find({ _id: idUsuario });
-    const tasks = await piezas.find();
+    const tasks = await piezas.find({ planta: usu[0].planta });
     res.render('AgregarPieza', { tasks, usu });
 });
 
@@ -265,7 +267,6 @@ router.get('/inspeccionProceso/:id', async(req, res) => {
     const usu = await userModel.find({ _id: idUsuario });
     const operacion = await operaciones.find({ planta: usu[0].planta });
     const mod = await modelos.find({ planta: usu[0].planta });
-
     res.render('InspeccionProceso', { usu, operacion, mod });
 });
 

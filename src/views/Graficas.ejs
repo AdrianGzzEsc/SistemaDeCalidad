@@ -44,8 +44,8 @@
         var fechaInicio
         var fechaFin
         var tipo = document.querySelector('input[name="tipo"]:checked').value;
-
-
+        var audioError = new Audio('/sounds/error.mp3');
+        audioError.muted = true
         Date.prototype.getWeek = function() {
             var target = new Date(this.valueOf());
             var dayNr = (this.getDay() + 6) % 7;
@@ -176,7 +176,14 @@
                         }
 
                     } else {
-                        alert("No existen datos en la fecha seleccionada")
+
+                        toastr.options = {
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+
+                        }
+                        audioError.play()
+                        toastr.error("No existen datos en la fecha seleccionada")
                     }
                 })
                 .catch(err => {
@@ -194,6 +201,9 @@
 
         $('#fechaInicio').val("2022-W07").trigger('change')
     </script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
     <%- include ("./partials/_footer") %>

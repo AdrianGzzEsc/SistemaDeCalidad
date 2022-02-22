@@ -9,6 +9,7 @@
                     <h1 class="subtitle mb-0">Agregar Pieza</h1>
                     <div class="card-body">
                         <form action="/addPieza/" method="post">
+                            <input class="form-control" style="display: none;" type="text" name="planta" value="<%=usu[0].planta%>" required />
                             <div class="form-group">
                                 <label for="nombrepieza">Pieza:</label>
                                 <input id="nombrepieza" class="form-control" type="text" name="nombre" placeholder="Nombre de Pieza">
