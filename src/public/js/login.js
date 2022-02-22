@@ -67,7 +67,7 @@ function userEmailLogin(data) {
     console.log(data);
     if (data.superuser) {
         console.log('es un super usuario');
-        window.location.href = "/graficas/" + data._id;
+        window.location.href = "/inspeccionProceso/" + data._id;
     } else {
         window.location.href = "/inspeccionProceso/" + data._id;
     }
